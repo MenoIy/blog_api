@@ -1,8 +1,7 @@
 import { Document, Model } from 'mongoose';
 
 interface IUser {
-    firstName: string;
-    lastName: string;
+    userName: string;
     email: string;
     password: string;
     emailIsVerified: boolean;
@@ -14,6 +13,6 @@ export interface IUserDocument extends IUser, Document {
 
 export interface IUserModel extends Model<IUserDocument> {
     emailIsVerified: (mail: string) => Promise<boolean>;
-    userIsRegistred: (mail : string) => Promise<boolean>;
-    findUserByEmail: (mail : string) => Promise<IUserDocument | null>;
+    userIsRegistred: (mail: string) => Promise<boolean>;
+    findUserByEmail: (mail: string) => Promise<IUserDocument | null>;
 }

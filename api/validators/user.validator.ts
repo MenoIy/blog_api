@@ -1,8 +1,7 @@
 import Joi from 'joi';
 
 const register = Joi.object().keys({
-    firstName: Joi.string().min(2).max(24).alphanum().required(),
-    lastName: Joi.string().min(2).max(24).alphanum().required(),
+    userName: Joi.string().min(6).max(24).alphanum().required(),
     email: Joi.string().email().required(),
     password: Joi.string()
         .min(8)

@@ -3,10 +3,10 @@ require('dotenv').config();
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import errorMiddleware from './middlewares/error.middleware';
-import HttpException from './exceptions/HttpException';
+import {HttpException} from './exceptions/HttpException';
 import userRoutes from './routes/user.routes';
 
-mongoose.connect(process.env.DB_URL || 'mongodb://127.0.0.1:27017/blog', () =>
+mongoose.connect(process.env.DB_URL!, () =>
     console.log('MongoDB connected successfully.')
 );
 mongoose.Promise = global.Promise;

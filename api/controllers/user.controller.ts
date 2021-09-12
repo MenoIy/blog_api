@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction, Application } from 'express';
 import userModel from '../models/user.model';
 import { IUserDocument } from '../interfaces/user.interface';
+import token from '../utils/token';
+import passport from '../middlewares/passport'
+
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
     const user: IUserDocument = new userModel(req.body);
@@ -28,44 +31,19 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
-    const {email, password} = req.body;
+    passport.authenticate('login', { session: false }, (error, user, info) => {
+        if (error) return next(error);
+        if (info) return res.status(400).send(info);
 
-    try {
-        const user:IUserDocument | null = await userModel.findUserByEmail(email);
-
-        if (!user) {
-            return res.status(403).send({
-                error : {
-                    message : 'Invalide email, account not found'
-                }
-            })
-        }
-        const passIsValide = await user.passwordIsValid(password);
-        
-        if (!passIsValide)
-        {
-            return res.status(403).send({
-                error : {
-                    message : 'Password is incorrect.'
-                }
-            })
-        }
-
-        if (!user.emailIsVerified){
-            return res.status(403).send({
-                error : {
-                    message : 'Account non verified !'
-                }
-            })
-        }
-        res.status(201).send({
-            message: 'User connecter',
-            user: user.email
-        });
-    } catch (error)
-    {
-        next(error);
-    }
+        const payload = {_id : user._id};
+        req.user = token.create(payload);
+        next();
+    })(req, res, next);
 };
 
-export default { register, login };
+const authToken = (req :Request, res : Response) => {
+    console.log(req.user)
+    res.status(200).send({ authToken: req.user });
+};
+
+export default {login, register, authToken};

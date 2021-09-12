@@ -5,6 +5,6 @@ import userController from '../controllers/user.controller';
 const router = express.Router();
 
 router.post('/create', userMiddleware.register, userController.register);
-router.post('/login', userMiddleware.login, userController.login);
+router.post('/login', userMiddleware.login, userController.login, userController.authToken);
 
 export default router;

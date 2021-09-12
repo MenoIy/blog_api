@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.ts",
+    "dev": "set NODE_ENV = developement && nodemon server.ts",
     "format": "prettier --config .prettierrc server.ts 'api/**/*.ts' --write"
   },
   "repository": {
@@ -30,13 +30,21 @@
     "@types/bcrypt": "^5.0.0",
     "@types/dotenv": "^8.2.0",
     "@types/joi": "^17.2.3",
+    "@types/jsonwebtoken": "^8.5.5",
     "@types/mongoose": "^5.11.97",
+    "@types/node": "^16.9.1",
     "@types/nodemon": "^1.19.1",
+    "@types/passport": "^1.0.7",
+    "@types/passport-local": "^1.0.34",
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.5",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "ts-node-dev": "^1.1.8"
   }
 }

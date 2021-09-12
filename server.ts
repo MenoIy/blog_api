@@ -3,8 +3,8 @@ require('dotenv').config();
 import http from 'http';
 import app from './api/app';
 
-const port: number = Number(process.env.PORT) || 3000;
-const host: string = process.env.HOST || 'localhost';
+const port: number = Number(process.env.PORT)!;
+const host: string = process.env.HOST!;
 
 const server = http.createServer(app);
 
