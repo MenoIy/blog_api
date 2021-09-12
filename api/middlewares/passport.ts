@@ -1,5 +1,6 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import userModel from '../models/user.model';
 import { IUserDocument } from '../interfaces/user.interface';
 
@@ -9,7 +10,7 @@ passport.use('login',
       usernameField: 'email',
       passwordField: 'password'
     },
-    async (email, password, done) => {
+    async (email : string, password :string, done) => {
       try {
         const user: IUserDocument | null = await userModel.findUserByEmail(email);
         if (!user) {
@@ -28,6 +29,21 @@ passport.use('login',
         return done(null, user);
       } catch (error) {
         return done(error);
+      }
+    }
+  )
+);
+
+passport.use(
+  new JwtStrategy({
+      secretOrKey: process.env.JWT_SECRET!,
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+    },
+    (payload:any, done:any) => {
+      try {
+        done(null, payload);
+      } catch (err) {
+        done(err);
       }
     }
   )

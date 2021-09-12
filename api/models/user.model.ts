@@ -34,6 +34,7 @@ const userIsRegistred = async (email: string): Promise<boolean> => {
     return !!user;
 };
 
+
 userSchema.methods.passwordIsValid = async function (
     password: string
 ): Promise<boolean> {
