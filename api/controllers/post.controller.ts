@@ -3,7 +3,6 @@ import postModel from '../models/post.model';
 import { IPost } from '../interfaces/post.interface';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.user);
     const post:IPost = new postModel({...req.body, createdBy: req.user._id});
     try {
         await post.save();
@@ -17,4 +16,14 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export default {create}
+const findAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const posts = await postModel.find().exec();
+        res.status(200).send(posts);
+    }catch(error)
+    {
+        next(error);
+    }
+};
+
+export default {create, findAll}
