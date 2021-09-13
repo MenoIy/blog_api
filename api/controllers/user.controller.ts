@@ -13,7 +13,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     if (userIsRegistred) {
       return res.status(403).send({
         error: {
-          message: 'Adress mail already exists.'
+          message: 'Address mail already exists.'
         }
       });
     }
@@ -51,4 +51,28 @@ const profile = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export default { login, register, authToken, profile };
+const update = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (req.body.email) {
+      const userIsRegistred: boolean = await userModel.userIsRegistred(req.body.email);
+      if (userIsRegistred) {
+        return res.status(403).send({
+          error: {
+            message: 'Address mail already exists.'
+          }
+        });
+      }
+    }
+    const user: IUserDocument | null = await userModel.findOneAndUpdate({
+      _id: req.user._id
+    }, {...req.body, emailIsVerified : !req.body.email})
+
+    res.status(200).send({
+      message: 'User updated'
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { login, register, authToken, profile, update };

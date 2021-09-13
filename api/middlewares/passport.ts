@@ -1,16 +1,20 @@
 import passport from 'passport';
+import dotenv from 'dotenv'
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import userModel from '../models/user.model';
 import { IUserDocument } from '../interfaces/user.interface';
 
-passport.use('login',
+dotenv.config();
+
+passport.use(
+  'login',
   new LocalStrategy(
     {
       usernameField: 'email',
       passwordField: 'password'
     },
-    async (email : string, password :string, done) => {
+    async (email: string, password: string, done) => {
       try {
         const user: IUserDocument | null = await userModel.findUserByEmail(email);
         if (!user) {
@@ -35,11 +39,12 @@ passport.use('login',
 );
 
 passport.use(
-  new JwtStrategy({
+  new JwtStrategy(
+    {
       secretOrKey: process.env.JWT_SECRET!,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     },
-    (payload:any, done:any) => {
+    (payload: any, done: any) => {
       try {
         done(null, payload);
       } catch (err) {
