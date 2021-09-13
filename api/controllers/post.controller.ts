@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import postModel from '../models/post.model';
 import { IPost } from '../interfaces/post.interface';
+import userModel from '../models/user.model';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
     const post:IPost = new postModel({...req.body, createdBy: req.user._id});
@@ -18,7 +19,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 const findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const posts = await postModel.find().exec();
+        const posts = await postModel.find().populate('createdBy', 'userName').exec();
         res.status(200).send(posts);
     }catch(error)
     {
@@ -26,4 +27,23 @@ const findAll = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export default {create, findAll}
+const findByUserName = async (req : Request, res : Response, next : NextFunction) => 
+{
+    try {
+        const user = await userModel.findOne(req.params);
+        if (!user)
+        {
+            return res.status(401).send({
+                error: {
+                  message: 'User not found.'
+                }
+            });
+        }
+        const posts = await postModel.find({createdBy : user._id}).exec();
+        res.status(200).send(posts);
+    }catch(error)
+    {
+        next(error);
+    }
+}
+export default {create, findAll, findByUserName}

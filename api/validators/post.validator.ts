@@ -4,4 +4,8 @@ const create = Joi.object().keys({
     body: Joi.string().required()
 })
 
-export default {create};
+const findByUserName = Joi.object().keys({
+    userName: Joi.string().required()
+})
+
+export default {create, findByUserName};

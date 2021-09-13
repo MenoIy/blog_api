@@ -44,7 +44,6 @@ const authToken = (req: Request, res: Response) => {
 
 const profile = (req: Request, res: Response, next: NextFunction) => {
   const { userName, email } = req.user;
-  console.log(req.user);
   res.status(200).send({
     userName: userName,
     email: email
