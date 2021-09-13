@@ -33,8 +33,6 @@ const update = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-
-
 const auth = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate(
     'jwt',

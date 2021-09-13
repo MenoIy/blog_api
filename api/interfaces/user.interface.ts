@@ -1,6 +1,6 @@
 import { Document, Model } from 'mongoose';
 
-interface IUser{
+interface IUser {
   userName: string;
   email: string;
   password: string;

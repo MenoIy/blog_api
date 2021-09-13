@@ -1,5 +1,5 @@
 import passport from 'passport';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import userModel from '../models/user.model';
@@ -41,7 +41,7 @@ passport.use(
 passport.use(
   new JwtStrategy(
     {
-      secretOrKey: process.env.JWT_SECRET || "THIS IS A SECRET",
+      secretOrKey: process.env.JWT_SECRET || 'THIS IS A SECRET',
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     },
     (payload: any, done: any) => {

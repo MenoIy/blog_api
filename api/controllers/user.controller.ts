@@ -63,9 +63,12 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
         });
       }
     }
-    const user: IUserDocument | null = await userModel.findOneAndUpdate({
-      _id: req.user._id
-    }, {...req.body, emailIsVerified : !req.body.email})
+    const user: IUserDocument | null = await userModel.findOneAndUpdate(
+      {
+        _id: req.user._id
+      },
+      { ...req.body, emailIsVerified: !req.body.email }
+    );
 
     res.status(200).send({
       message: 'User updated'

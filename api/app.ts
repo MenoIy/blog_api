@@ -7,7 +7,7 @@ import userRoutes from './routes/user.routes';
 
 dotenv.config();
 
-mongoose.connect(process.env.DB_URL || "", () => console.log('MongoDB connected successfully.'));
+mongoose.connect(process.env.DB_URL || '', () => console.log('MongoDB connected successfully.'));
 mongoose.Promise = global.Promise;
 
 const app = express();

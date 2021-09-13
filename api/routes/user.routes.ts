@@ -1,8 +1,8 @@
-import express, {Router} from 'express';
+import express, { Router } from 'express';
 import userMiddleware from '../middlewares/user.middleware';
 import userController from '../controllers/user.controller';
 
-const router:Router = express.Router();
+const router: Router = express.Router();
 
 router.post('/register', userMiddleware.register, userController.register);
 router.post('/login', userMiddleware.login, userController.login, userController.authToken);
