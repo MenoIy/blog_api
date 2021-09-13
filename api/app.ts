@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import errorMiddleware from './middlewares/error.middleware';
 import { HttpException } from './exceptions/HttpException';
 import userRoutes from './routes/user.routes';
+import postRoutes from './routes/post.routes';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/user', userRoutes);
+app.use('/post', postRoutes);
 
 app.use((request: Request, response: Response, next: NextFunction) => {
   const error = new HttpException(404, 'Not found');
