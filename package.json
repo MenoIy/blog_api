@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "set NODE_ENV = developement && nodemon --exec ts-node --files server.ts",
+    "dev": "NODE_ENV=developement nodemon --exec ts-node --files server.ts",
     "format": "prettier --config .prettierrc server.ts 'api/**/*.ts' --write"
   },
   "repository": {
