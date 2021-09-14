@@ -11,15 +11,15 @@ passport.use(
   'login',
   new LocalStrategy(
     {
-      usernameField: 'email',
+      usernameField: 'userName',
       passwordField: 'password'
     },
-    async (email: string, password: string, done) => {
+    async (userName: string, password: string, done) => {
       try {
-        const user: IUserDocument | null = await userModel.findUserByEmail(email);
+        const user: IUserDocument | null = await userModel.findOne({userName});
         if (!user) {
           return done(null, false, {
-            message: 'Invalide email, account not found'
+            message: 'Invalide userName, account not found'
           });
         }
         if (!user.passwordIsValid(password)) {

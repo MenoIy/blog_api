@@ -16,8 +16,8 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use('/user', userRoutes);
-app.use('/post', postRoutes);
+app.use('/users', userRoutes);
+app.use('/posts', postRoutes);
 
 app.use((request: Request, response: Response, next: NextFunction) => {
   const error = new HttpException(404, 'Not found');

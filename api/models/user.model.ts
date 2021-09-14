@@ -4,6 +4,8 @@ import bcrypt from 'bcrypt';
 
 const userSchema: Schema = new Schema<IUserDocument>({
   userName: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   email: { type: String, unique: true, required: true },
   emailIsVerified: { type: Boolean, default: false },
   password: { type: String, required: true }
@@ -41,6 +43,6 @@ userSchema.statics.emailIsVerified = emailIsVerified;
 userSchema.statics.findUserByEmail = findUserByEmail;
 userSchema.statics.userIsRegistred = userIsRegistred;
 
-const userModel = model<IUserDocument, IUserModel>('user', userSchema);
+const userModel = model<IUserDocument, IUserModel>('Users', userSchema);
 
 export default userModel;

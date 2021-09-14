@@ -8,5 +8,6 @@ router.post('/register', userMiddleware.register, userController.register); // n
 router.post('/login', userMiddleware.login, userController.login, userController.authToken);
 router.get('/', userMiddleware.auth, userController.profile);
 router.patch('/profile', userMiddleware.auth, userMiddleware.update, userController.update);
+//router.get('/:userName', userMiddleware.getUser, userController.getUser);
 
 export default router;

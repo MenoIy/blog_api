@@ -1,7 +1,9 @@
 import { Document, Model} from 'mongoose';
 
 interface IUser {
-  userName: string;
+  userName:string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   emailIsVerified: boolean;
