@@ -13,7 +13,7 @@ const register = Joi.object().keys({
 });
 
 const login = Joi.object().keys({
-  userName : Joi.string().min(6).max(24).alphanum().required(),
+  userName: Joi.string().min(6).max(24).alphanum().required(),
   password: Joi.string()
     .min(8)
     .max(24)

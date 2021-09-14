@@ -3,7 +3,7 @@ import { IUserDocument, IUserModel } from '../interfaces/user.interface';
 import bcrypt from 'bcrypt';
 
 const userSchema: Schema = new Schema<IUserDocument>({
-  userName: { type: String, required: true },
+  userName: { type: String, unique: true, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, unique: true, required: true },

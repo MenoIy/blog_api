@@ -5,22 +5,27 @@ import token from '../utils/token';
 import passport from '../middlewares/passport';
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
-  const user: IUserDocument = new userModel(req.body);
+  const newUser: IUserDocument = new userModel(req.body);
 
   try {
-    const userIsRegistred: boolean = await userModel.userIsRegistred(req.body.email);
+    const user: IUserDocument | null = await userModel.findOne({
+      $or: [{ email: newUser.email }, { userName: newUser.userName }]
+    });
 
-    if (userIsRegistred) {
+    if (user) {
+      const message =
+        user.email === newUser.email ? 'Email is already in use' : 'User name is already in use';
       return res.status(403).send({
         error: {
-          message: 'Address mail already exists.'
+          message
         }
       });
     }
-    await user.save();
+
+    await newUser.save();
     res.status(201).send({
       message: 'User created',
-      user: user.email
+      user: newUser.email
     });
   } catch (error) {
     next(error);
@@ -46,7 +51,10 @@ const profile = (req: Request, res: Response, next: NextFunction) => {
   const { userName, firstName, lastName, email } = req.user;
 
   res.status(200).send({
-    firstName, lastName, userName, email
+    firstName,
+    lastName,
+    userName,
+    email
   });
 };
 

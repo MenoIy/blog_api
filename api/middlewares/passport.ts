@@ -16,7 +16,7 @@ passport.use(
     },
     async (userName: string, password: string, done) => {
       try {
-        const user: IUserDocument | null = await userModel.findOne({userName});
+        const user: IUserDocument | null = await userModel.findOne({ userName });
         if (!user) {
           return done(null, false, {
             message: 'Invalide userName, account not found'
