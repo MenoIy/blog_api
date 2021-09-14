@@ -43,6 +43,6 @@ userSchema.statics.emailIsVerified = emailIsVerified;
 userSchema.statics.findUserByEmail = findUserByEmail;
 userSchema.statics.userIsRegistred = userIsRegistred;
 
-const userModel = model<IUserDocument, IUserModel>('Users', userSchema);
+const userModel = model<IUserDocument, IUserModel>('User', userSchema);
 
 export default userModel;

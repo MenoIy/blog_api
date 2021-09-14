@@ -12,10 +12,10 @@ const postSchema = new Schema<IPost>({
   },
   createdBy: {
     type: Schema.Types.ObjectId,
-    ref: 'Users'
+    ref: 'User'
   }
 });
 
-const postModel = model<IPost>('Posts', postSchema);
+const postModel = model<IPost>('Post', postSchema);
 
 export default postModel;
