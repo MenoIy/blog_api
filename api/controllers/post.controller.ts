@@ -3,7 +3,7 @@ import postModel from '../models/post.model';
 import { IPost } from '../interfaces/post.interface';
 import userModel from '../models/user.model';
 
-const create = async (req: Request, res: Response, next: NextFunction) => {
+const addPost = async (req: Request, res: Response, next: NextFunction) => {
   const post: IPost = new postModel({ ...req.body, createdBy: req.user._id });
   try {
     await post.save();
@@ -15,7 +15,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const findAll = async (req: Request, res: Response, next: NextFunction) => {
+const getPosts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const posts = await postModel.find().populate('createdBy', 'username').exec();
     res.status(200).send(posts);
@@ -24,7 +24,7 @@ const findAll = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const findByUserName = async (req: Request, res: Response, next: NextFunction) => {
+const getPostByUsername = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await userModel.findOne(req.params);
     if (!user) {
@@ -40,4 +40,42 @@ const findByUserName = async (req: Request, res: Response, next: NextFunction) =
     next(error);
   }
 };
-export default { create, findAll, findByUserName };
+
+const deletePost = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const post: IPost | null = await postModel.findOne({ _id: req.params.id });
+
+    if (!post) {
+      return res.status(403).send({ error: { message: 'Post not found' } });
+    }
+    if (String(post.createdBy) !== String(req.user._id)) {
+      return res.status(403).send({ error: { message: 'Unauthorized' } });
+    }
+
+    await post.delete();
+    res.status(200).send({ message: 'Post deleted' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updatePost = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const post: IPost | null = await postModel.findOne({ _id: req.params.id });
+
+    if (!post) {
+      return res.status(403).send({ error: { message: 'Post not found' } });
+    }
+
+    if (String(post.createdBy) !== String(req.user._id)) {
+      return res.status(403).send({ error: { message: 'Unauthorized' } });
+    }
+    post.body = req.body.body;
+    await post.save();
+    res.status(200).send({ message: 'Post updated', data: post });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { addPost, getPosts, getPostByUsername, deletePost, updatePost };

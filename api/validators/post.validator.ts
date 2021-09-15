@@ -1,11 +1,20 @@
 import Joi from 'joi';
 
-const create = Joi.object().keys({
+export const addSchema = Joi.object().keys({
   body: Joi.string().required()
 });
 
-const findByUserName = Joi.object().keys({
+export const findByUsernameSchema = Joi.object().keys({
   username: Joi.string().required()
 });
 
-export default { create, findByUserName };
+export const deleteSchema = Joi.object().keys({
+  id: Joi.string().required()
+});
+
+export const updateSchema = Joi.object().keys({
+  params : {id : Joi.string().required()},
+  body : {
+    body :  Joi.string().required()
+  }
+})
