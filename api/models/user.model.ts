@@ -3,7 +3,7 @@ import { IUserDocument, IUserModel } from '../interfaces/user.interface';
 import bcrypt from 'bcrypt';
 
 const userSchema: Schema = new Schema<IUserDocument>({
-  userName: { type: String, unique: true, required: true },
+  username: { type: String, unique: true, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, unique: true, required: true },
@@ -19,29 +19,31 @@ userSchema.pre('save', function (next) {
   });
 });
 
+
 const emailIsVerified = async (email: string): Promise<boolean> => {
-  const user: IUserDocument | null = await findUserByEmail(email);
+  const user: IUserDocument | null = await userModel.findOne({email});
   return !!user && user.emailIsVerified;
 };
 
-const findUserByEmail = async (email: string): Promise<IUserDocument | null> => {
-  const user: IUserDocument | null = await userModel.findOne({ email });
-  return user;
-};
+const emailExists = async (email: string): Promise<boolean> => {
+  const user : IUserDocument | null = await userModel.findOne({email});
+  return  !!user;
+}
+const usernameExists = async (username : string) : Promise<boolean> => {
+  const user: IUserDocument | null = await userModel.findOne({username})
+  return !!user
+}
 
-const userIsRegistred = async (email: string): Promise<boolean> => {
-  const user: IUserDocument | null = await findUserByEmail(email);
-  return !!user;
-};
 
-userSchema.methods.passwordIsValid = async function (password: string): Promise<boolean> {
+userSchema.methods.passwordIsCorrect = async function (password: string): Promise<boolean> {
   const compare = await bcrypt.compare(password, this.password);
   return compare;
 };
 
+
+userSchema.statics.emailExists    = emailExists;
+userSchema.statics.usernameExists = usernameExists;
 userSchema.statics.emailIsVerified = emailIsVerified;
-userSchema.statics.findUserByEmail = findUserByEmail;
-userSchema.statics.userIsRegistred = userIsRegistred;
 
 const userModel = model<IUserDocument, IUserModel>('User', userSchema);
 

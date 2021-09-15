@@ -1,20 +1,21 @@
 import { Document, Model } from 'mongoose';
 
 interface IUser {
-  userName: string;
+  username: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   emailIsVerified: boolean;
+  [key: string]: any;
 }
 
 export interface IUserDocument extends IUser, Document {
-  passwordIsValid: (password: string) => Promise<boolean>;
+  passwordIsCorrect: (password: string) => Promise<boolean>;
 }
 
 export interface IUserModel extends Model<IUserDocument> {
   emailIsVerified: (mail: string) => Promise<boolean>;
-  userIsRegistred: (mail: string) => Promise<boolean>;
-  findUserByEmail: (mail: string) => Promise<IUserDocument | null>;
+  usernameExists : (username : string) => Promise<boolean>;
+  emailExists : (email : string) => Promise<boolean>;
 }

@@ -8,25 +8,22 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
   const newUser: IUserDocument = new userModel(req.body);
 
   try {
-    const user: IUserDocument | null = await userModel.findOne({
-      $or: [{ email: newUser.email }, { userName: newUser.userName }]
-    });
+    if (req.body.email) {
+      const emailExists: boolean = await userModel.emailExists(req.body.email);
+      if (emailExists) {
+        return res.status(403).send({ error: { message: 'email already exists' } });
+      }
+    }
 
-    if (user) {
-      const message =
-        user.email === newUser.email ? 'Email is already in use' : 'User name is already in use';
-      return res.status(403).send({
-        error: {
-          message
-        }
-      });
+    if (req.body.username) {
+      const usernameExists: boolean = await userModel.usernameExists(req.body.username);
+      if (usernameExists) {
+        return res.status(403).send({ error: { message: 'username already exists' } });
+      }
     }
 
     await newUser.save();
-    res.status(201).send({
-      message: 'User created',
-      user: newUser.email
-    });
+    res.status(201).send({ message: 'User created', user: newUser.email });
   } catch (error) {
     next(error);
   }
@@ -48,41 +45,56 @@ const authToken = (req: Request, res: Response) => {
 };
 
 const profile = (req: Request, res: Response, next: NextFunction) => {
-  const { userName, firstName, lastName, email } = req.user;
+  const { username, firstName, lastName, email } = req.user;
 
-  res.status(200).send({
-    firstName,
-    lastName,
-    userName,
-    email
-  });
+  res.status(200).send({ firstName, lastName, username, email });
 };
+
+const getUser = async (req : Request, res : Response, next : NextFunction) => {
+  try{
+    const user: IUserDocument | null = await userModel.findOne({username : req.params.username})
+    if (!user) return res.status(401).send({ error: { message: 'User not found.'}});
+    const {username, firstName, lastName} = user;
+    res.status(200).send({ username, firstName, lastName});
+
+  }catch(error){
+    next(error);
+  }
+}
+
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (req.body.email) {
-      const userIsRegistred: boolean = await userModel.userIsRegistred(req.body.email);
-      if (userIsRegistred) {
-        return res.status(403).send({
-          error: {
-            message: 'Address mail already exists.'
-          }
-        });
+
+    if (req.body.email && req.body.email != req.user.email) {
+      const emailExists: boolean = await userModel.emailExists(req.body.email);
+      if (emailExists) {
+        return res.status(403).send({ error: { message: 'email already exists' } });
       }
     }
-    const user: IUserDocument | null = await userModel.findOneAndUpdate(
-      {
-        _id: req.user._id
-      },
-      { ...req.body, emailIsVerified: !req.body.email }
-    );
 
-    res.status(200).send({
-      message: 'User updated'
-    });
+    if (req.body.username && req.body.username != req.user.username) {
+      const usernameExists: boolean = await userModel.usernameExists(req.body.username);
+      if (usernameExists) {
+        return res.status(403).send({ error: { message: 'username already exists' } });
+      }
+    }
+
+    let user: IUserDocument | null = await userModel.findOne({_id : req.user._id})
+
+    if (!user) return res.status(401).send({ error: { message: 'User not found.'}});
+    for(const key in req.body)
+    {
+      const value : string = req.body[key];
+      user[key] = value;
+    }
+    user.emailIsVerified = !(req.body.email && req.body.email != req.user.email);
+    user.save();
+    req.user = user;
+    res.status(200).send({ message: 'User updated' });
   } catch (err) {
     next(err);
   }
 };
 
-export default { login, register, authToken, profile, update };
+export default { login, register, authToken, profile, update, getUser };

@@ -17,7 +17,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 const findAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const posts = await postModel.find().populate('createdBy', 'userName').exec();
+    const posts = await postModel.find().populate('createdBy', 'username').exec();
     res.status(200).send(posts);
   } catch (error) {
     next(error);

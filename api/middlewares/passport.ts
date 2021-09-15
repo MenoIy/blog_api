@@ -11,18 +11,18 @@ passport.use(
   'login',
   new LocalStrategy(
     {
-      usernameField: 'userName',
+      usernameField: 'username',
       passwordField: 'password'
     },
-    async (userName: string, password: string, done) => {
+    async (username: string, password: string, done) => {
       try {
-        const user: IUserDocument | null = await userModel.findOne({ userName });
+        const user: IUserDocument | null = await userModel.findOne({ username });
         if (!user) {
           return done(null, false, {
-            message: 'Invalide userName, account not found'
+            message: 'Invalide username, account not found'
           });
         }
-        if (!user.passwordIsValid(password)) {
+        if (!user.passwordIsCorrect(password)) {
           return done(null, false, { message: 'Wrong password' });
         }
         if (!user.emailIsVerified) {

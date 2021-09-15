@@ -5,7 +5,7 @@ const create = Joi.object().keys({
 });
 
 const findByUserName = Joi.object().keys({
-  userName: Joi.string().required()
+  username: Joi.string().required()
 });
 
 export default { create, findByUserName };
