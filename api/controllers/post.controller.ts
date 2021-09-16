@@ -46,10 +46,10 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
     const post: IPost | null = await postModel.findOne({ _id: req.params.id });
 
     if (!post) {
-      return res.status(403).send({ error: { message: 'Post not found' } });
+      return res.status(404).send({ error: { message: 'Post not found' } });
     }
     if (String(post.createdBy) !== String(req.user._id)) {
-      return res.status(403).send({ error: { message: 'Unauthorized' } });
+      return res.status(401).send({ error: { message: 'Unauthorized' } });
     }
 
     await post.delete();

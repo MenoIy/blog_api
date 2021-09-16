@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { IComment } from '../interfaces/comment.interface'
+import postModel from './post.model';
 
 const commentSchema = new Schema<IComment>({
     content : {
