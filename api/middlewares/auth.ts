@@ -5,7 +5,7 @@ import { IUserDocument } from '../interfaces/user.interface';
 import postModel from '../models/post.model';
 
 
-export const Authenticated = (req: Request, res: Response, next: NextFunction) => {
+export const authenticated = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', { session: false }, async (error, user) => {
     if (error) return next(error);
     try {

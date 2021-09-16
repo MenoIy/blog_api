@@ -13,7 +13,11 @@ const postSchema = new Schema<IPost>({
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }
+  },
+  comments :[{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment'
+   }]
 });
 
 const postModel = model<IPost>('Post', postSchema);
