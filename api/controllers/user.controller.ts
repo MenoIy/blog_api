@@ -40,8 +40,16 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
   })(req, res, next);
 };
 
+export const logoutUser =  (req: Request, res : Response, next : NextFunction) => {
+  res.clearCookie('token')
+
+  res.status(200).send({message : 'User logged out'})
+}
+
 export const authToken = (req: Request, res: Response) => {
-  res.status(200).send({ authToken: req.token });
+  res.status(200)
+  .cookie('token', req.token, {httpOnly: true})
+  .send({ authToken: req.token })
 };
 
 export const me = (req: Request, res: Response, next: NextFunction) => {
@@ -91,7 +99,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
     }
     user.emailIsVerified = !(req.body.email && req.body.email != req.user.email);
     user.save();
-    req.user = user;
+
     res.status(200).send({ message: 'User updated' });
   } catch (err) {
     next(err);

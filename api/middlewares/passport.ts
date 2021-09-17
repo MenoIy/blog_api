@@ -42,7 +42,10 @@ passport.use(
   new JwtStrategy(
     {
       secretOrKey: process.env.JWT_SECRET || 'THIS IS A SECRET',
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+      jwtFromRequest: req => {
+        const token = req.cookies.token;
+        return token
+      }
     },
     (payload: any, done: any) => {
       try {

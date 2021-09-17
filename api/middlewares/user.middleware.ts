@@ -32,3 +32,7 @@ export const getUser = (req: Request, res: Response, next: NextFunction) => {
 export const me = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
+
+export const logoutUser = (req: Request, res: Response, next: NextFunction) => {
+  next();
+};

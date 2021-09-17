@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 import errorMiddleware from './middlewares/error.middleware';
 import { HttpException } from './exceptions/HttpException';
 import userRoutes from './routes/user.routes';
@@ -16,6 +17,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
