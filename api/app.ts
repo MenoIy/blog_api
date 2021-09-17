@@ -19,6 +19,7 @@ app.use(express.json());
 
 app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
+app.use('/users', postRoutes);
 app.use('/posts', commentRoutes);
 app.use('/comments', commentRoutes);
 

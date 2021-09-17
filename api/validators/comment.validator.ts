@@ -5,7 +5,7 @@ export const addCommentSchema = Joi.object().keys({
         content : Joi.string().required()
     },
     params : {
-        id : Joi.string().required().min(24).max(24).hex()
+        postId : Joi.string().required().min(24).max(24).hex()
     }
 })
 
