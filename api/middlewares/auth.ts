@@ -3,7 +3,6 @@ import passport from './passport';
 import userModel from '../models/user.model';
 import { IUserDocument } from '../interfaces/user.interface';
 
-
 export const authenticated = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', { session: false }, async (error, user) => {
     if (error) return next(error);

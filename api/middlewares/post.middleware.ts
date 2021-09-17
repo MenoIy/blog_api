@@ -19,23 +19,23 @@ export const getPostByUsername = (req: Request, res: Response, next: NextFunctio
   next();
 };
 
-export const getPost = (req : Request, res: Response, next: NextFunction) => {
+export const getPost = (req: Request, res: Response, next: NextFunction) => {
   const { error } = postValidator.getPostSchema.validate(req.params);
 
   if (error) {
     return res.status(400).send({ error: { message: error.message } });
   }
   next();
-}
+};
 
-export const updatePost = (req : Request, res: Response, next: NextFunction) => {
-  const { error } = postValidator.updatePostSchema.validate({params : req.params, body : req.body});
+export const updatePost = (req: Request, res: Response, next: NextFunction) => {
+  const { error } = postValidator.updatePostSchema.validate({ params: req.params, body: req.body });
 
   if (error) {
-    return res.status(400).send({ error : { message : error.message } });
+    return res.status(400).send({ error: { message: error.message } });
   }
   next();
-}
+};
 
 export const deletePost = (req: Request, res: Response, next: NextFunction) => {
   const { error } = postValidator.deletePostSchema.validate(req.params);

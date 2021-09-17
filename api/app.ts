@@ -6,7 +6,7 @@ import errorMiddleware from './middlewares/error.middleware';
 import { HttpException } from './exceptions/HttpException';
 import userRoutes from './routes/user.routes';
 import postRoutes from './routes/post.routes';
-import commentRoutes from './routes/comment.routes'
+import commentRoutes from './routes/comment.routes';
 
 dotenv.config();
 

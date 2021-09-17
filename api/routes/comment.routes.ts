@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
-import * as commentMiddleware from '../middlewares/comment.middleware'
-import * as commentController from '../controllers/comment.controller'
+import * as commentMiddleware from '../middlewares/comment.middleware';
+import * as commentController from '../controllers/comment.controller';
 import { authenticated } from '../middlewares/auth';
 
 const router: Router = express.Router();
@@ -10,6 +10,5 @@ router.get('/:postId/comments', commentMiddleware.getComments, commentController
 router.get('/:commentId', commentMiddleware.getComment, commentController.getComment);
 router.patch('/:commentId', authenticated, commentMiddleware.updateComment, commentController.updateComment);
 router.delete('/:commentId', authenticated, commentController.deleteComment, commentController.deleteComment);
-
 
 export default router;

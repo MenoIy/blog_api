@@ -34,11 +34,10 @@ export const updateUserSchema = Joi.object()
   })
   .or('username', 'firstName', 'lastName', 'email', 'password');
 
-
 export const getUserSchema = Joi.object().keys({
-  username : Joi.string().min(6).max(24).alphanum().required()
-})
+  username: Joi.string().min(6).max(24).alphanum().required()
+});
 
 export const verifyEmailSchema = Joi.object().keys({
-  token : Joi.string().required()
-})
+  token: Joi.string().required()
+});

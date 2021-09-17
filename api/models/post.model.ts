@@ -14,10 +14,12 @@ const postSchema = new Schema<IPost>({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  comments : [{
-    type: Schema.Types.ObjectId,
-    ref: 'Comment'
-  }]
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment'
+    }
+  ]
 });
 
 const postModel = model<IPost>('Post', postSchema);

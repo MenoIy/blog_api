@@ -42,4 +42,4 @@ export const verifyEmail = (req: Request, res: Response, next: NextFunction) => 
 
   if (!error) return next();
   res.status(400).json({ error: { message: error.message } });
-}
+};

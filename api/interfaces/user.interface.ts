@@ -7,7 +7,7 @@ interface IUser {
   email: string;
   password: string;
   emailIsVerified: boolean;
-  Posts : [ObjectId];
+  Posts: [ObjectId];
   [key: string]: any;
 }
 
@@ -17,6 +17,6 @@ export interface IUserDocument extends IUser, Document {
 
 export interface IUserModel extends Model<IUserDocument> {
   emailIsVerified: (mail: string) => Promise<boolean>;
-  usernameExists : (username : string) => Promise<boolean>;
-  emailExists : (email : string) => Promise<boolean>;
+  usernameExists: (username: string) => Promise<boolean>;
+  emailExists: (email: string) => Promise<boolean>;
 }

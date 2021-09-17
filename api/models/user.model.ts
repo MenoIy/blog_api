@@ -9,10 +9,12 @@ const userSchema: Schema = new Schema<IUserDocument>({
   email: { type: String, unique: true, required: true },
   emailIsVerified: { type: Boolean, default: false },
   password: { type: String, required: true },
-  posts : [{
-    type: Schema.Types.ObjectId,
-    ref: 'Post'
-  }]
+  posts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Post'
+    }
+  ]
 });
 
 userSchema.pre('save', function (next) {
@@ -23,29 +25,26 @@ userSchema.pre('save', function (next) {
   });
 });
 
-
 const emailIsVerified = async (email: string): Promise<boolean> => {
-  const user: IUserDocument | null = await userModel.findOne({email});
+  const user: IUserDocument | null = await userModel.findOne({ email });
   return !!user && user.emailIsVerified;
 };
 
 const emailExists = async (email: string): Promise<boolean> => {
-  const user : IUserDocument | null = await userModel.findOne({email});
-  return  !!user;
-}
-const usernameExists = async (username : string) : Promise<boolean> => {
-  const user: IUserDocument | null = await userModel.findOne({username})
-  return !!user
-}
-
+  const user: IUserDocument | null = await userModel.findOne({ email });
+  return !!user;
+};
+const usernameExists = async (username: string): Promise<boolean> => {
+  const user: IUserDocument | null = await userModel.findOne({ username });
+  return !!user;
+};
 
 userSchema.methods.passwordIsCorrect = async function (password: string): Promise<boolean> {
   const compare = await bcrypt.compare(password, this.password);
   return compare;
 };
 
-
-userSchema.statics.emailExists    = emailExists;
+userSchema.statics.emailExists = emailExists;
 userSchema.statics.usernameExists = usernameExists;
 userSchema.statics.emailIsVerified = emailIsVerified;
 

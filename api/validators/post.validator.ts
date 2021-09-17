@@ -9,16 +9,16 @@ export const getPostByUsernameSchema = Joi.object().keys({
 });
 
 export const getPostSchema = Joi.object().keys({
-  postId : Joi.string().required().min(24).max(24).hex()
-})
+  postId: Joi.string().required().min(24).max(24).hex()
+});
 
 export const deletePostSchema = Joi.object().keys({
   postId: Joi.string().required().min(24).max(24).hex()
 });
 
 export const updatePostSchema = Joi.object().keys({
-  params : {postId : Joi.string().required().min(24).max(24).hex()},
-  body : {
-    body :  Joi.string().required()
+  params: { postId: Joi.string().required().min(24).max(24).hex() },
+  body: {
+    body: Joi.string().required()
   }
-})
+});
