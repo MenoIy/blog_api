@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const register = Joi.object().keys({
+export const addUserSchema = Joi.object().keys({
   username: Joi.string().min(6).max(24).alphanum().required(),
   firstName: Joi.string().min(2).max(24).alphanum().required(),
   lastName: Joi.string().min(2).max(24).alphanum().required(),
@@ -12,7 +12,7 @@ const register = Joi.object().keys({
     .required()
 });
 
-const login = Joi.object().keys({
+export const loginUserSchema = Joi.object().keys({
   username: Joi.string().min(6).max(24).alphanum().required(),
   password: Joi.string()
     .min(8)
@@ -21,7 +21,7 @@ const login = Joi.object().keys({
     .required()
 });
 
-const update = Joi.object()
+export const updateUserSchema = Joi.object()
   .keys({
     username: Joi.string().min(6).max(24).alphanum(),
     firstName: Joi.string().min(6).max(24).alphanum(),
@@ -35,8 +35,6 @@ const update = Joi.object()
   .or('username', 'firstName', 'lastName', 'email', 'password');
 
 
-const getUser = Joi.object().keys({
+export const getUserSchema = Joi.object().keys({
   username : Joi.string().min(6).max(24).alphanum().required()
 })
-
-export default { register, login, update, getUser};

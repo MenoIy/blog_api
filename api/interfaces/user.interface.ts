@@ -1,4 +1,4 @@
-import { Document, Model } from 'mongoose';
+import { Document, Model, ObjectId } from 'mongoose';
 
 interface IUser {
   username: string;
@@ -7,6 +7,7 @@ interface IUser {
   email: string;
   password: string;
   emailIsVerified: boolean;
+  Posts : [ObjectId];
   [key: string]: any;
 }
 

@@ -1,6 +1,6 @@
 import Joi, { string } from 'joi'
 
-export const addSchema = Joi.object().keys({
+export const addCommentSchema = Joi.object().keys({
     body : {
         content : Joi.string().required()
     },

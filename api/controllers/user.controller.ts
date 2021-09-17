@@ -4,7 +4,7 @@ import { IUserDocument } from '../interfaces/user.interface';
 import token from '../utils/token';
 import passport from '../middlewares/passport';
 
-const register = async (req: Request, res: Response, next: NextFunction) => {
+export const addUser = async (req: Request, res: Response, next: NextFunction) => {
   const newUser: IUserDocument = new userModel(req.body);
 
   try {
@@ -29,7 +29,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const login = async (req: Request, res: Response, next: NextFunction) => {
+export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('login', { session: false }, (error, user, info) => {
     if (error) return next(error);
     if (info) return res.status(400).send(info);
@@ -40,20 +40,22 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   })(req, res, next);
 };
 
-const authToken = (req: Request, res: Response) => {
+export const authToken = (req: Request, res: Response) => {
   res.status(200).send({ authToken: req.token });
 };
 
-const profile = (req: Request, res: Response, next: NextFunction) => {
+export const me = (req: Request, res: Response, next: NextFunction) => {
   const { username, firstName, lastName, email } = req.user;
 
   res.status(200).send({ firstName, lastName, username, email });
 };
 
-const getUser = async (req : Request, res : Response, next : NextFunction) => {
+export const getUser = async (req : Request, res : Response, next : NextFunction) => {
   try{
     const user: IUserDocument | null = await userModel.findOne({username : req.params.username})
-    if (!user) return res.status(401).send({ error: { message: 'User not found.'}});
+    if (!user){
+      return res.status(401).send({ error: { message: 'User not found.'}});
+    }
     const {username, firstName, lastName} = user;
     res.status(200).send({ username, firstName, lastName});
 
@@ -62,8 +64,7 @@ const getUser = async (req : Request, res : Response, next : NextFunction) => {
   }
 }
 
-
-const update = async (req: Request, res: Response, next: NextFunction) => {
+export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
 
     if (req.body.email && req.body.email != req.user.email) {
@@ -96,5 +97,3 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 };
-
-export default { login, register, authToken, profile, update, getUser };

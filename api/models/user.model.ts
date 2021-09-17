@@ -8,7 +8,11 @@ const userSchema: Schema = new Schema<IUserDocument>({
   lastName: { type: String, required: true },
   email: { type: String, unique: true, required: true },
   emailIsVerified: { type: Boolean, default: false },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  posts : [{
+    type: Schema.Types.ObjectId,
+    ref: 'Post'
+  }]
 });
 
 userSchema.pre('save', function (next) {
