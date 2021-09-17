@@ -36,3 +36,10 @@ export const me = (req: Request, res: Response, next: NextFunction) => {
 export const logoutUser = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
+
+export const verifyEmail = (req: Request, res: Response, next: NextFunction) => {
+  const { error } = userValidator.verifyEmailSchema.validate(req.params);
+
+  if (!error) return next();
+  res.status(400).json({ error: { message: error.message } });
+}

@@ -38,3 +38,7 @@ export const updateUserSchema = Joi.object()
 export const getUserSchema = Joi.object().keys({
   username : Joi.string().min(6).max(24).alphanum().required()
 })
+
+export const verifyEmailSchema = Joi.object().keys({
+  token : Joi.string().required()
+})

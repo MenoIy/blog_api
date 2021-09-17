@@ -1,8 +1,14 @@
 import { Request, Response, NextFunction, Express } from 'express';
 import userModel from '../models/user.model';
 import { IUserDocument } from '../interfaces/user.interface';
+import {IMail} from '../interfaces/mail.interface'
+import mailModel from '../models/mail.model';
 import token from '../utils/token';
+import * as mail from '../utils/mail';
 import passport from '../middlewares/passport';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const addUser = async (req: Request, res: Response, next: NextFunction) => {
   const newUser: IUserDocument = new userModel(req.body);
@@ -23,7 +29,8 @@ export const addUser = async (req: Request, res: Response, next: NextFunction) =
     }
 
     await newUser.save();
-    res.status(201).send({ message: 'User created', user: newUser.email });
+    res.locals.user = newUser;
+    next();
   } catch (error) {
     next(error);
   }
@@ -105,3 +112,49 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
     next(err);
   }
 };
+
+
+export const sendMail = async (req: Request, res: Response, next: NextFunction) => {
+  try{
+    const user = res.locals.user;
+    const payload = { _id : user._id, mail : user.mail};
+    const verifyMail: IMail = new mailModel({
+      user : user._id,
+      token : token.create(payload)
+    });
+
+    await verifyMail.save();
+
+    const body : string = process.env.HOST + ':' + process.env.PORT + '/users/verify/' + verifyMail.token;
+    mail.sendMail(user.email, 'Account activation', body);
+    res.status(201).send({ message: 'User created', user: user.email });
+
+    } catch (error){
+      next(error)
+    }
+}
+
+export const verifyEmail = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const mail = await mailModel.findOne({token : req.params.token})
+
+    if (!mail){
+      return res.status(403).send({ error : { message : "Invalid token"}})
+    }
+    const user = await userModel.findOne({_id : mail.user});
+
+    if (!user){
+      return res.status(404).send({ error : { message : "User not found."}})
+    }
+    if (user.emailIsVerified){
+      return res.status(403).send({ error : { message : "Invalid token"}})
+    }
+    user.emailIsVerified = true;
+    await user.save();
+    await mail.delete();
+    res.status(200).send({ message: 'Email verified'});
+
+  } catch(error){
+    next(error);
+  }
+}
