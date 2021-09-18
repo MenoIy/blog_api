@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  blog-app:
+    build: .
+    image: blog-image
+    depends_on:
+      - mongodb
+    container_name: blog-app-dev
+    command: npm run dev
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app/
+      - /app/node_modules
+  
+  mongodb:
+    container_name: blog-db
+    image: mongo:4.2.1-bionic
+    ports:
+      - "27017:27017"
+    volumes:
+      - dbdata:/data/db
+
+volumes:
+  dbdata:
