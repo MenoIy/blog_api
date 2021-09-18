@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "NODE_ENV=developement nodemon --exec ts-node --files server.ts",
-    "format": "prettier --config .prettierrc server.ts 'api/**/*.ts' --write"
+    "format": "prettier --config .prettierrc server.ts 'api/**/*.ts' --write",
+    "docker:dev" : " docker-compose up --build -d"
   },
   "repository": {
     "type": "git",
