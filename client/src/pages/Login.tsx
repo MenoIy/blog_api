@@ -10,6 +10,11 @@ const Container = styled.div`
 
 const Signup = styled.div`
   text-align: center;
+  font-size: 14px;
+  width: 440px;
+  margin: auto;
+  margin-top: 0px;
+
   h4 {
     display: inline;
     margin-right: 10px;
@@ -28,6 +33,7 @@ const Text = styled.div`
 const LoginContainer = styled.div`
   width: 440px;
   margin: auto;
+  margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: gray;
   box-shadow: 5px 5px 15px gray;
@@ -117,7 +123,9 @@ const Login = () => {
           {login.errors.password && login.touched.password && (
             <LoginError>{errors.password}</LoginError>
           )}
-          <LoginButton disabled={login.isSubmitting}>Log In</LoginButton>
+          <LoginButton type="submit" disabled={login.isSubmitting}>
+            Log In
+          </LoginButton>
         </LoginForm>
       </LoginContainer>
       <Signup>
