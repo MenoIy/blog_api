@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useFormik } from "formik";
 import { loginSchema } from "../validators";
+import { login } from "../api/";
 
 const Container = styled.div`
   height: 600px;
@@ -85,30 +86,30 @@ const LoginButton = styled.button`
 `;
 
 const Login = () => {
-  const login = useFormik({
+  const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
     validationSchema: loginSchema,
     onSubmit: (values) => {
-      console.log(values);
+      login(values);
     },
   });
-  const { errors, touched } = login;
+  const { errors, touched } = formik;
   return (
     <Container>
       <LoginContainer>
         <Text>
           <h1>Sign in to your account</h1>
         </Text>
-        <LoginForm onSubmit={login.handleSubmit}>
+        <LoginForm onSubmit={formik.handleSubmit}>
           <label>Username</label>
           <LoginInput
             name="username"
             type="text"
-            onChange={login.handleChange}
-            value={login.values.username}
+            onChange={formik.handleChange}
+            value={formik.values.username}
           />
           {errors.username && touched.username && (
             <LoginError>{errors.username}</LoginError>
@@ -117,13 +118,13 @@ const Login = () => {
           <LoginInput
             name="password"
             type="password"
-            onChange={login.handleChange}
-            value={login.values.password}
+            onChange={formik.handleChange}
+            value={formik.values.password}
           />
-          {login.errors.password && login.touched.password && (
+          {formik.errors.password && formik.touched.password && (
             <LoginError>{errors.password}</LoginError>
           )}
-          <LoginButton type="submit" disabled={login.isSubmitting}>
+          <LoginButton type="submit" disabled={formik.isSubmitting}>
             Log In
           </LoginButton>
         </LoginForm>
