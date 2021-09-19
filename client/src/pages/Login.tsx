@@ -1,23 +1,82 @@
-import React from "react";
 import styled from "styled-components";
-import Footer from "../components/Footer";
 import { useFormik } from "formik";
 import { loginSchema } from "../validators";
 
-const Container = styled.div``;
-
-const LoginContainer = styled.div``;
-
-const LoginForm = styled.form`
-    display: flex;
-    flex-direction: column;
+const Container = styled.div`
+  height: 600px;
+  display: flex;
+  flex-direction: column;
 `;
 
-const LoginInput = styled.input``;
+const Signup = styled.div`
+  text-align: center;
+  h4 {
+    display: inline;
+    margin-right: 10px;
+  }
+  h4:nth-child(2) {
+    color: #dc2068;
+    cursor: pointer;
+  }
+`;
 
-const LoginError = styled.div``;
+const Text = styled.div`
+  margin: 40px 40px -10px 40px;
+  font-size: 10px;
+`;
 
-const LoginButton = styled.button``;
+const LoginContainer = styled.div`
+  width: 440px;
+  margin: auto;
+  border-radius: 5px;
+  box-shadow: gray;
+  box-shadow: 5px 5px 15px gray;
+`;
+
+const LoginForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin: 30px 40px;
+
+  label {
+    margin-bottom: 5px;
+    font-size: 15px;
+    margin-top: 15px;
+    font-weight: 500;
+  }
+`;
+
+const LoginInput = styled.input`
+  font-size: 16px;
+  font-weight: 400;
+  padding: 8px 16px;
+  min-height: 26px;
+  border-radius: 5px;
+  border: solid 1px;
+  outline: unset;
+  border-color: #d2d2d2;
+  &:focus {
+    border-color: #dc2068;
+  }
+`;
+
+const LoginError = styled.div`
+  color: red;
+  margin-top: 3px;
+  font-size: 13px;
+`;
+
+const LoginButton = styled.button`
+  font-size: 20px;
+  margin-top: 30px;
+  min-height: 45px;
+  border-radius: 5px;
+  border: unset;
+  font-weight: 600;
+  color: white;
+  background-color: #ff2f71;
+  cursor: pointer;
+`;
 
 const Login = () => {
   const login = useFormik({
@@ -34,20 +93,23 @@ const Login = () => {
   return (
     <Container>
       <LoginContainer>
+        <Text>
+          <h1>Sign in to your account</h1>
+        </Text>
         <LoginForm onSubmit={login.handleSubmit}>
+          <label>Username</label>
           <LoginInput
             name="username"
-            placeholder="Username"
             type="text"
             onChange={login.handleChange}
             value={login.values.username}
-          /> 
+          />
           {errors.username && touched.username && (
             <LoginError>{errors.username}</LoginError>
           )}
+          <label>Password</label>
           <LoginInput
             name="password"
-            placeholder="Password"
             type="password"
             onChange={login.handleChange}
             value={login.values.password}
@@ -58,7 +120,10 @@ const Login = () => {
           <LoginButton disabled={login.isSubmitting}>Log In</LoginButton>
         </LoginForm>
       </LoginContainer>
-      <Footer />
+      <Signup>
+        <h4>Don't have an account?</h4>
+        <h4>Sign up</h4>
+      </Signup>
     </Container>
   );
 };
