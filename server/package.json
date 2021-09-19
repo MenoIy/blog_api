@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=developement nodemon --exec ts-node --files server.ts",
     "format": "prettier --config .prettierrc server.ts 'api/**/*.ts' --write",
-    "docker:dev" : " docker-compose up --build -d"
+    "docker:dev": " docker-compose up --build -d"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^8.5.5",
@@ -42,6 +43,7 @@
     "@types/passport-local": "^1.0.34",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "joi": "^17.4.2",

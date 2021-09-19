@@ -23,7 +23,7 @@ passport.use(
           });
         }
         if (!user.passwordIsCorrect(password)) {
-          return done(null, false, { message: 'Wrong password' });
+          return done(null, false, { username: 'Wrong password' });
         }
         if (!user.emailIsVerified) {
           return done(null, false, {

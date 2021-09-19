@@ -39,6 +39,7 @@ export const addUser = async (req: Request, res: Response, next: NextFunction) =
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('login', { session: false }, (error, user, info) => {
     if (error) return next(error);
+    console.log('hello :', info);
     if (info) return res.status(400).send(info);
 
     const payload = { _id: user._id };
