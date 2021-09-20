@@ -18,14 +18,14 @@ export const addUser = async (req: Request, res: Response, next: NextFunction) =
     if (req.body.email) {
       const emailExists: boolean = await userModel.emailExists(req.body.email);
       if (emailExists) {
-        return res.status(403).send({ error: { message: 'email already exists' } });
+        return res.status(403).send({ email: 'Address mail already exists' });
       }
     }
 
     if (req.body.username) {
       const usernameExists: boolean = await userModel.usernameExists(req.body.username);
       if (usernameExists) {
-        return res.status(403).send({ error: { message: 'username already exists' } });
+        return res.status(403).send({ username: 'username already exists' });
       }
     }
 
@@ -87,14 +87,14 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
     if (req.body.email && req.body.email != req.user.email) {
       const emailExists: boolean = await userModel.emailExists(req.body.email);
       if (emailExists) {
-        return res.status(403).send({ error: { message: 'email already exists' } });
+        return res.status(403).send({ email: 'email already exists' });
       }
     }
 
     if (req.body.username && req.body.username != req.user.username) {
       const usernameExists: boolean = await userModel.usernameExists(req.body.username);
       if (usernameExists) {
-        return res.status(403).send({ error: { message: 'username already exists' } });
+        return res.status(403).send({ username: 'username already exists' });
       }
     }
 
