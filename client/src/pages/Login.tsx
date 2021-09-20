@@ -90,10 +90,13 @@ const Login = () => {
     initialValues: {
       username: "",
       password: "",
+      email: "",
     },
     validationSchema: loginSchema,
-    onSubmit: (values) => {
-      login(values);
+    onSubmit: async ({ username, password }) => {
+      await login({ username, password })
+        .then((response) => console.log(response.data.authToken))
+        .catch((error) => formik.setErrors(error.response.data));
     },
   });
   const { errors, touched } = formik;
@@ -123,6 +126,9 @@ const Login = () => {
           />
           {formik.errors.password && formik.touched.password && (
             <LoginError>{errors.password}</LoginError>
+          )}
+          {formik.errors.email && (
+            <LoginError>{formik.errors.email}</LoginError>
           )}
           <LoginButton type="submit" disabled={formik.isSubmitting}>
             Log In
