@@ -7,6 +7,7 @@ import token from '../utils/token';
 import * as mail from '../utils/mail';
 import passport from '../middlewares/passport';
 import dotenv from 'dotenv';
+import { string } from 'joi';
 
 dotenv.config();
 
@@ -38,9 +39,13 @@ export const addUser = async (req: Request, res: Response, next: NextFunction) =
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('login', { session: false }, (error, user, info) => {
+    const errorMessage: { [key: string]: string } = {
+      username: "Username you entered isn't connected to an account",
+      password: "The password that you've entered is incorrect",
+      email: 'account not verified, visit you email to verify'
+    };
     if (error) return next(error);
-    console.log('hello :', info);
-    if (info) return res.status(400).send(info);
+    if (info) return res.status(400).send({ [info.message]: errorMessage[info.message] });
 
     const payload = { _id: user._id };
     req.token = token.create(payload);

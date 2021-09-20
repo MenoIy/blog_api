@@ -19,15 +19,17 @@ passport.use(
         const user: IUserDocument | null = await userModel.findOne({ username });
         if (!user) {
           return done(null, false, {
-            message: 'Invalide username, account not found'
+            message: 'username'
           });
         }
-        if (!user.passwordIsCorrect(password)) {
-          return done(null, false, { username: 'Wrong password' });
+        const passwordIsCorrect = await user.passwordIsCorrect(password);
+
+        if (!passwordIsCorrect) {
+          return done(null, false, { message: 'password' });
         }
         if (!user.emailIsVerified) {
           return done(null, false, {
-            message: 'Account non verified !'
+            message: 'email'
           });
         }
         return done(null, user);

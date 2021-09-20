@@ -8,11 +8,3 @@ declare global {
     }
   }
 }
-
-declare global {
-  namespace LocalStrategy {
-    interface IVerifyOptions {
-      username: string;
-    }
-  }
-}
