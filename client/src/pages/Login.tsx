@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useFormik } from "formik";
 import { loginSchema } from "../validators";
 import { login } from "../api/";
+import Field from "../components/Field";
 
 const Container = styled.div`
   height: 600px;
@@ -99,7 +100,6 @@ const Login = () => {
         .catch((error) => formik.setErrors(error.response.data));
     },
   });
-  const { errors, touched } = formik;
   return (
     <Container>
       <LoginContainer>
@@ -107,26 +107,22 @@ const Login = () => {
           <h1>Sign in to your account</h1>
         </Text>
         <LoginForm onSubmit={formik.handleSubmit}>
-          <label>Username</label>
-          <LoginInput
+          <Field
             name="username"
             type="text"
-            onChange={formik.handleChange}
             value={formik.values.username}
+            handleChange={formik.handleChange}
+            error={formik.errors.username}
+            touched={formik.touched.username}
           />
-          {errors.username && touched.username && (
-            <LoginError>{errors.username}</LoginError>
-          )}
-          <label>Password</label>
-          <LoginInput
+          <Field
             name="password"
             type="password"
-            onChange={formik.handleChange}
             value={formik.values.password}
+            handleChange={formik.handleChange}
+            error={formik.errors.password}
+            touched={formik.touched.password}
           />
-          {formik.errors.password && formik.touched.password && (
-            <LoginError>{errors.password}</LoginError>
-          )}
           {formik.errors.email && (
             <LoginError>{formik.errors.email}</LoginError>
           )}
