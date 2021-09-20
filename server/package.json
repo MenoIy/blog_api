@@ -34,7 +34,6 @@
     "@types/dotenv": "^8.2.0",
     "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^8.5.5",
-    "@types/mongoose": "^5.11.97",
     "@types/node": "^16.9.1",
     "@types/nodemailer": "^6.4.4",
     "@types/nodemon": "^1.19.1",
