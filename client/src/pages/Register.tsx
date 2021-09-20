@@ -1,12 +1,12 @@
-import React from "react";
 import { useFormik } from "formik";
 import styled from "styled-components";
 import { registerSchema } from "../validators";
 import Field from "../components/Field";
 import { register } from "../api";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
-  height: 800px;
+  height: 850px;
   display: flex;
   flex-direction: column;
 `;
@@ -54,9 +54,10 @@ const SignIn = styled.div`
     display: inline;
     margin-right: 10px;
   }
-  h4:nth-child(2) {
+  a {
     color: #dc2068;
     cursor: pointer;
+    text-decoration: none;
   }
 `;
 
@@ -136,7 +137,9 @@ const Register = () => {
       </SignupContainer>
       <SignIn>
         <h4>Already have an account?</h4>
-        <h4>Sign in</h4>
+        <h4>
+          <Link to="/login">Sign in</Link>
+        </h4>
       </SignIn>
     </Container>
   );

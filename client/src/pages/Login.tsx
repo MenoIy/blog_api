@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { loginSchema } from "../validators";
 import { login } from "../api/";
 import Field from "../components/Field";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 600px;
@@ -21,9 +22,10 @@ const Signup = styled.div`
     display: inline;
     margin-right: 10px;
   }
-  h4:nth-child(2) {
+  a {
     color: #dc2068;
     cursor: pointer;
+    text-decoration: none;
   }
 `;
 
@@ -121,7 +123,9 @@ const Login = () => {
       </LoginContainer>
       <Signup>
         <h4>Don't have an account?</h4>
-        <h4>Sign up</h4>
+        <h4>
+          <Link to="/register">Sign up</Link>
+        </h4>
       </Signup>
     </Container>
   );
