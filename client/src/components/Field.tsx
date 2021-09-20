@@ -2,6 +2,13 @@ import styled from "styled-components";
 
 import React from "react";
 
+const Title = styled.label`
+  margin-bottom: 5px;
+  font-size: 15px;
+  margin-top: 15px;
+  font-weight: 500;
+`;
+
 const Input = styled.input`
   font-size: 16px;
   font-weight: 400;
@@ -25,25 +32,24 @@ const Error = styled.div`
 type FieldProps = {
   name: string;
   type: string;
+  label: string;
   handleChange: (e: React.ChangeEvent) => void;
   value: string;
   error?: string;
   touched?: boolean;
 };
 
-const Field = ({
-  name,
-  type,
-  handleChange,
-  value,
-  error,
-  touched,
-}: FieldProps) => {
+const Field = (props: FieldProps) => {
   return (
     <>
-      <label>{name}</label>
-      <Input name={name} type={type} onChange={handleChange} value={value} />
-      {error && touched && <Error>{error}</Error>}
+      <Title>{props.label}</Title>
+      <Input
+        name={props.name}
+        type={props.type}
+        onChange={props.handleChange}
+        value={props.value}
+      />
+      {props.error && props.touched && <Error>{props.error}</Error>}
     </>
   );
 };

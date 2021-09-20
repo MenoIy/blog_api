@@ -54,20 +54,6 @@ const LoginForm = styled.form`
   }
 `;
 
-const LoginInput = styled.input`
-  font-size: 16px;
-  font-weight: 400;
-  padding: 8px 16px;
-  min-height: 26px;
-  border-radius: 5px;
-  border: solid 1px;
-  outline: unset;
-  border-color: #d2d2d2;
-  &:focus {
-    border-color: #dc2068;
-  }
-`;
-
 const LoginError = styled.div`
   color: red;
   margin-top: 3px;
@@ -110,6 +96,7 @@ const Login = () => {
           <Field
             name="username"
             type="text"
+            label="Username"
             value={formik.values.username}
             handleChange={formik.handleChange}
             error={formik.errors.username}
@@ -118,6 +105,7 @@ const Login = () => {
           <Field
             name="password"
             type="password"
+            label="Password"
             value={formik.values.password}
             handleChange={formik.handleChange}
             error={formik.errors.password}
