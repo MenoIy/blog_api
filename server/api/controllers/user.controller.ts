@@ -60,7 +60,7 @@ export const logoutUser = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const authToken = (req: Request, res: Response) => {
-  res.status(200).cookie('token', req.token, { httpOnly: true }).send({ authToken: req.token });
+  res.status(200).cookie('token', req.token, { httpOnly: true }).send({ message: 'User connected' });
 };
 
 export const me = (req: Request, res: Response, next: NextFunction) => {

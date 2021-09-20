@@ -16,7 +16,7 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
