@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import styled from "styled-components";
 import { registerSchema } from "../validators";
-import Field from "../components/Field";
+import InputField from "../components/InputField";
 import { register } from "../api";
 import { Link } from "react-router-dom";
 
@@ -85,7 +85,7 @@ const Register = () => {
           <h1>Create your account</h1>
         </Text>
         <SignupForm onSubmit={formik.handleSubmit}>
-          <Field
+          <InputField
             name="username"
             type="text"
             label="Username"
@@ -94,7 +94,7 @@ const Register = () => {
             error={formik.errors.username}
             touched={formik.touched.username}
           />
-          <Field
+          <InputField
             name="firstName"
             type="text"
             label="First name"
@@ -103,7 +103,7 @@ const Register = () => {
             error={formik.errors.firstName}
             touched={formik.touched.firstName}
           />
-          <Field
+          <InputField
             name="lastName"
             type="text"
             label="Last name"
@@ -112,7 +112,7 @@ const Register = () => {
             error={formik.errors.lastName}
             touched={formik.touched.lastName}
           />
-          <Field
+          <InputField
             name="email"
             type="text"
             label="Address mail"
@@ -121,7 +121,7 @@ const Register = () => {
             error={formik.errors.email}
             touched={formik.touched.email}
           />
-          <Field
+          <InputField
             name="password"
             type="password"
             label="Password"

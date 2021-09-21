@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useFormik } from "formik";
 import { loginSchema } from "../validators";
 import { login } from "../api/";
-import Field from "../components/Field";
+import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -95,7 +95,7 @@ const Login = () => {
           <h1>Sign in to your account</h1>
         </Text>
         <LoginForm onSubmit={formik.handleSubmit}>
-          <Field
+          <InputField
             name="username"
             type="text"
             label="Username"
@@ -104,7 +104,7 @@ const Login = () => {
             error={formik.errors.username}
             touched={formik.touched.username}
           />
-          <Field
+          <InputField
             name="password"
             type="password"
             label="Password"

@@ -29,7 +29,7 @@ const Error = styled.div`
   font-size: 13px;
 `;
 
-type FieldProps = {
+type InputFieldProps = {
   name: string;
   type: string;
   label: string;
@@ -39,7 +39,7 @@ type FieldProps = {
   touched?: boolean;
 };
 
-const Field = (props: FieldProps) => {
+const InputField = (props: InputFieldProps) => {
   return (
     <>
       <Title>{props.label}</Title>
@@ -54,4 +54,4 @@ const Field = (props: FieldProps) => {
   );
 };
 
-export default Field;
+export default InputField;
