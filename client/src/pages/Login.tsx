@@ -84,7 +84,7 @@ const Login = () => {
     validationSchema: loginSchema,
     onSubmit: async ({ username, password }) => {
       await login({ username, password })
-        .then((response) => console.log(response.data.authToken))
+        .then((response) => console.log(response.data))
         .catch((error) => formik.setErrors(error.response.data));
     },
   });

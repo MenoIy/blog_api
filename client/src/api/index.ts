@@ -22,3 +22,7 @@ export const login = (loginInfo: loginProps) => {
 export const register = (registerInfo: RegisterProps) => {
   return axios.post(`${url}/users/`, registerInfo);
 };
+
+export const auth = () => {
+  return axios.get(`${url}/users/me`, { withCredentials: true });
+};
