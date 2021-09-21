@@ -28,7 +28,7 @@ export const addPost = async (req: Request, res: Response, next: NextFunction) =
 export const getPosts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const posts = await postModel.find().populate('createdBy', 'username');
-    res.status(200).send({ data: posts });
+    res.status(200).send({ posts });
   } catch (error) {
     next(error);
   }
