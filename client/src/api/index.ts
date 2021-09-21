@@ -16,7 +16,7 @@ type RegisterProps = {
 const url: string = "http://localhost:5000";
 
 export const login = (loginInfo: loginProps) => {
-  return axios.post(`${url}/users/login`, loginInfo);
+  return axios.post(`${url}/users/login`, loginInfo, { withCredentials: true });
 };
 
 export const register = (registerInfo: RegisterProps) => {
