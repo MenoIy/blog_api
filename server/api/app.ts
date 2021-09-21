@@ -8,6 +8,7 @@ import userRoutes from './routes/user.routes';
 import postRoutes from './routes/post.routes';
 import commentRoutes from './routes/comment.routes';
 import cors from 'cors';
+import morgan from 'morgan';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
+app.use(morgan('dev'));
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
 app.use(express.urlencoded({ extended: false }));
