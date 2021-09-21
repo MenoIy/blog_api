@@ -26,3 +26,7 @@ export const register = (registerInfo: RegisterProps) => {
 export const auth = () => {
   return axios.get(`${url}/users/me`, { withCredentials: true });
 };
+
+export const getPosts = () => {
+  return axios.get(`${url}/posts/`);
+};
