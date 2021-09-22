@@ -24,12 +24,13 @@ export const addComment = async (req: Request, res: Response, next: NextFunction
 
 export const getComments = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const post: IPost | null = await postModel.findById(req.params.postId, 'comments').populate('comments');
+    const post: IPost | null = await postModel.findById(req.params.postId, 'comments');
     if (!post) {
       return res.status(404).send({ error: { message: 'Post not found.' } });
     }
+    const comments = await commentModel.find({ _id: { $in: post.comments } }).populate('createdBy', 'username');
 
-    res.status(201).send({ data: post.comments });
+    res.status(201).send({ comments });
   } catch (error) {
     next(error);
   }
