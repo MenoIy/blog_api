@@ -30,3 +30,7 @@ export const auth = () => {
 export const getPosts = () => {
   return axios.get(`${url}/posts/`);
 };
+
+export const getComments = (id: string) => {
+  return axios.get(`${url}/posts/${id}/comments`);
+};

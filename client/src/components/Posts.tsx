@@ -1,6 +1,69 @@
+import React, { useState } from "react";
 import { useQuery, QueryClient, QueryClientProvider } from "react-query";
 import styled from "styled-components";
 import { getPosts } from "../api/";
+import Comments from "./Comments";
+
+const Post = (props: PostProps) => {
+  return (
+    <PostContainer>
+      <AuthorContainer>
+        <Avatar>
+          <img src="avatar.png" alt="avatar" />
+        </Avatar>
+        <Author>
+          <h1>{props.createdBy}</h1>
+        </Author>
+      </AuthorContainer>
+      <PostContent>
+        <p>{props.content}</p>
+      </PostContent>
+      <PostElements>
+        <Comment onClick={() => props.setPost(props.id)}>
+          <span className="far fa-comment"></span>
+          <h1>{props.comments.length}</h1>
+        </Comment>
+      </PostElements>
+    </PostContainer>
+  );
+};
+
+const Posts = (props: { username?: string }) => {
+  const [selectedPost, setSelectedPost] = useState<string>("");
+
+  const { data, isLoading, isError } = useQuery(["getPosts"], () => {
+    return getPosts()
+      .then((response) => response.data.posts)
+      .catch((error) => console.log(error.response.data));
+  });
+  if (!data || isLoading || isError) return <h1>khorda</h1>;
+
+  return (
+    <Container>
+      {selectedPost && <Comments postId={selectedPost}></Comments>}
+      {data.map((post: any) => (
+        <Post
+          key={post._id}
+          id={post._id}
+          comments={post.comments}
+          content={post.body}
+          createdAt={post.createdAt}
+          createdBy={post.createdBy.username}
+          setPost={setSelectedPost}
+        ></Post>
+      ))}
+    </Container>
+  );
+};
+
+const PostsProvider = (props: { username?: string }) => {
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Posts {...props} />
+    </QueryClientProvider>
+  );
+};
 
 const Container = styled.div`
   display: flex;
@@ -32,7 +95,7 @@ const PostElements = styled.div`
   margin: 30px 25px 5px 25px;
 `;
 
-const Comments = styled.div`
+const Comment = styled.div`
   display: flex;
   flex-wrap: wrap;
   cursor: pointer;
@@ -68,65 +131,12 @@ const Author = styled.div`
 `;
 
 type PostProps = {
+  id: "string";
   content: Array<string>;
   comments: Array<String>;
   createdBy: string;
   createdAt: Date;
-};
-const Post = ({ content, createdBy, createdAt, comments }: PostProps) => {
-  return (
-    <PostContainer>
-      <AuthorContainer>
-        <Avatar>
-          <img src="avatar.png" alt="avatar" />
-        </Avatar>
-        <Author>
-          <h1>{createdBy}</h1>
-        </Author>
-      </AuthorContainer>
-      <PostContent>
-        <p>{content}</p>
-      </PostContent>
-      <PostElements>
-        <Comments>
-          <span className="far fa-comment"></span>
-          <h1>{comments.length}</h1>
-        </Comments>
-      </PostElements>
-    </PostContainer>
-  );
-};
-
-const Posts = (props: { username?: string }) => {
-  const { data, isLoading, isError } = useQuery(["getPosts"], () => {
-    return getPosts()
-      .then((response) => response.data.posts)
-      .catch((error) => console.log(error.response.data));
-  });
-  if (!data || isLoading || isError) return <h1>khorda</h1>;
-  console.log(data);
-  return (
-    <Container>
-      {data.map((post: any) => (
-        <Post
-          key={post._id}
-          comments={post.comments}
-          content={post.body}
-          createdAt={post.createdAt}
-          createdBy={post.createdBy.username}
-        ></Post>
-      ))}
-    </Container>
-  );
-};
-
-const PostsProvider = (props: { username?: string }) => {
-  const queryClient = new QueryClient();
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Posts {...props} />
-    </QueryClientProvider>
-  );
+  setPost: (id: string) => void;
 };
 
 export default PostsProvider;
