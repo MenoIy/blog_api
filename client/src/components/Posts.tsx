@@ -11,27 +11,46 @@ const Container = styled.div`
 const PostContainer = styled.div`
   width: 60%;
   border-radius: 20px;
-  box-shadow: 0px 3px 7px 0px #640855;
+  box-shadow: 0px 3px 7px 0px #64405e;
   margin: 15px auto;
-  padding: 15px 5px;
+  padding: 5px 5px;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+  @media (max-width: 320) {
+    width: 90%;
+  }
 `;
 
 const PostContent = styled.div`
-  margin: 20px 20px;
+  margin: 20px;
   word-break: break-all;
   line-height: 20px;
-  text-indent: 20px;
 `;
 const PostElements = styled.div`
   display: flex;
-  margin: 5px 25px;
+  margin: 30px 25px 5px 25px;
+`;
+
+const Comments = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   cursor: pointer;
+  span {
+    font-size: 17px;
+  }
+  h1 {
+    font-size: 15px;
+    margin-left: 10px;
+  }
 `;
 
 const AuthorContainer = styled.div`
   display: flex;
   text-align: center;
   cursor: pointer;
+  padding: 5px;
+  padding-bottom: 10px;
 `;
 
 const Avatar = styled.div`
@@ -54,7 +73,6 @@ type PostProps = {
   createdBy: string;
   createdAt: Date;
 };
-
 const Post = ({ content, createdBy, createdAt, comments }: PostProps) => {
   return (
     <PostContainer>
@@ -69,7 +87,12 @@ const Post = ({ content, createdBy, createdAt, comments }: PostProps) => {
       <PostContent>
         <p>{content}</p>
       </PostContent>
-      <PostElements> comment </PostElements>
+      <PostElements>
+        <Comments>
+          <span className="far fa-comment"></span>
+          <h1>{comments.length}</h1>
+        </Comments>
+      </PostElements>
     </PostContainer>
   );
 };
