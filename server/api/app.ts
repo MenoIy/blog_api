@@ -9,6 +9,7 @@ import postRoutes from './routes/post.routes';
 import commentRoutes from './routes/comment.routes';
 import cors from 'cors';
 import morgan from 'morgan';
+import * as dbSetup from './setup';
 
 dotenv.config();
 
@@ -24,6 +25,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(
+  '/setup',
+  dbSetup.clear,
+  dbSetup.loadUsers,
+  dbSetup.loadContents,
+  (req: Request, res: Response, next: NextFunction) => {
+    res.status(201).send({ message: 'Setup done' });
+  }
+);
 app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
 app.use('/users', postRoutes);

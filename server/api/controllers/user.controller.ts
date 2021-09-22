@@ -7,7 +7,6 @@ import token from '../utils/token';
 import * as mail from '../utils/mail';
 import passport from '../middlewares/passport';
 import dotenv from 'dotenv';
-import { string } from 'joi';
 
 dotenv.config();
 
