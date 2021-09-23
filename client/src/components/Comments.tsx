@@ -1,26 +1,42 @@
 import styled from "styled-components";
 import { getComments } from "../api";
 import { useQuery } from "react-query";
+import Loading from "./Loading";
+import CommentContainer from "./CommentContainer";
 
-const Comments = ({ postId }: { postId: string }) => {
+type CommentsProps = {
+  postId: string;
+  setPost: (id: string) => void;
+};
+
+const Comments = (props: CommentsProps) => {
   const { data, isLoading, isError } = useQuery(
-    ["getComments", postId],
+    ["getComments", props.postId],
     async () => {
-      return await getComments(postId)
-        .then((response) => response.data.comments)
+      return await getComments(props.postId)
+        .then((response) => {
+          return response.data.comments;
+        })
         .catch((error) => console.log(error.response.data));
     }
   );
 
-  if (!data || isLoading || isError) return <h1>khorda</h1>;
+  if (isLoading) return <Loading />;
+
+  if (!data || isError) return <h1>Error</h1>;
 
   return (
-    <Container>
-      {data.map((comment: any) => (
-        <div key={comment._id}>
-          <p>{comment.createdBy.username}</p>
-        </div>
-      ))}
+    <Container onClick={() => props.setPost("")}>
+      <div>
+        <CloseButton />
+        {data.map((comment: any) => (
+          <CommentContainer
+            key={comment._id}
+            author={data.createdBy}
+            content={data.content}
+          ></CommentContainer>
+        ))}
+      </div>
     </Container>
   );
 };
@@ -29,11 +45,20 @@ const Container = styled.div`
   border: red solid 1px;
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100vh;
   padding: auto;
-  background-color: rgb(0, 0, 0, 0.5);
+  background-color: rgb(150, 150, 150, 0.5);
+  div {
+    background-color: antiquewhite;
+    width: 60%;
+    margin: auto;
+  }
+`;
+
+const CloseButton = styled.button`
+  width: 50px;
+  height: 50px;
 `;
 
 export default Comments;
