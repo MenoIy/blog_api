@@ -1,29 +1,40 @@
 import styled from "styled-components";
+import { formatDistanceToNowStrict } from "date-fns";
 
 type PostProps = {
+  className?: string;
   id: "string";
   content: Array<string>;
   comments: Array<String>;
-  createdBy: string;
-  createdAt: Date;
+  author: string;
+  date: Date;
   setPost: (id: string) => void;
 };
 
 const PostContainer = (props: PostProps) => {
+  //
+  const getElapsedTime = () => {
+    return formatDistanceToNowStrict(new Date(props.date), {
+      addSuffix: true,
+    });
+  };
+
+  //
   return (
-    <Container>
-      <AuthorContainer>
-        <Avatar>
-          <img src="avatar.png" alt="avatar" />
-        </Avatar>
+    <Container className={props.className}>
+      <Avatar>
+        <img src="avatar.png" alt="avatar" />
+      </Avatar>
+      <Body>
         <Author>
-          <h1>{props.createdBy}</h1>
+          <a href=".">{props.author}</a>
         </Author>
-      </AuthorContainer>
-      <Content>
-        <p>{props.content}</p>
-      </Content>
-      <PostElements>
+        <PublishDate>{getElapsedTime()}</PublishDate>
+        <Content>
+          <p>{props.content}</p>
+        </Content>
+      </Body>
+      {/* <PostElements>
         <Comment
           onClick={() => {
             props.setPost(props.id);
@@ -32,67 +43,50 @@ const PostContainer = (props: PostProps) => {
           <span className="far fa-comment"></span>
           <h1>{props.comments.length}</h1>
         </Comment>
-      </PostElements>
+      </PostElements> */}
     </Container>
   );
 };
+
 const Container = styled.div`
-  width: 60%;
-  border-radius: 20px;
-  box-shadow: 0px 3px 7px 0px #64405e;
-  margin: 15px auto;
-  padding: 5px 5px;
-  @media (max-width: 768px) {
-    width: 80%;
-  }
-  @media (max-width: 320) {
-    width: 90%;
-  }
+  display: flex;
+  margin-bottom: 2.5rem;
+  font-family: "Nunito Sans", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 26px;
 `;
 
-const Content = styled.div`
-  margin: 20px;
-  word-break: break-all;
-  line-height: 20px;
-`;
-const PostElements = styled.div`
-  display: flex;
-  margin: 30px 25px 5px 25px;
-`;
-
-const Comment = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  cursor: pointer;
-  span {
-    font-size: 17px;
-  }
-  h1 {
-    font-size: 15px;
-    margin-left: 10px;
-  }
-`;
-
-const AuthorContainer = styled.div`
-  display: flex;
-  text-align: center;
-  cursor: pointer;
-  padding: 5px;
-  padding-bottom: 10px;
+const Body = styled.div`
+  margin-left: 15px;
 `;
 
 const Avatar = styled.div`
-  width: 100px;
+  margin-top: 5px;
   img {
     vertical-align: middle;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
   }
 `;
+
 const Author = styled.div`
-  margin: auto 0px;
-  font-size: 10px;
+  font-weight: 600;
+  a {
+    text-decoration: none;
+    color: black;
+  }
+`;
+
+const PublishDate = styled.div`
+  font-size: 90%;
+  color: rgba(100, 100, 100, 0.5);
+  margin-bottom: 20px;
+`;
+
+const Content = styled.div`
+  word-break: break-all;
 `;
 
 export default PostContainer;
