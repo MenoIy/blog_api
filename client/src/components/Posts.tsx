@@ -53,7 +53,6 @@ const PostsProvider = (props: { username?: string }) => {
 
 const Container = styled.div`
   padding: 0 20px;
-  border: solid blue 1px;
   position: relative;
   max-width: 100%;
 
@@ -73,8 +72,9 @@ const Container = styled.div`
   }
   @media (min-width: 1024px) {
     max-width: 66.666667%;
+    border-right: 1px #dde1e2 solid;
   }
-  transition: max-width 2s cubic-bezier(0.685, 0.0473, 0.346, 1);
+  transition: max-width 0.75s cubic-bezier(0.685, 0.0473, 0.346, 1);
 `;
 
 const Body = styled.div`

@@ -26,9 +26,9 @@ const PostContainer = (props: PostProps) => {
         <img src="avatar.png" alt="avatar" />
       </Avatar>
       <Body>
-        <Author>
+        <User>
           <a href=".">{props.author}</a>
-        </Author>
+        </User>
         <PublishDate>{getElapsedTime()}</PublishDate>
         <Content>
           <p>{props.content}</p>
@@ -51,9 +51,7 @@ const PostContainer = (props: PostProps) => {
 const Container = styled.div`
   display: flex;
   margin-bottom: 2.5rem;
-  font-family: "Nunito Sans", Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
+
   line-height: 26px;
 `;
 
@@ -71,11 +69,11 @@ const Avatar = styled.div`
   }
 `;
 
-const Author = styled.div`
+const User = styled.div`
   font-weight: 600;
   a {
     text-decoration: none;
-    color: black;
+    color: #4f515b;
   }
 `;
 
