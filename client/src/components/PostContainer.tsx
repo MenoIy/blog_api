@@ -39,11 +39,14 @@ const PostContainer = (props: PostProps) => {
       </Content>
       <Interaction>
         <Like>
-          <span className="far fa-heart"> 6</span>
+          <i className="far fa-heart"></i>
+          Like
+          <span> 7</span>
         </Like>
-        <Button>
-          <span className="far fa-comments">{` ${props.comments.length} Comments`}</span>
-        </Button>
+        <Comment>
+          <span>Comment</span>
+          <span>{props.comments.length}</span>
+        </Comment>
       </Interaction>
     </Container>
   );
@@ -87,30 +90,43 @@ const Content = styled.div`
 
 const Interaction = styled.div`
   margin-top: 1.6rem;
-  cursor: pointer;
   display: flex;
+  border-top: 1px solid #e7edf2;
+  border-bottom: 1px solid #e7edf2;
+  padding: 1rem;
   @media (min-width: 767.98px) {
     margin-left: 50px;
   }
+`;
+
+const Comment = styled.div`
+  cursor: pointer;
+  white-space: nowrap;
+  color: #838daa;
+  font-weight: normal;
+  line-height: 1.5;
   span {
-    color: #8224e3;
-    font-size: 16px;
-    line-height: 1;
+    margin-right: 5px;
+  }
+  span:nth-child(2) {
+    border: 1px solid #e7edf2;
+    border-radius: 50px;
+    padding: 0 6px;
   }
 `;
 
-const Button = styled.button`
-  cursor: pointer;
-  background: none;
-  border: none;
-  white-space: nowrap;
-`;
-
 const Like = styled.div`
+  cursor: pointer;
   margin-right: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #8224e3;
+  font-weight: normal;
+  line-height: 1.5;
+  i {
+    margin-right: 5px;
+  }
+  span {
+    margin-left: 5px;
+  }
 `;
 
 export default PostContainer;
