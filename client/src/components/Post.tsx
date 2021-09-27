@@ -3,6 +3,8 @@ import { formatDistanceToNowStrict } from "date-fns";
 
 import Avatar from "./Avatar";
 import TextArea from "./TextArea";
+import Comments from "./Comments";
+import PublishDate from "./PublishDate";
 
 type PostProps = {
   className?: string;
@@ -14,14 +16,7 @@ type PostProps = {
   setPost: (id: string) => void;
 };
 
-const PostContainer = (props: PostProps) => {
-  //
-  const getElapsedTime = () => {
-    return formatDistanceToNowStrict(new Date(props.date), {
-      addSuffix: true,
-    });
-  };
-
+const Post = (props: PostProps) => {
   //
   return (
     <Container className={props.className}>
@@ -31,11 +26,11 @@ const PostContainer = (props: PostProps) => {
           <Name>
             <a href=".">{props.author}</a>
           </Name>
-          <PublishDate>{getElapsedTime()}</PublishDate>
+          <PublishDate date={props.date} />
         </Body>
       </Author>
       <Content>
-        <TextArea>{props.content}</TextArea>
+        <TextArea limit={200}>{props.content}</TextArea>
       </Content>
       <Interaction>
         <Like>
@@ -48,6 +43,7 @@ const PostContainer = (props: PostProps) => {
           <span>{props.comments.length}</span>
         </Comment>
       </Interaction>
+      {props.comments.length > 0 && <Comments id={props.id}></Comments>}
     </Container>
   );
 };
@@ -75,14 +71,9 @@ const Name = styled.div`
   }
 `;
 
-const PublishDate = styled.div`
-  font-size: 90%;
-  color: rgba(100, 100, 100, 0.5);
-  margin-bottom: 20px;
-`;
-
 const Content = styled.div`
   word-break: break-all;
+  margin-top: 20px;
   @media (min-width: 767.98px) {
     margin-left: 50px;
   }
@@ -129,4 +120,4 @@ const Like = styled.div`
   }
 `;
 
-export default PostContainer;
+export default Post;

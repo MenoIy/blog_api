@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-const Avatar = (props: { img: string; link?: string }) => {
+const Avatar = (props: {
+  img: string;
+  link?: string;
+  size?: { width: string; height: string };
+}) => {
   return (
-    <Container>
+    <Container width={props.size?.width} height={props.size?.height}>
       <a href=".">
         <img src={props.img} alt="avatar"></img>
       </a>
@@ -10,13 +14,13 @@ const Avatar = (props: { img: string; link?: string }) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ width?: string; height?: string }>`
   cursor: pointer;
   margin-top: 5px;
   img {
     vertical-align: middle;
-    width: 40px;
-    height: 40px;
+    width: ${(props) => props.width || "40px"};
+    height: ${(props) => props.height || "40px"};
     border-radius: 50%;
   }
 `;

@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import Avatar from "./Avatar";
+import TextArea from "./TextArea";
+import PublishDate from "./PublishDate";
 
 type CommentProps = {
   author: string;
   content: string;
+  createdAt: Date;
 };
 
 const CommentContainer = (props: CommentProps) => {
-  const { author, content } = props;
+  const { author, content, createdAt } = props;
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -16,59 +20,50 @@ const CommentContainer = (props: CommentProps) => {
   return (
     <Container onClick={handleClick}>
       <AuthorContainer>
-        <Avatar>
-          <img src="avatar.png" alt="avatar" />
-        </Avatar>
-        <Author>
-          <h1>{author}</h1>
-        </Author>
+        <Avatar img="avatar.png" size={{ width: "30px", height: "30px" }} />
+        <Name>
+          <a href=".">{author}</a>
+        </Name>
+        <PublishDate date={createdAt} />
       </AuthorContainer>
       <Content>
-        <p>{content}</p>
+        <TextArea limit={100}>{content}</TextArea>
       </Content>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 60%;
-  border-radius: 20px;
-  box-shadow: 0px 3px 7px 0px #64405e;
-  margin: 15px auto;
-  padding: 5px 5px;
-  @media (max-width: 768px) {
-    width: 80%;
-  }
-  @media (max-width: 320) {
-    width: 90%;
+  margin-left: 3rem;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  @media (max-width: 767.98px) {
+    margin-left: 0;
   }
 `;
 
 const Content = styled.div`
-  margin: 20px;
-  word-break: break-all;
-  line-height: 20px;
-`;
-const AuthorContainer = styled.div`
-  display: flex;
-  text-align: center;
-  cursor: pointer;
-  padding: 5px;
-  padding-bottom: 10px;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  margin-left: 2rem;
+  background: rgba(156, 81, 233, 0.05);
 `;
 
-const Avatar = styled.div`
-  width: 100px;
-  img {
-    vertical-align: middle;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
+const AuthorContainer = styled.div`
+  display: flex;
+  gap: 6px;
 `;
-const Author = styled.div`
-  margin: auto 0px;
-  font-size: 10px;
+
+const Name = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 40px;
+  a {
+    text-decoration: none;
+    color: #4f515b;
+  }
+  font-weight: 600;
 `;
 
 export default CommentContainer;

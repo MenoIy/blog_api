@@ -4,14 +4,14 @@ import styled from "styled-components";
 import { getPosts } from "../api/";
 import Comments from "./Comments";
 import Loading from "./Loading";
-import PostContainer from "./PostContainer";
+import Post from "./Post";
 
 const Posts = (props: { username?: string }) => {
   const [selectedPost, setSelectedPost] = useState<string>("");
 
   const { data, isLoading, isError } = useQuery(["getPosts"], async () => {
     return getPosts()
-      .then((response) => response.data.posts)
+      .then((response) => response.data.posts.slice(0, 1))
       .catch((error) => console.log(error.response.data));
   });
 
@@ -23,7 +23,7 @@ const Posts = (props: { username?: string }) => {
     <Container>
       <Body>
         {data.map((post: any) => (
-          <PostContainer
+          <Post
             key={post._id}
             id={post._id}
             comments={post.comments}
@@ -31,7 +31,7 @@ const Posts = (props: { username?: string }) => {
             author={post.createdBy.username}
             date={post.createdAt}
             setPost={setSelectedPost}
-          ></PostContainer>
+          ></Post>
         ))}
       </Body>
     </Container>

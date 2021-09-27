@@ -5,15 +5,15 @@ import Loading from "./Loading";
 import CommentContainer from "./CommentContainer";
 
 type CommentsProps = {
-  postId: string;
-  setPost: (id: string) => void;
+  id: string;
+  setPost?: (id: string) => void;
 };
 
 const Comments = (props: CommentsProps) => {
   const { data, isLoading, isError } = useQuery(
-    ["getComments", props.postId],
+    ["getComments", props.id],
     async () => {
-      return await getComments(props.postId)
+      return await getComments(props.id)
         .then((response) => {
           return response.data.comments;
         })
@@ -26,14 +26,21 @@ const Comments = (props: CommentsProps) => {
   if (!data || isError) return <h1>Error</h1>;
 
   return (
-    <Container onClick={() => props.setPost("")}>
+    <Container>
       <div>
-        <CloseButton />
+        {data.length > 3 && (
+          <Button>
+            <span className="fa fa-eye">
+              {` Show all ${data.length} comments`}{" "}
+            </span>
+          </Button>
+        )}
         {data.map((comment: any) => (
           <CommentContainer
             key={comment._id}
-            author={data.createdBy}
-            content={data.content}
+            author={comment.createdBy.username}
+            createdAt={comment.createdAt}
+            content={comment.content}
           ></CommentContainer>
         ))}
       </div>
@@ -41,24 +48,21 @@ const Comments = (props: CommentsProps) => {
   );
 };
 
-const Container = styled.div`
-  border: red solid 1px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  padding: auto;
-  background-color: rgb(150, 150, 150, 0.5);
-  div {
-    background-color: antiquewhite;
-    width: 60%;
-    margin: auto;
-  }
-`;
+const Container = styled.div``;
 
-const CloseButton = styled.button`
-  width: 50px;
-  height: 50px;
+const Button = styled.button`
+  border: none;
+  background: none;
+  span {
+    color: #8224e3;
+    font-size: 16px;
+  }
+  margin-left: 3.2rem;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  @media (max-width: 767.98px) {
+    margin-left: 0.3rem;
+  }
 `;
 
 export default Comments;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const TextArea = (props: { children: string }) => {
+const TextArea = (props: { children: string; limit: number }) => {
   const text = props.children;
   const [isReadMore, setIsReadMore] = useState(true);
 
@@ -11,7 +11,7 @@ const TextArea = (props: { children: string }) => {
 
   return (
     <Text>
-      {isReadMore ? text.slice(0, 200) : text}
+      {isReadMore ? text.slice(0, props.limit) : text}
       <span onClick={handleClick}>
         {isReadMore ? "...read more" : " show less"}
       </span>
