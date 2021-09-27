@@ -16,7 +16,6 @@ const Avatar = (props: {
 
 const Container = styled.div<{ width?: string; height?: string }>`
   cursor: pointer;
-  margin-top: 5px;
   img {
     vertical-align: middle;
     width: ${(props) => props.width || "40px"};

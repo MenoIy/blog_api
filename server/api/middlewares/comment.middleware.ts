@@ -11,7 +11,7 @@ export const addComment = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const getComments = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = commentValidator.getCommentsSchema.validate(req.params);
+  const { error } = commentValidator.getCommentsSchema.validate({ params: req.params, query: req.query });
 
   if (error) {
     return res.status(400).send({ error: { message: error.message } });

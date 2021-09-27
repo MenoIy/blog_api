@@ -28,7 +28,10 @@ export const getComments = async (req: Request, res: Response, next: NextFunctio
     if (!post) {
       return res.status(404).send({ error: { message: 'Post not found.' } });
     }
-    const comments = await commentModel.find({ _id: { $in: post.comments } }).populate('createdBy', 'username');
+    const comments = await commentModel
+      .find({ _id: { $in: post.comments } })
+      .populate('createdBy', 'username')
+      .limit(Number(req.query.limit) || 0);
 
     res.status(201).send({ comments });
   } catch (error) {

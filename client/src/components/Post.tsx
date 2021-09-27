@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { formatDistanceToNowStrict } from "date-fns";
 
 import Avatar from "./Avatar";
 import TextArea from "./TextArea";
@@ -43,7 +42,9 @@ const Post = (props: PostProps) => {
           <span>{props.comments.length}</span>
         </Comment>
       </Interaction>
-      {props.comments.length > 0 && <Comments id={props.id}></Comments>}
+      {props.comments.length > 0 && (
+        <Comments id={props.id} count={props.comments.length}></Comments>
+      )}
     </Container>
   );
 };
@@ -57,6 +58,7 @@ const Container = styled.div`
 
 const Author = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const Body = styled.div`

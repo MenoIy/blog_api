@@ -31,7 +31,8 @@ export const getPosts = () => {
   return axios.get(`${url}/posts/`);
 };
 
-export const getComments = (id: string) => {
+export const getComments = (id: string, limited: boolean) => {
+  if (limited) return axios.get(`${url}/posts/${id}/comments?limit=3`);
   return axios.get(`${url}/posts/${id}/comments`);
 };
 

@@ -34,12 +34,8 @@ const CommentContainer = (props: CommentProps) => {
 };
 
 const Container = styled.div`
-  margin-left: 3rem;
   margin-top: 5px;
   margin-bottom: 15px;
-  @media (max-width: 767.98px) {
-    margin-left: 0;
-  }
 `;
 
 const Content = styled.div`
@@ -51,6 +47,7 @@ const Content = styled.div`
 
 const AuthorContainer = styled.div`
   display: flex;
+  align-items: center;
   gap: 6px;
 `;
 

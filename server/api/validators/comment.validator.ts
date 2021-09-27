@@ -10,7 +10,12 @@ export const addCommentSchema = Joi.object().keys({
 });
 
 export const getCommentsSchema = Joi.object().keys({
-  postId: Joi.string().required().min(24).max(24).hex()
+  params: {
+    postId: Joi.string().required().min(24).max(24).hex()
+  },
+  query: {
+    limit: Joi.number()
+  }
 });
 
 export const getCommentSchema = Joi.object().keys({
