@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { formatDistanceToNowStrict } from "date-fns";
 
 import Avatar from "./Avatar";
+import TextArea from "./TextArea";
 
 type PostProps = {
   className?: string;
   id: "string";
-  content: Array<string>;
+  content: string;
   comments: Array<String>;
   author: string;
   date: Date;
@@ -24,26 +25,26 @@ const PostContainer = (props: PostProps) => {
   //
   return (
     <Container className={props.className}>
-      <Avatar img="avatar.png"></Avatar>
-      <Body>
-        <User>
-          <a href=".">{props.author}</a>
-        </User>
-        <PublishDate>{getElapsedTime()}</PublishDate>
-        <Content>
-          <p>{props.content}</p>
-        </Content>
-      </Body>
-      {/* <PostElements>
-        <Comment
-          onClick={() => {
-            props.setPost(props.id);
-          }}
-        >
-          <span className="far fa-comment"></span>
-          <h1>{props.comments.length}</h1>
-        </Comment>
-      </PostElements> */}
+      <Author>
+        <Avatar img="avatar.png"></Avatar>
+        <Body>
+          <Name>
+            <a href=".">{props.author}</a>
+          </Name>
+          <PublishDate>{getElapsedTime()}</PublishDate>
+        </Body>
+      </Author>
+      <Content>
+        <TextArea>{props.content}</TextArea>
+      </Content>
+      <Interaction>
+        <Like>
+          <span className="far fa-heart"> 6</span>
+        </Like>
+        <Button>
+          <span className="far fa-comments">{` ${props.comments.length} Comments`}</span>
+        </Button>
+      </Interaction>
     </Container>
   );
 };
@@ -52,13 +53,18 @@ const Container = styled.div`
   display: flex;
   margin-bottom: 2.5rem;
   line-height: 24px;
+  flex-direction: column;
+`;
+
+const Author = styled.div`
+  display: flex;
 `;
 
 const Body = styled.div`
   margin-left: 15px;
 `;
 
-const User = styled.div`
+const Name = styled.div`
   font-weight: 600;
   a {
     text-decoration: none;
@@ -74,6 +80,37 @@ const PublishDate = styled.div`
 
 const Content = styled.div`
   word-break: break-all;
+  @media (min-width: 767.98px) {
+    margin-left: 50px;
+  }
+`;
+
+const Interaction = styled.div`
+  margin-top: 1.6rem;
+  cursor: pointer;
+  display: flex;
+  @media (min-width: 767.98px) {
+    margin-left: 50px;
+  }
+  span {
+    color: #8224e3;
+    font-size: 16px;
+    line-height: 1;
+  }
+`;
+
+const Button = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
+  white-space: nowrap;
+`;
+
+const Like = styled.div`
+  margin-right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default PostContainer;

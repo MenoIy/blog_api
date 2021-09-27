@@ -21,9 +21,6 @@ const Posts = (props: { username?: string }) => {
 
   return (
     <Container>
-      {selectedPost && (
-        <Comments postId={selectedPost} setPost={setSelectedPost}></Comments>
-      )}
       <Body>
         {data.map((post: any) => (
           <PostContainer
