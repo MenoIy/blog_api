@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { formatDistanceToNowStrict } from "date-fns";
 
+import Avatar from "./Avatar";
+
 type PostProps = {
   className?: string;
   id: "string";
@@ -22,9 +24,7 @@ const PostContainer = (props: PostProps) => {
   //
   return (
     <Container className={props.className}>
-      <Avatar>
-        <img src="avatar.png" alt="avatar" />
-      </Avatar>
+      <Avatar img="avatar.png"></Avatar>
       <Body>
         <User>
           <a href=".">{props.author}</a>
@@ -51,22 +51,11 @@ const PostContainer = (props: PostProps) => {
 const Container = styled.div`
   display: flex;
   margin-bottom: 2.5rem;
-
   line-height: 26px;
 `;
 
 const Body = styled.div`
   margin-left: 15px;
-`;
-
-const Avatar = styled.div`
-  margin-top: 5px;
-  img {
-    vertical-align: middle;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
 `;
 
 const User = styled.div`

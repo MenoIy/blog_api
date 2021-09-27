@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Avatar from "./Avatar";
 
 const Peoples = () => {
   return (
@@ -9,41 +10,31 @@ const Peoples = () => {
         </Title>
         <Members>
           <Member>
-            <Avatar>
-              <img src="avatar.png" alt="avatar" />
-            </Avatar>
+            <Avatar img="avatar.png"></Avatar>
             <Name>
               <a href=".">John Doe</a>
             </Name>
           </Member>
           <Member>
-            <Avatar>
-              <img src="avatar.png" alt="avatar" />
-            </Avatar>
+            <Avatar img="avatar.png"></Avatar>
             <Name>
               <a href=".">Test test</a>
             </Name>
           </Member>
           <Member>
-            <Avatar>
-              <img src="avatar.png" alt="avatar" />
-            </Avatar>
+            <Avatar img="avatar.png"></Avatar>
             <Name>
               <a href=".">Test test</a>
             </Name>
           </Member>
           <Member>
-            <Avatar>
-              <img src="avatar.png" alt="avatar" />
-            </Avatar>
+            <Avatar img="avatar.png"></Avatar>
             <Name>
               <a href=".">Test test</a>
             </Name>
           </Member>
           <Member>
-            <Avatar>
-              <img src="avatar.png" alt="avatar" />
-            </Avatar>
+            <Avatar img="avatar.png"></Avatar>
             <Name>
               <a href=".">Test test</a>
             </Name>
@@ -109,16 +100,6 @@ const Member = styled.div`
   margin-top: 12px;
 `;
 
-const Avatar = styled.div`
-  margin-top: 5px;
-  img {
-    vertical-align: middle;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
-`;
-
 const Name = styled.div`
   a {
     text-decoration: none;
@@ -129,4 +110,5 @@ const Name = styled.div`
   display: flex;
   align-items: center;
 `;
+
 export default Peoples;
