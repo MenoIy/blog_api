@@ -33,6 +33,13 @@ export const me = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+export const getUsers = (req: Request, res: Response, next: NextFunction) => {
+  const { error } = userValidator.querySchema.validate(req.query);
+
+  if (!error) return next();
+  res.status(400).json({ error: { message: error.message } });
+};
+
 export const logoutUser = (req: Request, res: Response, next: NextFunction) => {
   next();
 };

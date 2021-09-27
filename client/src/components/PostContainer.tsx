@@ -51,7 +51,7 @@ const PostContainer = (props: PostProps) => {
 const Container = styled.div`
   display: flex;
   margin-bottom: 2.5rem;
-  line-height: 26px;
+  line-height: 24px;
 `;
 
 const Body = styled.div`

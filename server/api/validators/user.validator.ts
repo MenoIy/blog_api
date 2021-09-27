@@ -41,3 +41,7 @@ export const getUserSchema = Joi.object().keys({
 export const verifyEmailSchema = Joi.object().keys({
   token: Joi.string().required()
 });
+
+export const querySchema = Joi.object().keys({
+  limit: Joi.number().required()
+});

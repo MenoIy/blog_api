@@ -1,44 +1,38 @@
 import styled from "styled-components";
+import { useQuery } from "react-query";
+import { getUsers } from "../api";
+
 import Avatar from "./Avatar";
+import Loading from "./Loading";
+
+import { IUser } from "../interfaces/user";
 
 const Peoples = () => {
+  const { data, isLoading, isError } = useQuery(["getUsers"], async () => {
+    return getUsers(6)
+      .then((response) => response.data.users)
+      .catch((error) => console.log(error.response.data));
+  });
+
+  if (isLoading) return <Loading />;
+
+  if (!data || isError) return <h1>khorda</h1>;
+
   return (
     <Container>
       <Body>
         <Title>
-          <h5> Members </h5>
+          <h5>Members</h5>
         </Title>
         <Members>
-          <Member>
-            <Avatar img="avatar.png"></Avatar>
-            <Name>
-              <a href=".">John Doe</a>
-            </Name>
-          </Member>
-          <Member>
-            <Avatar img="avatar.png"></Avatar>
-            <Name>
-              <a href=".">Test test</a>
-            </Name>
-          </Member>
-          <Member>
-            <Avatar img="avatar.png"></Avatar>
-            <Name>
-              <a href=".">Test test</a>
-            </Name>
-          </Member>
-          <Member>
-            <Avatar img="avatar.png"></Avatar>
-            <Name>
-              <a href=".">Test test</a>
-            </Name>
-          </Member>
-          <Member>
-            <Avatar img="avatar.png"></Avatar>
-            <Name>
-              <a href=".">Test test</a>
-            </Name>
-          </Member>
+          {data.map((user: IUser) => (
+            <Member key={user._id}>
+              <Avatar img="avatar.png"></Avatar>
+              <Name>
+                <a href=".">{user.username}</a>
+              </Name>
+            </Member>
+          ))}
         </Members>
       </Body>
     </Container>
@@ -48,8 +42,7 @@ const Container = styled.div`
   padding: 20px 30px;
   height: auto;
   flex: 33.3333%;
-  max-width: 400px;
-
+  border-left: 1px #e7edf2 solid;
   @media (max-width: 1024px) {
     display: none;
   }
@@ -65,7 +58,7 @@ const Body = styled.div`
   padding: 32px;
   border-radius: 12px;
   position: fixed;
-  width: 260px;
+  width: 325px;
 `;
 
 const Title = styled.div`

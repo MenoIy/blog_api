@@ -81,6 +81,16 @@ export const getUser = async (req: Request, res: Response, next: NextFunction) =
   }
 };
 
+export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { limit } = req.query;
+    const users = await userModel.find().sort({ createdAt: -1 }).limit(Number(limit));
+    res.status(200).send({ users });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.body.email && req.body.email != req.user.email) {

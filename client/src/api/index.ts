@@ -34,3 +34,7 @@ export const getPosts = () => {
 export const getComments = (id: string) => {
   return axios.get(`${url}/posts/${id}/comments`);
 };
+
+export const getUsers = (limit: number) => {
+  return axios.get(`${url}/users?limit=${limit}`);
+};

@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { useQuery, QueryClient, QueryClientProvider } from "react-query";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 import { getPosts } from "../api/";
 import Comments from "./Comments";
@@ -8,7 +8,6 @@ import PostContainer from "./PostContainer";
 
 const Posts = (props: { username?: string }) => {
   const [selectedPost, setSelectedPost] = useState<string>("");
-  const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const { data, isLoading, isError } = useQuery(["getPosts"], async () => {
     return getPosts()
@@ -21,7 +20,7 @@ const Posts = (props: { username?: string }) => {
   if (!data || isError) return <h1>khorda</h1>;
 
   return (
-    <Container ref={containerRef}>
+    <Container>
       {selectedPost && (
         <Comments postId={selectedPost} setPost={setSelectedPost}></Comments>
       )}
@@ -39,15 +38,6 @@ const Posts = (props: { username?: string }) => {
         ))}
       </Body>
     </Container>
-  );
-};
-
-const PostsProvider = (props: { username?: string }) => {
-  const queryClient = new QueryClient();
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Posts {...props} />
-    </QueryClientProvider>
   );
 };
 
@@ -72,7 +62,6 @@ const Container = styled.div`
   }
   @media (min-width: 1024px) {
     max-width: 66.666667%;
-    border-right: 1px #dde1e2 solid;
   }
   transition: max-width 0.75s cubic-bezier(0.685, 0.0473, 0.346, 1);
 `;
@@ -86,4 +75,4 @@ const Body = styled.div`
   }
 `;
 
-export default PostsProvider;
+export default Posts;

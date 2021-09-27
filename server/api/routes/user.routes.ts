@@ -12,6 +12,7 @@ router.get('/me', authenticated, userMiddleware.me, userController.me);
 router.patch('/profile', authenticated, userMiddleware.updateUser, userController.updateUser);
 router.get('/:username', userMiddleware.getUser, userController.getUser);
 router.get('/verify/:token', userMiddleware.verifyEmail, userController.verifyEmail);
+router.get('/', userMiddleware.getUsers, userController.getUsers);
 // add delete update
 
 export default router;
