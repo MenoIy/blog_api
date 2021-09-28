@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -18,14 +18,10 @@ type PostProps = {
 const Post = (props: PostProps): JSX.Element => {
   //
   const [showReplyField, setShowReplyField] = useState<boolean>(false);
-  const replyFieldRef = useRef<HTMLTextAreaElement>(null);
   const { content, author, date, ...replyProps } = props;
   //
   const handleClick = () => {
     setShowReplyField(true);
-    if (replyFieldRef.current != null) {
-      replyFieldRef.current.focus();
-    }
   };
   //
 
@@ -62,7 +58,6 @@ const Post = (props: PostProps): JSX.Element => {
         {...replyProps}
         showReplyField={showReplyField}
         setShowReplyField={setShowReplyField}
-        replyFieldRef={replyFieldRef}
       ></Comments>
     </Container>
   );
