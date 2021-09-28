@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
 import Avatar from "./Avatar";
 import TextArea from "./TextArea";
 import PublishDate from "./PublishDate";
@@ -10,22 +12,20 @@ type CommentProps = {
   createdAt: Date;
 };
 
-const CommentContainer = (props: CommentProps) => {
+const Comment = (props: CommentProps): JSX.Element => {
+  //
   const { author, content, createdAt } = props;
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-  };
-
+  //
   return (
-    <Container onClick={handleClick}>
-      <AuthorContainer>
-        <Avatar img="avatar.png" size={{ width: "30px", height: "30px" }} />
-        <Name>
-          <a href=".">{author}</a>
-        </Name>
+    <Container>
+      <Author>
+        <Link to={{ pathname: `/${author}` }}>
+          <Avatar img="avatar.png" size={{ width: "30px", height: "30px" }} />
+        </Link>
+        <Link to={{ pathname: `/${author}` }}>{author}</Link>
         <PublishDate date={createdAt} />
-      </AuthorContainer>
+      </Author>
       <Content>
         <TextArea limit={100}>{content}</TextArea>
       </Content>
@@ -45,22 +45,17 @@ const Content = styled.div`
   background: rgba(156, 81, 233, 0.05);
 `;
 
-const AuthorContainer = styled.div`
+const Author = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
-`;
-
-const Name = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 40px;
   a {
+    display: block;
     text-decoration: none;
     color: #4f515b;
+    font-weight: 600;
+    line-height: 40px;
   }
-  font-weight: 600;
 `;
 
-export default CommentContainer;
+export default Comment;
