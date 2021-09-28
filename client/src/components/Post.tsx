@@ -1,4 +1,6 @@
+import { useState, useRef } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Avatar from "./Avatar";
 import TextArea from "./TextArea";
@@ -6,45 +8,62 @@ import Comments from "./Comments";
 import PublishDate from "./PublishDate";
 
 type PostProps = {
-  className?: string;
   id: "string";
   content: string;
-  comments: Array<String>;
+  repliesCount: number;
   author: string;
   date: Date;
-  setPost: (id: string) => void;
 };
 
-const Post = (props: PostProps) => {
+const Post = (props: PostProps): JSX.Element => {
   //
+  const [showReplyField, setShowReplyField] = useState<boolean>(false);
+  const replyFieldRef = useRef<HTMLTextAreaElement>(null);
+  const { content, author, date, ...replyProps } = props;
+  //
+  const handleClick = () => {
+    setShowReplyField(true);
+    if (replyFieldRef.current != null) {
+      replyFieldRef.current.focus();
+    }
+  };
+  //
+
   return (
-    <Container className={props.className}>
+    <Container>
       <Author>
-        <Avatar img="avatar.png"></Avatar>
-        <Body>
-          <Name>
-            <a href=".">{props.author}</a>
-          </Name>
-          <PublishDate date={props.date} />
-        </Body>
+        <Link to={{ pathname: `/${author}` }}>
+          <Avatar img="avatar.png"></Avatar>
+        </Link>
+
+        <div className="author_info">
+          <Link to={{ pathname: `/${author}` }}>{author}</Link>
+          <PublishDate date={date} />
+        </div>
       </Author>
+
       <Content>
-        <TextArea limit={200}>{props.content}</TextArea>
+        <TextArea limit={200}>{content}</TextArea>
       </Content>
-      <Interaction>
+
+      <Interactions>
         <Like>
           <i className="far fa-heart"></i>
           Like
           <span> 7</span>
         </Like>
-        <Comment>
+        <ReplyBtn onClick={handleClick}>
           <span>Comment</span>
-          <span>{props.comments.length}</span>
-        </Comment>
-      </Interaction>
-      {props.comments.length > 0 && (
-        <Comments id={props.id} count={props.comments.length}></Comments>
-      )}
+          <span>{replyProps.repliesCount}</span>
+        </ReplyBtn>
+      </Interactions>
+
+      <Comments
+        {...replyProps}
+        showReplyField={showReplyField}
+        setShowReplyField={setShowReplyField}
+        replyFieldRef={replyFieldRef}
+      ></Comments>
     </Container>
   );
 };
@@ -59,45 +78,39 @@ const Container = styled.div`
 const Author = styled.div`
   display: flex;
   align-items: center;
-`;
 
-const Body = styled.div`
-  margin-left: 15px;
-`;
-
-const Name = styled.div`
-  font-weight: 600;
+  .author_info {
+    margin-left: 15px;
+  }
   a {
     text-decoration: none;
     color: #4f515b;
+    font-weight: 600;
+    display: block;
   }
 `;
 
 const Content = styled.div`
-  word-break: break-all;
   margin-top: 20px;
   @media (min-width: 767.98px) {
     margin-left: 50px;
   }
 `;
 
-const Interaction = styled.div`
+const Interactions = styled.div`
   margin-top: 1.6rem;
   display: flex;
   border-top: 1px solid #e7edf2;
   border-bottom: 1px solid #e7edf2;
-  padding: 1rem;
+  padding: 0.8rem 0.5rem;
   @media (min-width: 767.98px) {
     margin-left: 50px;
   }
 `;
 
-const Comment = styled.div`
+const ReplyBtn = styled.div`
   cursor: pointer;
-  white-space: nowrap;
   color: #838daa;
-  font-weight: normal;
-  line-height: 1.5;
   span {
     margin-right: 5px;
   }
@@ -113,7 +126,6 @@ const Like = styled.div`
   margin-right: 50px;
   color: #8224e3;
   font-weight: normal;
-  line-height: 1.5;
   i {
     margin-right: 5px;
   }
