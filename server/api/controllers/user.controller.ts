@@ -6,6 +6,7 @@ import mailModel from '../models/mail.model';
 import token from '../utils/token';
 import * as mail from '../utils/mail';
 import passport from '../middlewares/passport';
+import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -27,7 +28,7 @@ export const addUser = async (req: Request, res: Response, next: NextFunction) =
         return res.status(403).send({ username: 'username already exists' });
       }
     }
-
+    newUser.password = await bcrypt.hash(newUser.password, 10);
     await newUser.save();
     res.locals.user = newUser;
     next();
@@ -109,13 +110,20 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 
     let user: IUserDocument | null = await userModel.findOne({ _id: req.user._id });
 
-    if (!user) return res.status(401).send({ error: { message: 'User not found.' } });
+    if (!user) {
+      return res.status(401).send({ error: { message: 'User not found.' } });
+    }
+
     for (const key in req.body) {
       const value: string = req.body[key];
       user[key] = value;
     }
     user.emailIsVerified = !(req.body.email && req.body.email != req.user.email);
-    user.save();
+    if (req.body.password) {
+      user.password = await bcrypt.hash(user.password, 10);
+    }
+
+    await user.save();
 
     res.status(200).send({ message: 'User updated' });
   } catch (err) {

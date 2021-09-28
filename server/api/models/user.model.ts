@@ -17,14 +17,6 @@ const userSchema: Schema = new Schema<IUserDocument>({
   ]
 });
 
-userSchema.pre('save', function (next) {
-  bcrypt.hash(this.password, 10, (error, hash) => {
-    if (error) return next(error);
-    this.password = hash;
-    next();
-  });
-});
-
 const emailIsVerified = async (email: string): Promise<boolean> => {
   const user: IUserDocument | null = await userModel.findOne({ email });
   return !!user && user.emailIsVerified;
