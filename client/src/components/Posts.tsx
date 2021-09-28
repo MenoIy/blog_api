@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
+
 import { getPosts } from "../api/";
-import Comments from "./Comments";
+
 import Loading from "./Loading";
 import Post from "./Post";
 
 const Posts = (props: { username?: string }) => {
-  const [selectedPost, setSelectedPost] = useState<string>("");
-
+  //
   const { data, isLoading, isError } = useQuery(["getPosts"], async () => {
     return getPosts()
       .then((response) => response.data.posts.slice(0, 1))
       .catch((error) => console.log(error.response.data));
   });
-
+  //
   if (isLoading) return <Loading />;
 
   if (!data || isError) return <h1>khorda</h1>;
@@ -26,11 +26,10 @@ const Posts = (props: { username?: string }) => {
           <Post
             key={post._id}
             id={post._id}
-            comments={post.comments}
+            repliesCount={post.comments.length}
             content={post.body}
             author={post.createdBy.username}
             date={post.createdAt}
-            setPost={setSelectedPost}
           ></Post>
         ))}
       </Body>

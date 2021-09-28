@@ -36,6 +36,12 @@ export const getComments = (id: string, limited: boolean) => {
   return axios.get(`${url}/posts/${id}/comments`);
 };
 
+export const addComment = (id: string, comment: { content: string }) => {
+  return axios.post(`${url}/posts/${id}/comments`, comment, {
+    withCredentials: true,
+  });
+};
+
 export const getUsers = (limit: number) => {
   return axios.get(`${url}/users?limit=${limit}`);
 };

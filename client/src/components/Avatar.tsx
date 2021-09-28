@@ -2,14 +2,11 @@ import styled from "styled-components";
 
 const Avatar = (props: {
   img: string;
-  link?: string;
   size?: { width: string; height: string };
 }) => {
   return (
     <Container width={props.size?.width} height={props.size?.height}>
-      <a href=".">
-        <img src={props.img} alt="avatar"></img>
-      </a>
+      <img src={props.img} alt="avatar"></img>
     </Container>
   );
 };
