@@ -31,7 +31,7 @@ export const getComments = async (req: Request, res: Response, next: NextFunctio
     const comments = await commentModel
       .find({ _id: { $in: post.comments } })
       .populate('createdBy', 'username')
-      .limit(Number(req.query.limit) || 0);
+      .limit(Number(req.query.limit));
 
     res.status(201).send(comments);
   } catch (error) {
