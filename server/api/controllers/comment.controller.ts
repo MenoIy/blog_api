@@ -16,7 +16,7 @@ export const addComment = async (req: Request, res: Response, next: NextFunction
     await post.save();
     await comment.save();
 
-    res.status(201).send({ message: 'Comment created.', comment: comment });
+    res.status(201).send(comment);
   } catch (error) {
     next(error);
   }
@@ -33,7 +33,7 @@ export const getComments = async (req: Request, res: Response, next: NextFunctio
       .populate('createdBy', 'username')
       .limit(Number(req.query.limit) || 0);
 
-    res.status(201).send({ comments });
+    res.status(201).send(comments);
   } catch (error) {
     next(error);
   }
@@ -67,7 +67,7 @@ export const updateComment = async (req: Request, res: Response, next: NextFunct
     comment.content = req.body.content;
     await comment.save();
 
-    res.status(201).send({ message: 'Comment updated.', data: comment });
+    res.status(201).send(comment);
   } catch (error) {
     next(error);
   }
@@ -92,7 +92,7 @@ export const deleteComment = async (req: Request, res: Response, next: NextFunct
     }
 
     await comment.delete();
-    res.status(201).send({ message: 'Comment deleted.' });
+    res.status(201).send(comment);
   } catch (error) {
     next(error);
   }
