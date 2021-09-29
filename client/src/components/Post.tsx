@@ -8,7 +8,7 @@ import Comments from "./Comments";
 import PublishDate from "./PublishDate";
 
 type PostProps = {
-  id: "string";
+  id: number;
   content: string;
   repliesCount: number;
   author: string;
