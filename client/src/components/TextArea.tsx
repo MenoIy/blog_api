@@ -9,11 +9,12 @@ const TextArea = (props: { children: string; limit: number }) => {
     setIsReadMore((prev) => !prev);
   };
 
+  const readMore: string = isReadMore ? "...read more" : " show less";
   return (
     <Text>
       {isReadMore ? text.slice(0, props.limit) : text}
       <span onClick={handleClick}>
-        {isReadMore ? "...read more" : " show less"}
+        {text.length <= props.limit ? "" : readMore}
       </span>
     </Text>
   );
