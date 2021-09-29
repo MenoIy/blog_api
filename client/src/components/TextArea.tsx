@@ -1,9 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const TextArea = (props: { children: string; limit: number }) => {
-  const text = props.children;
+type textAreaProps = {
+  children: string;
+  limit: number;
+};
+
+const TextArea = (props: textAreaProps): JSX.Element => {
   const [isReadMore, setIsReadMore] = useState(true);
+
+  const text = props.children;
 
   const handleClick = () => {
     setIsReadMore((prev) => !prev);
