@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import commentModel from '../models/comment.model';
-import postModel from '../models/post.model';
-import { IComment } from '../interfaces/comment.interface';
-import { IPost } from '../interfaces/post.interface';
+import { commentModel, postModel } from '../models';
+import { IComment, IPost } from '../interfaces';
 
-export const addComment = async (req: Request, res: Response, next: NextFunction) => {
+export const createComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const comment: IComment = new commentModel({ ...req.body, createdBy: req.user._id, post: req.params.postId });
     const post: IPost | null = await postModel.findById(req.params.postId);
@@ -31,6 +29,7 @@ export const getComments = async (req: Request, res: Response, next: NextFunctio
     const comments = await commentModel
       .find({ _id: { $in: post.comments } })
       .populate('createdBy', 'username')
+      .sort({ createdAt: -1 })
       .limit(Number(req.query.limit));
 
     res.status(201).send(comments);
@@ -47,7 +46,7 @@ export const getComment = async (req: Request, res: Response, next: NextFunction
       return res.status(404).send({ error: { message: 'Comment not found.' } });
     }
 
-    res.status(201).send({ data: comment });
+    res.status(201).send(comment);
   } catch (error) {
     next(error);
   }
