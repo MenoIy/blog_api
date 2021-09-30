@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import passport from './passport';
-import userModel from '../models/user.model';
-import { IUserDocument } from '../interfaces/user.interface';
+import { userModel } from '../models';
+import { IUserDocument } from '../interfaces';
 
 export const authenticated = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', { session: false }, async (error, user) => {
