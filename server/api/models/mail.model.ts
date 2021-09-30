@@ -1,22 +1,21 @@
 import { Schema, model } from 'mongoose';
-import { IMail } from '../interfaces/mail.interface';
+import { IMail } from '../interfaces';
 
-const verificationEmail = new Schema<IMail>({
-  user: {
-    type: Schema.Types.ObjectId,
-    unique: true,
-    required: true
+const verificationEmail = new Schema<IMail>(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      unique: true,
+      required: true
+    },
+    token: {
+      type: String,
+      unique: true,
+      required: true
+    }
   },
-  token: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: new Date()
-  }
-});
+  { timestamps: true }
+);
 
 // emailVerificationSchema.statics.emailVerified = async token => {
 //     const user = await mongoose.model('Mail').findOne({
@@ -27,6 +26,4 @@ const verificationEmail = new Schema<IMail>({
 
 // const mailVerificationModel = mongoose.model('Mail', emailVerificationSchema);
 
-const mailModel = model<IMail>('Mail', verificationEmail);
-
-export default mailModel;
+export const mailModel = model<IMail>('Mail', verificationEmail);
