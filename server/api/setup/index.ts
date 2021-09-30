@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { userModel, commentModel, postModel } from '../models';
 import { IUserDocument, IPost } from '../interfaces';
+import * as Exception from '../exceptions';
 
 import usersDb from './users_data.json';
 import postsDb from './posts_data.json';
@@ -31,7 +32,7 @@ export const loadUsers = async (req: Request, res: Response, next: NextFunction)
 export const loadContents = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users: IUserDocument[] = await userModel.find({});
-    if (!users) return res.status(404).send({ error: { message: 'users not Found' } });
+    if (!users) return next(new Exception.UserNotFound());
 
     const posts = postsDb.map((post, index) => {
       const user: IUserDocument = users[index];

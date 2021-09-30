@@ -89,7 +89,7 @@ export const deleteComment = async (req: Request, res: Response, next: NextFunct
     const post = await postModel.findOneAndUpdate({ _id: comment.post }, { $pull: { comments: { $eq: comment._id } } });
 
     if (!post) {
-      return res.status(404).send({ error: { message: 'Post not found.' } });
+      return next(new Exception.PostNotFound());
     }
 
     await comment.delete();
