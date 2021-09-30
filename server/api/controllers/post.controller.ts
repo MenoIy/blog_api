@@ -2,13 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 
 import { IUserDocument, IPost } from '../interfaces';
 import { userModel, postModel } from '../models';
+import * as Exception from '../exceptions';
 
 export const createPost = async (req: Request, res: Response, next: NextFunction) => {
   const post: IPost = new postModel({ ...req.body, createdBy: req.user._id });
   try {
     const user: IUserDocument | null = await userModel.findOne({ _id: req.user._id });
     if (!user) {
-      return res.status(404).send({ error: { message: 'User not found.' } });
+      return next(new Exception.UserNotFound());
     }
 
     user.posts.push(post._id);
@@ -34,7 +35,7 @@ export const getPostByUsername = async (req: Request, res: Response, next: NextF
   try {
     const user: IUserDocument | null = await userModel.findOne(req.params, 'posts').populate('posts');
     if (!user) {
-      return res.status(404).send({ error: { message: 'User not found.' } });
+      return next(new Exception.UserNotFound());
     }
     res.status(200).send(user.posts);
   } catch (error) {
@@ -47,7 +48,7 @@ export const getPost = async (req: Request, res: Response, next: NextFunction) =
     const post: IPost | null = await postModel.findOne({ _id: req.params.postId });
 
     if (!post) {
-      return res.status(404).send({ error: { message: 'Post not found.' } });
+      return next(new Exception.PostNotFound());
     }
 
     res.status(200).send(post);
@@ -60,11 +61,11 @@ export const deletePost = async (req: Request, res: Response, next: NextFunction
   try {
     const post: IPost | null = await postModel.findOne({ _id: req.params.postId });
     if (!post) {
-      return res.status(404).send({ error: { message: 'Post not found.' } });
+      return next(new Exception.PostNotFound());
     }
 
     if (String(post.createdBy) !== String(req.user._id)) {
-      return res.status(401).send({ error: { message: 'Unauthorized' } });
+      return next(new Exception.Unauthorized());
     }
 
     const user: IUserDocument | null = await userModel.findOneAndUpdate(
@@ -73,7 +74,7 @@ export const deletePost = async (req: Request, res: Response, next: NextFunction
     );
 
     if (!user) {
-      return res.status(404).send({ error: { message: 'User not found.' } });
+      return next(new Exception.UserNotFound());
     }
 
     await post.delete();
@@ -88,11 +89,11 @@ export const updatePost = async (req: Request, res: Response, next: NextFunction
     const post: IPost | null = await postModel.findOne({ _id: req.params.postId });
 
     if (!post) {
-      return res.status(404).send({ error: { message: 'Post not found.' } });
+      return next(new Exception.PostNotFound());
     }
 
     if (String(post.createdBy) !== String(req.user._id)) {
-      return res.status(403).send({ error: { message: 'Unauthorized' } });
+      return next(new Exception.Unauthorized());
     }
 
     post.body = req.body.body;

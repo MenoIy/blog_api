@@ -2,13 +2,15 @@ import { Request, Response, NextFunction } from 'express';
 import { commentModel, postModel } from '../models';
 import { IComment, IPost } from '../interfaces';
 
+import * as Exception from '../exceptions';
+
 export const createComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const comment: IComment = new commentModel({ ...req.body, createdBy: req.user._id, post: req.params.postId });
     const post: IPost | null = await postModel.findById(req.params.postId);
 
     if (!post) {
-      return res.status(404).send({ error: { message: 'Post not found.' } });
+      return next(new Exception.PostNotFound());
     }
     post.comments.push(comment._id);
     await post.save();
@@ -24,7 +26,7 @@ export const getComments = async (req: Request, res: Response, next: NextFunctio
   try {
     const post: IPost | null = await postModel.findById(req.params.postId, 'comments');
     if (!post) {
-      return res.status(404).send({ error: { message: 'Post not found.' } });
+      return next(new Exception.PostNotFound());
     }
     const comments = await commentModel
       .find({ _id: { $in: post.comments } })
@@ -43,7 +45,7 @@ export const getComment = async (req: Request, res: Response, next: NextFunction
     const comment: IComment | null = await commentModel.findById(req.params.commentId);
 
     if (!comment) {
-      return res.status(404).send({ error: { message: 'Comment not found.' } });
+      return next(new Exception.CommentNotFound());
     }
 
     res.status(201).send(comment);
@@ -57,11 +59,11 @@ export const updateComment = async (req: Request, res: Response, next: NextFunct
     const comment: IComment | null = await commentModel.findById(req.params.commentId);
 
     if (!comment) {
-      return res.status(404).send({ error: { message: 'Comment not found.' } });
+      return next(new Exception.CommentNotFound());
     }
 
     if (String(comment.createdBy) !== String(req.user._id)) {
-      return res.status(401).send({ error: { message: 'Unauthorized' } });
+      return next(new Exception.Unauthorized());
     }
     comment.content = req.body.content;
     await comment.save();
@@ -77,11 +79,11 @@ export const deleteComment = async (req: Request, res: Response, next: NextFunct
     const comment: IComment | null = await commentModel.findById(req.params.commentId);
 
     if (!comment) {
-      return res.status(404).send({ error: { message: 'Comment not found.' } });
+      return next(new Exception.CommentNotFound());
     }
 
     if (String(comment.createdBy) !== String(req.user._id)) {
-      return res.status(401).send({ error: { message: 'Unauthorized' } });
+      return next(new Exception.Unauthorized());
     }
 
     const post = await postModel.findOneAndUpdate({ _id: comment.post }, { $pull: { comments: { $eq: comment._id } } });

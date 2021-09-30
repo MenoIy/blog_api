@@ -8,7 +8,7 @@ export class HttpException extends Error {
   }
 }
 
-export class NotAuthorizedException extends HttpException {
+export class Unauthorized extends HttpException {
   constructor() {
     super(401, "You're not authorized");
   }
@@ -47,6 +47,12 @@ export class WrongUsername extends HttpException {
 export class EmailNotVerified extends HttpException {
   constructor() {
     super(401, 'Account not verified, verify your email address');
+  }
+}
+
+export class InvalidToken extends HttpException {
+  constructor() {
+    super(403, 'Invalid token');
   }
 }
 

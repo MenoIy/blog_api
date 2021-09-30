@@ -3,7 +3,8 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 
 import { userModel, mailModel } from '../models';
-import { IUserDocument, IMail, IUpdateUser, IUser } from '../interfaces';
+import { IUserDocument, IMail, IUpdateUser } from '../interfaces';
+import * as Exception from '../exceptions';
 
 import token from '../utils/token';
 import * as mail from '../utils/mail';
@@ -18,13 +19,13 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
     // check if email already exist
     const emailExists: boolean = await userModel.emailExists(req.body.email);
     if (emailExists) {
-      return res.status(403).send({ email: 'Address mail already exists' });
+      return next(new Exception.EmailExist());
     }
 
     // check if username already exist
     const usernameExists: boolean = await userModel.usernameExists(req.body.username);
     if (usernameExists) {
-      return res.status(403).send({ username: 'username already exists' });
+      return next(new Exception.UsernameExist());
     }
 
     await newUser.save();
@@ -36,14 +37,8 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 };
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate('login', { session: false }, (error, user, info) => {
-    const errorMessage: { [key: string]: string } = {
-      username: "Username you entered isn't connected to an account",
-      password: "The password that you've entered is incorrect",
-      email: 'account not verified, visit you email to verify'
-    };
+  passport.authenticate('login', { session: false }, (error, user) => {
     if (error) return next(error);
-    if (info) return res.status(400).send({ [info.message]: errorMessage[info.message] });
 
     const payload = { _id: user._id };
     req.token = token.create(payload);
@@ -72,7 +67,7 @@ export const getUserByUsername = async (req: Request, res: Response, next: NextF
     // check if user exist
     const user: IUserDocument | null = await userModel.findOne({ username: req.params.username });
     if (!user) {
-      return res.status(401).send({ error: { message: 'User not found.' } });
+      return next(new Exception.UserNotFound());
     }
 
     const { _id, username, firstName, lastName, email } = user;
@@ -103,14 +98,14 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
     if (req.body?.email !== req.user.email) {
       const emailExists: boolean = await userModel.emailExists(req.body.email);
       if (emailExists) {
-        return res.status(403).send({ email: 'email already exists' });
+        return next(new Exception.EmailExist());
       }
     }
 
     if (req.body?.username !== req.user.username) {
       const usernameExists: boolean = await userModel.usernameExists(req.body.username);
       if (usernameExists) {
-        return res.status(403).send({ username: 'username already exists' });
+        return next(new Exception.UsernameExist());
       }
     }
 
@@ -124,7 +119,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 
     const user: IUserDocument | null = await userModel.findOne({ _id: req.user._id });
     if (!user) {
-      return res.status(401).send({ error: { message: 'User not found.' } });
+      return next(new Exception.UserNotFound());
     }
 
     newInfo.emailIsVerified = !(newInfo.email && newInfo.email != req.user.email);
@@ -165,15 +160,15 @@ export const verifyEmail = async (req: Request, res: Response, next: NextFunctio
     // check if address mail is valide
     const mail = await mailModel.findOne({ token: req.params.token });
     if (!mail) {
-      return res.status(403).send({ error: { message: 'Invalid token' } });
+      return next(new Exception.InvalidToken());
     }
     const user: IUserDocument | null = await userModel.findOne({ _id: mail.user });
 
     if (!user) {
-      return res.status(404).send({ error: { message: 'User not found.' } });
+      return next(new Exception.UserNotFound());
     }
     if (user.emailIsVerified) {
-      return res.status(403).send({ error: { message: 'Invalid token' } });
+      return next(new Exception.InvalidToken());
     }
     await user.update({ emailIsVerified: true });
     await mail.delete();
