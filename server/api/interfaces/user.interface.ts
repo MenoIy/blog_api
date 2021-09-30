@@ -1,18 +1,18 @@
 import { Document, Model, ObjectId } from 'mongoose';
 
-interface IUser {
+export interface IUser {
   username: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  emailIsVerified: boolean;
-  Posts: [ObjectId];
-  [key: string]: any;
 }
 
 export interface IUserDocument extends IUser, Document {
   passwordIsCorrect: (password: string) => Promise<boolean>;
+  emailIsVerified: boolean;
+  Posts: [ObjectId];
+  [key: string]: any;
 }
 
 export interface IUserModel extends Model<IUserDocument> {
@@ -20,3 +20,12 @@ export interface IUserModel extends Model<IUserDocument> {
   usernameExists: (username: string) => Promise<boolean>;
   emailExists: (email: string) => Promise<boolean>;
 }
+
+export type IUpdateUser = {
+  username?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  emailIsVerified?: boolean;
+};
