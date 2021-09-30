@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export const addUserSchema = Joi.object().keys({
+export const createUser = Joi.object().keys({
   username: Joi.string().min(6).max(24).alphanum().required(),
   firstName: Joi.string().min(2).max(24).alphanum().required(),
   lastName: Joi.string().min(2).max(24).alphanum().required(),
@@ -12,7 +12,7 @@ export const addUserSchema = Joi.object().keys({
     .required()
 });
 
-export const loginUserSchema = Joi.object().keys({
+export const loginUser = Joi.object().keys({
   username: Joi.string().min(6).max(24).alphanum().required(),
   password: Joi.string()
     .min(8)
@@ -21,7 +21,7 @@ export const loginUserSchema = Joi.object().keys({
     .required()
 });
 
-export const updateUserSchema = Joi.object()
+export const updateUser = Joi.object()
   .keys({
     username: Joi.string().min(6).max(24).alphanum(),
     firstName: Joi.string().min(6).max(24).alphanum(),
@@ -34,14 +34,15 @@ export const updateUserSchema = Joi.object()
   })
   .or('username', 'firstName', 'lastName', 'email', 'password');
 
-export const getUserSchema = Joi.object().keys({
+export const getUserByUsername = Joi.object().keys({
   username: Joi.string().min(6).max(24).alphanum().required()
 });
 
-export const verifyEmailSchema = Joi.object().keys({
+export const verifyEmail = Joi.object().keys({
   token: Joi.string().required()
 });
 
-export const querySchema = Joi.object().keys({
-  limit: Joi.number().required()
+export const getUsersQuery = Joi.object().keys({
+  limit: Joi.number()
+  //more query
 });
