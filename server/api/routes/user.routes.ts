@@ -1,18 +1,20 @@
 import express, { Router } from 'express';
-import * as userMiddleware from '../middlewares/user.middleware';
+
 import { authenticated } from '../middlewares/auth';
+import * as userMiddleware from '../middlewares/user.middleware';
 import * as userController from '../controllers/user.controller';
 
-const router: Router = express.Router();
+export const router: Router = express.Router();
 
-router.post('/', userMiddleware.addUser, userController.addUser, userController.sendMail); // need to send mail later !
+router.post('/', userMiddleware.createUser, userController.createUser, userController.sendMail);
 router.post('/login', userMiddleware.loginUser, userController.loginUser, userController.authToken);
-router.get('/logout', authenticated, userMiddleware.logoutUser, userController.logoutUser);
-router.get('/me', authenticated, userMiddleware.me, userController.me);
-router.patch('/profile', authenticated, userMiddleware.updateUser, userController.updateUser);
-router.get('/:username', userMiddleware.getUser, userController.getUser);
-router.get('/verify/:token', userMiddleware.verifyEmail, userController.verifyEmail);
-router.get('/', userMiddleware.getUsers, userController.getUsers);
-// add delete update
 
-export default router;
+router.get('/logout', authenticated, userMiddleware.logoutUser, userController.logoutUser);
+router.get('/verify/:token', userMiddleware.verifyEmail, userController.verifyEmail);
+
+router.get('/me', authenticated, userMiddleware.me, userController.me);
+router.get('/:username', userMiddleware.getUserByUsername, userController.getUserByUsername);
+router.get('/', authenticated, userMiddleware.getUsers, userController.getUsers);
+//TODO getUserbyId
+
+router.patch('/profile', authenticated, userMiddleware.updateUser, userController.updateUser);
