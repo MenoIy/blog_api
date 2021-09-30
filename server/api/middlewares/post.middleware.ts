@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import * as postValidator from '../validators/post.validator';
+import { postSchema } from '../validators';
 
-export const addPost = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = postValidator.addPostSchema.validate(req.body);
+export const createPost = (req: Request, res: Response, next: NextFunction) => {
+  const { error } = postSchema.createPost.validate(req.body);
 
   if (error) {
     return res.status(400).send({ error: { message: error.message } });
@@ -11,7 +11,7 @@ export const addPost = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const getPostByUsername = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = postValidator.getPostByUsernameSchema.validate(req.params);
+  const { error } = postSchema.getPostByUsername.validate(req.params);
 
   if (error) {
     return res.status(400).send({ error: { message: error.message } });
@@ -20,7 +20,7 @@ export const getPostByUsername = (req: Request, res: Response, next: NextFunctio
 };
 
 export const getPost = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = postValidator.getPostSchema.validate(req.params);
+  const { error } = postSchema.getPostbyId.validate(req.params);
 
   if (error) {
     return res.status(400).send({ error: { message: error.message } });
@@ -29,7 +29,7 @@ export const getPost = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const updatePost = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = postValidator.updatePostSchema.validate({ params: req.params, body: req.body });
+  const { error } = postSchema.updatePost.validate({ params: req.params, body: req.body });
 
   if (error) {
     return res.status(400).send({ error: { message: error.message } });
@@ -38,7 +38,7 @@ export const updatePost = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const deletePost = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = postValidator.deletePostSchema.validate(req.params);
+  const { error } = postSchema.deletePost.validate(req.params);
 
   if (error) {
     return res.status(400).send({ error: { message: error.message } });

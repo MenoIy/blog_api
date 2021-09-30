@@ -5,7 +5,7 @@ import { authenticated } from '../middlewares/auth';
 
 export const router: Router = Router();
 
-router.post('/', authenticated, postMiddleware.addPost, postController.addPost);
+router.post('/', authenticated, postMiddleware.createPost, postController.createPost);
 router.get('/:username/posts', postMiddleware.getPostByUsername, postController.getPostByUsername);
 router.get('/', postController.getPosts);
 router.get('/:postId', postMiddleware.getPost, postController.getPost);
