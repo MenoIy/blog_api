@@ -24,7 +24,7 @@ export const createPost = async (req: Request, res: Response, next: NextFunction
 
 export const getPosts = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const posts: IPost[] = await postModel.find().populate('createdBy', 'username');
+    const posts: IPost[] = await postModel.find().populate('createdBy', 'username').sort({ createdAt: -1 });
     res.status(200).send(posts);
   } catch (error) {
     next(error);
