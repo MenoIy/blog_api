@@ -13,7 +13,7 @@ router.get('/logout', authenticated, userMiddleware.logoutUser, userController.l
 router.get('/verify/:token', userMiddleware.verifyEmail, userController.verifyEmail);
 
 router.get('/me', authenticated, userMiddleware.me, userController.me);
-router.get('/:username', userMiddleware.getUserByUsername, userController.getUserByUsername);
+router.get('/:username', authenticated, userMiddleware.getUserByUsername, userController.getUserByUsername);
 router.get('/', authenticated, userMiddleware.getUsers, userController.getUsers);
 //TODO getUserbyId
 
