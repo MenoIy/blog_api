@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 
@@ -11,7 +10,7 @@ const Posts = (props: { username?: string }) => {
   //
   const { data, isLoading, isError } = useQuery(["getPosts"], async () => {
     return getPosts()
-      .then((response) => response.data.posts.slice(0, 1))
+      .then((response) => response.data)
       .catch((error) => console.log(error.response.data));
   });
   //
