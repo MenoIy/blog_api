@@ -1,74 +1,104 @@
-import { useEffect, useState, useRef, forwardRef } from "react";
+import { useState, forwardRef } from "react";
 import styled from "styled-components";
-import { useQuery } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useFormik } from "formik";
 
-import { getComments } from "../api";
-import { addComment } from "../api";
+import { commentSchema } from "../validators";
+import { IComment } from "../interfaces";
+
+import { api } from "../api";
 
 import Loading from "./Loading";
 import Avatar from "./Avatar";
 import Comment from "./Comment";
 
+//fetch all comments
+const useFetchComments = (id: number, limit: number) => {
+  const fetchComment = async (): Promise<IComment[]> => {
+    return await api
+      .get(`/posts/${id}/comments?limit=${limit}`)
+      .then(({ data }: { data: IComment[] }) => data.reverse());
+  };
+
+  return useQuery(["fetchComments", { id, limit }], fetchComment);
+};
+
+// create new comment
+const createComment = async (args: { id: number; content: string }): Promise<IComment> => {
+  const { id, content } = args;
+  return await api
+    .post(`/posts/${id}/comments`, { content })
+    .then(({ data }: { data: IComment }) => data);
+};
+
 type CommentsProps = {
-  id: string;
+  id: number;
   repliesCount: number;
   showReplyField: boolean;
   setShowReplyField: (showFied: boolean) => void;
 };
 
-const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>(
-  (props, replyFieldRef): JSX.Element => {
-    //
-    const [showAllComments, setShowAllComments] = useState<boolean>(
-      props.repliesCount > 3
-    );
-    const formik = useFormik({
-      initialValues: { content: "" },
-      onSubmit: async (comment) =>
-        await addComment(props.id, comment)
-          .then((response) => console.log(response.data))
-          .catch((error) => console.log(error.response.data)),
-    });
+const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JSX.Element => {
+  //
+  const [showAll, setShowAll] = useState<boolean>(props.repliesCount > 3);
+  const limit = showAll ? 3 : 0;
+  const { data, isLoading, isError } = useFetchComments(props.id, limit);
 
-    //
-    const { data, isLoading, isError } = useQuery(
-      ["getComments", props.id, showAllComments],
-      async () => {
-        return await getComments(props.id, showAllComments)
-          .then((response) => {
-            return response.data.comments;
-          })
-          .catch((error) => console.log(error.response.data));
-      }
-    );
-    //
+  const queryClient = useQueryClient();
 
-    const handleClick = () => {
-      setShowAllComments((prev) => !prev);
-    };
+  const { mutate } = useMutation(createComment, {
+    onSuccess: async (newComment) => {
+      await queryClient.cancelQueries(["fetchComments", { id: props.id, limit }]);
+      const previousComments = queryClient.getQueriesData([
+        "fetchComments",
+        { id: props.id, limit },
+      ]);
+      queryClient.setQueriesData(["fetchComments", { id: props.id, limit }], (prev: any) => [
+        ...prev,
+        newComment,
+      ]);
+      return { previousComments };
+    },
 
-    const closeReplyField = () => {
-      props.setShowReplyField(false);
-    };
+    onSettled: () => {
+      queryClient.invalidateQueries(["fetchComments", { id: props.id, limit }], {});
+    },
+  });
 
-    //
-    if (isLoading) return <Loading />;
+  const formik = useFormik({
+    initialValues: { content: "" },
+    validationSchema: commentSchema,
+    onSubmit: (values: { content: string }) => {
+      mutate({ id: props.id, content: values.content });
+      formik.setValues({ content: "" });
+    },
+  });
 
-    if (!data || isError) return <h1>Error</h1>;
-    //
+  //
 
-    return (
-      <Container>
-        {showAllComments && (
-          <ShowMore onClick={handleClick}>
-            <span className="fa fa-eye">
-              {` Show all ${props.repliesCount} comments`}{" "}
-            </span>
-          </ShowMore>
-        )}
+  const handleClick = () => {
+    setShowAll((prev) => !prev);
+  };
 
-        {data.map((comment: any) => (
+  const closeReplyField = () => {
+    props.setShowReplyField(false);
+  };
+
+  //
+  if (isError) return <h1>Error</h1>;
+
+  if (isLoading) return <Loading />;
+
+  return (
+    <Container>
+      {showAll && props.repliesCount > 3 && (
+        <ShowMore onClick={handleClick}>
+          <span className="fa fa-eye">{` Show all ${props.repliesCount} comments`} </span>
+        </ShowMore>
+      )}
+
+      {data &&
+        data.map((comment: any) => (
           <Comment
             key={comment._id}
             author={comment.createdBy.username}
@@ -77,30 +107,26 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>(
           ></Comment>
         ))}
 
-        {props.showReplyField && (
-          <ReplyField onSubmit={formik.handleSubmit}>
-            <ReplyInput>
-              <Avatar
-                img="avatar.png"
-                size={{ width: "30px", height: "30px" }}
-              />
-              <textarea
-                ref={replyFieldRef}
-                name="content"
-                value={formik.values.content}
-                onChange={formik.handleChange}
-              ></textarea>
-            </ReplyInput>
-            <Buttons>
-              <PostButton type="submit">Post</PostButton>
-              <CancelButton onClick={closeReplyField}>Cancel</CancelButton>
-            </Buttons>
-          </ReplyField>
-        )}
-      </Container>
-    );
-  }
-);
+      {props.showReplyField && (
+        <ReplyField onSubmit={formik.handleSubmit}>
+          <ReplyInput>
+            <Avatar img="avatar.png" size={{ width: "30px", height: "30px" }} />
+            <textarea
+              ref={ref}
+              name="content"
+              value={formik.values.content}
+              onChange={formik.handleChange}
+            ></textarea>
+          </ReplyInput>
+          <Buttons>
+            <PostButton type="submit">Post</PostButton>
+            <CancelButton onClick={closeReplyField}>Cancel</CancelButton>
+          </Buttons>
+        </ReplyField>
+      )}
+    </Container>
+  );
+});
 
 const Container = styled.div`
   margin-left: 3rem;
