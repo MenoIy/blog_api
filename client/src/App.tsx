@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserContext from "./context/user";
 import PrivateRoute from "./components/PrivateRoute";
-import { IUser } from "./interfaces/user";
+import { IUser } from "./interfaces";
 import { auth } from "./api";
 
 const queryClient = new QueryClient();
@@ -19,8 +19,8 @@ function App() {
   useEffect(() => {
     setLoading(true);
     auth()
-      .then(({ data }: { data: IUser }) => {
-        setUser(data);
+      .then(({ data: user }: { data: IUser }) => {
+        setUser(user);
         setLoading(false);
       })
       .catch(({ response }) => {
