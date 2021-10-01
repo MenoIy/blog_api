@@ -4,10 +4,12 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
 
 import { errorMiddleware } from './middlewares/error.middleware';
 import { HttpException } from './exceptions/';
 import * as routes from './routes';
+import swaggerDocs from './swagger';
 
 dotenv.config();
 
@@ -33,6 +35,7 @@ app.use('/api/v1/posts', routes.postRoutes);
 app.use('/api/v1/users', routes.postRoutes);
 app.use('/api/v1/posts', routes.commentRoutes);
 app.use('/api/v1/comments', routes.commentRoutes);
+app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use((request: Request, response: Response, next: NextFunction) => {
   const error = new HttpException(404, 'Not found');
