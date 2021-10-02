@@ -1,22 +1,28 @@
 import styled from "styled-components";
 
-const Avatar = (props: {
+type AvatarProps = {
   img: string;
-  size?: { width: string; height: string };
-}) => {
+  size?: {
+    width: string;
+    height: string;
+  };
+};
+
+const Avatar = (props: AvatarProps): JSX.Element => {
+  const { img, size } = props;
   return (
-    <Container width={props.size?.width} height={props.size?.height}>
-      <img src={props.img} alt="avatar"></img>
+    <Container width={size?.width || "40px"} height={size?.height || "40px"}>
+      <img src={img} alt="avatar"></img>
     </Container>
   );
 };
 
-const Container = styled.div<{ width?: string; height?: string }>`
+const Container = styled.div<{ width: string; height: string }>`
   cursor: pointer;
   img {
     vertical-align: middle;
-    width: ${(props) => props.width || "40px"};
-    height: ${(props) => props.height || "40px"};
+    width: ${(props) => props.width};
+    height: ${(props) => props.height};
     border-radius: 50%;
   }
 `;
