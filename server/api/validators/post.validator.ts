@@ -22,3 +22,8 @@ export const updatePost = Joi.object().keys({
     body: Joi.string().required()
   }
 });
+
+export const getPosts = Joi.object().keys({
+  offset: Joi.number(),
+  limit: Joi.number()
+});
