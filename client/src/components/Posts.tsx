@@ -11,6 +11,7 @@ import Post from "./Post";
 
 const fetchPosts = async ({ pageParam = 0 }) => {
   const offset = pageParam * 10;
+
   return await api.get(`/posts?offset=${offset}`).then(({ data }: { data: IPost[] }) => {
     return {
       data: data,
@@ -73,7 +74,6 @@ const Posts = (props: { username?: string }) => {
 };
 
 const ShowPosts = React.memo(() => {
-  const [loading, setLoading] = useState(true);
   const { status, ...infiniteQuery } = useInfiniteQuery("fetch Posts", fetchPosts, {
     getNextPageParam: (data) => data.nextPage,
   });
@@ -107,7 +107,7 @@ const ShowPosts = React.memo(() => {
             ))}
           </div>
         ))}
-      {loading && <Loading>Loading more</Loading>}
+      {infiniteQuery.isFetching && <Loading>Loading posts</Loading>}
     </>
   );
 });
