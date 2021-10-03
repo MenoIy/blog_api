@@ -12,3 +12,11 @@ export interface IComment {
   createdBy: { _id: number; username: string };
   createdAt: Date;
 }
+
+export interface IPost {
+  _id: number;
+  body: string;
+  comments: number[];
+  createdBy: { _id: number; username: string };
+  createdAt: Date;
+}
