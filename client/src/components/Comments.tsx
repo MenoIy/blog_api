@@ -8,7 +8,6 @@ import { IComment } from "../interfaces";
 
 import { api } from "../api";
 
-import Loading from "./Loading";
 import Avatar from "./Avatar";
 import Comment from "./Comment";
 
@@ -49,19 +48,15 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
   const { mutate } = useMutation(createComment, {
     onSuccess: async (newComment) => {
       await queryClient.cancelQueries(["fetchComments", { id: props.id, limit }]);
-      const previousComments = queryClient.getQueriesData([
-        "fetchComments",
-        { id: props.id, limit },
-      ]);
+
       queryClient.setQueriesData(["fetchComments", { id: props.id, limit }], (prev: any) => [
         ...prev,
         newComment,
       ]);
-      return { previousComments };
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries(["fetchComments", { id: props.id, limit }], {});
+      queryClient.invalidateQueries(["fetchComments", { id: props.id, limit }]);
     },
   });
 
@@ -87,8 +82,6 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
   //
   if (isError) return <h1>Error</h1>;
 
-  if (isLoading) return <Loading />;
-
   return (
     <Container>
       {showAll && props.repliesCount > 3 && (
@@ -96,7 +89,7 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
           <span className="fa fa-eye">{` Show all ${props.repliesCount} comments`} </span>
         </ShowMore>
       )}
-
+      {isLoading && <Loading>Loading Comments</Loading>}
       {data &&
         data.map((comment: any) => (
           <Comment
@@ -116,7 +109,7 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
               name="content"
               value={formik.values.content}
               onChange={formik.handleChange}
-            ></textarea>
+            />
           </ReplyInput>
           <Buttons>
             <PostButton type="submit">Post</PostButton>
@@ -214,6 +207,14 @@ const CancelButton = styled.div`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+const Loading = styled.div`
+  cursor: pointer;
+  color: #8224e3;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 10px;
 `;
 
 export default Comments;
