@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { useInfiniteQuery, useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { useFormik } from "formik";
@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { api } from "../api/";
 import { IPost } from "../interfaces";
 import Avatar from "./Avatar";
+import UserContext from "../context/user";
 
 import Post from "./Post";
 
@@ -27,6 +28,7 @@ const createPost = async (body: string): Promise<IPost> => {
 const Posts = (props: { username?: string }) => {
   //
   const queryClient = useQueryClient();
+  const context = useContext(UserContext);
 
   const { mutate } = useMutation(createPost, {
     onSuccess: async (newPost) => {
@@ -54,7 +56,7 @@ const Posts = (props: { username?: string }) => {
       <Body>
         <PostForm onSubmit={formik.handleSubmit}>
           <FormInput>
-            <Avatar img="avatar.png" />
+            <Avatar img={context.user?.avatar || "avatar.png"} />
             <textarea
               name="body"
               value={formik.values.body}
@@ -98,6 +100,7 @@ const ShowPosts = React.memo(() => {
             {group.data.map((post) => (
               <Post
                 key={post._id}
+                avatar={post.createdBy.avatar}
                 id={post._id}
                 author={post.createdBy.username}
                 date={post.createdAt}

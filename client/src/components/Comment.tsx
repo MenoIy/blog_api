@@ -7,16 +7,17 @@ type CommentProps = {
   author: string;
   content: string;
   createdAt: Date;
+  avatar: string;
 };
 
 const Comment = (props: CommentProps): JSX.Element => {
-  const { author, content, createdAt } = props;
+  const { author, content, createdAt, avatar } = props;
 
   return (
     <Container>
       <Author
         username={author}
-        avatar="avatar.png"
+        avatar={avatar}
         date={createdAt}
         size={{ width: "30px", height: "30px" }}
         gap={"6px"}

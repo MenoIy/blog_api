@@ -1,10 +1,11 @@
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, useContext } from "react";
 import styled from "styled-components";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useFormik } from "formik";
 
 import { commentSchema } from "../validators";
 import { IComment } from "../interfaces";
+import UserContext from "../context/user";
 
 import { api } from "../api";
 
@@ -42,6 +43,7 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
   const [showAll, setShowAll] = useState<boolean>(props.repliesCount > 3);
   const limit = showAll ? 3 : 0;
   const { data, isLoading, isError } = useFetchComments(props.id, limit);
+  const context = useContext(UserContext);
 
   const queryClient = useQueryClient();
 
@@ -95,6 +97,7 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
           <Comment
             key={comment._id}
             author={comment.createdBy.username}
+            avatar={comment.createdBy.avatar}
             createdAt={comment.createdAt}
             content={comment.content}
           ></Comment>
@@ -103,7 +106,10 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
       {props.showReplyField && (
         <ReplyField onSubmit={formik.handleSubmit}>
           <ReplyInput>
-            <Avatar img="avatar.png" size={{ width: "30px", height: "30px" }} />
+            <Avatar
+              img={context.user?.avatar || "avatar.png"}
+              size={{ width: "30px", height: "30px" }}
+            />
             <textarea
               ref={ref}
               name="content"
