@@ -28,7 +28,7 @@ export const getPosts = async (req: Request, res: Response, next: NextFunction) 
 
     const posts: IPost[] = await postModel
       .find()
-      .populate('createdBy', 'username')
+      .populate('createdBy', 'username avatar')
       .sort({ createdAt: -1 })
       .skip(offset ? Number(offset) : 0)
       .limit(limit ? Number(limit) : 10);

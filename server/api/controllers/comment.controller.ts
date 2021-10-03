@@ -30,7 +30,7 @@ export const getComments = async (req: Request, res: Response, next: NextFunctio
     }
     const comments = await commentModel
       .find({ _id: { $in: post.comments } })
-      .populate('createdBy', 'username')
+      .populate('createdBy', 'username avatar')
       .sort({ createdAt: -1 })
       .limit(Number(req.query.limit));
 
