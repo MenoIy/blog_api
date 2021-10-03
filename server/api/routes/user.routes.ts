@@ -3,10 +3,11 @@ import express, { Router } from 'express';
 import { authenticated } from '../middlewares/auth';
 import * as userMiddleware from '../middlewares/user.middleware';
 import * as userController from '../controllers/user.controller';
+import { upload } from '../middlewares/upload.middleware';
 
 export const router: Router = express.Router();
 
-router.post('/', userMiddleware.createUser, userController.createUser, userController.sendMail);
+router.post('/', upload, userMiddleware.createUser, userController.createUser, userController.sendMail);
 router.post('/login', userMiddleware.loginUser, userController.loginUser, userController.authToken);
 
 router.get('/logout', authenticated, userMiddleware.logoutUser, userController.logoutUser);

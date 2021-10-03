@@ -10,6 +10,7 @@ const userSchema: Schema = new Schema<IUserDocument>({
   email: { type: String, unique: true, required: true },
   emailIsVerified: { type: Boolean, default: false },
   password: { type: String, required: true },
+  avatar: { type: String, default: 'uploads/avatar.png' },
   posts: [
     {
       type: Schema.Types.ObjectId,
