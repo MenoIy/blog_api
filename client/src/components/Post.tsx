@@ -2,10 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import Avatar from "./Avatar";
+import Author from "./Author";
 import TextArea from "./TextArea";
 import Comments from "./Comments";
-import PublishDate from "./PublishDate";
 
 type PostProps = {
   id: number;
@@ -37,16 +36,7 @@ const Post = (props: PostProps): JSX.Element => {
 
   return (
     <Container>
-      <Author>
-        <Link to={{ pathname: `/${author}` }}>
-          <Avatar img="avatar.png"></Avatar>
-        </Link>
-
-        <div className="author_info">
-          <Link to={{ pathname: `/${author}` }}>{author}</Link>
-          <PublishDate date={date} />
-        </div>
-      </Author>
+      <Author username={author} avatar="avatar.png" date={date} gap="15px" direction="column" />
 
       <Content>
         <TextArea limit={200}>{content}</TextArea>
@@ -79,21 +69,6 @@ const Container = styled.div`
   margin-bottom: 2.5rem;
   line-height: 24px;
   flex-direction: column;
-`;
-
-const Author = styled.div`
-  display: flex;
-  align-items: center;
-
-  .author_info {
-    margin-left: 15px;
-  }
-  a {
-    text-decoration: none;
-    color: #4f515b;
-    font-weight: 600;
-    display: block;
-  }
 `;
 
 const Content = styled.div`

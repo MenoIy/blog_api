@@ -28,3 +28,7 @@ export const loginSchema = yup.object({
       "Must contain 8 characters, one number"
     ),
 });
+
+export const commentSchema = yup.object({
+  content: yup.string().required("cannot send empty comment").max(500),
+});

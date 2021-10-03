@@ -45,3 +45,11 @@ export const deletePost = (req: Request, res: Response, next: NextFunction) => {
   }
   next();
 };
+
+export const getPosts = (req: Request, res: Response, next: NextFunction) => {
+  const { error } = postSchema.getPosts.validate(req.query);
+
+  if (error) {
+    return res.status(400).send({ error: { message: error.message } });
+  }
+};

@@ -5,7 +5,7 @@ import { getUsers } from "../api";
 import Avatar from "./Avatar";
 import Loading from "./Loading";
 
-import { IUser } from "../interfaces/user";
+import { IUser } from "../interfaces/";
 
 const Peoples = () => {
   const { data, isLoading, isError } = useQuery(["getUsers"], async () => {

@@ -19,9 +19,7 @@ const TextArea = (props: textAreaProps): JSX.Element => {
   return (
     <Text>
       {isReadMore ? text.slice(0, props.limit) : text}
-      <span onClick={handleClick}>
-        {text.length <= props.limit ? "" : readMore}
-      </span>
+      <span onClick={handleClick}>{text.length <= props.limit ? "" : readMore}</span>
     </Text>
   );
 };
@@ -31,6 +29,7 @@ const Text = styled.p`
     cursor: pointer;
     color: #8224e3;
   }
+  word-break: break-all;
 `;
 
 export default TextArea;
