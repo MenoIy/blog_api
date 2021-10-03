@@ -1,24 +1,29 @@
 import Joi from 'joi';
 
-export const addPostSchema = Joi.object().keys({
+export const createPost = Joi.object().keys({
   body: Joi.string().required()
 });
 
-export const getPostByUsernameSchema = Joi.object().keys({
+export const getPostByUsername = Joi.object().keys({
   username: Joi.string().required()
 });
 
-export const getPostSchema = Joi.object().keys({
+export const getPostbyId = Joi.object().keys({
   postId: Joi.string().required().min(24).max(24).hex()
 });
 
-export const deletePostSchema = Joi.object().keys({
+export const deletePost = Joi.object().keys({
   postId: Joi.string().required().min(24).max(24).hex()
 });
 
-export const updatePostSchema = Joi.object().keys({
+export const updatePost = Joi.object().keys({
   params: { postId: Joi.string().required().min(24).max(24).hex() },
   body: {
     body: Joi.string().required()
   }
+});
+
+export const getPosts = Joi.object().keys({
+  offset: Joi.number(),
+  limit: Joi.number()
 });

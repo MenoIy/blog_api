@@ -1,27 +1,25 @@
 import { Schema, model } from 'mongoose';
-import { IComment } from '../interfaces/comment.interface';
 
-const commentSchema = new Schema<IComment>({
-  content: {
-    type: String,
-    required: true
-  },
-  post: {
-    type: Schema.Types.ObjectId,
-    ref: 'Post',
-    required: true
-  },
-  createdBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: new Date()
-  }
-});
+import { IComment } from '../interfaces';
 
-const commentModel = model<IComment>('Comment', commentSchema);
+const commentSchema = new Schema<IComment>(
+  {
+    content: {
+      type: String,
+      required: true
+    },
+    post: {
+      type: Schema.Types.ObjectId,
+      ref: 'Post',
+      required: true
+    },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    }
+  },
+  { timestamps: true }
+);
 
-export default commentModel;
+export const commentModel = model<IComment>('Comment', commentSchema);

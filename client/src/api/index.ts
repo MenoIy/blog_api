@@ -13,24 +13,37 @@ type RegisterProps = {
   password: string;
 };
 
-const url: string = "http://localhost:5000";
+export const api = axios.create({
+  baseURL: "http://localhost:5000/api/v1",
+  withCredentials: true,
+});
 
 export const login = (loginInfo: loginProps) => {
-  return axios.post(`${url}/users/login`, loginInfo, { withCredentials: true });
+  return api.post(`/users/login`, loginInfo, { withCredentials: true });
 };
 
 export const register = (registerInfo: RegisterProps) => {
-  return axios.post(`${url}/users/`, registerInfo);
+  return api.post(`/users/`, registerInfo, { withCredentials: true });
 };
 
 export const auth = () => {
-  return axios.get(`${url}/users/me`, { withCredentials: true });
+  return api.get(`/users/me`, { withCredentials: true });
 };
 
 export const getPosts = () => {
-  return axios.get(`${url}/posts/`);
+  return api.get(`/posts/`, { withCredentials: true });
 };
 
-export const getComments = (id: string) => {
-  return axios.get(`${url}/posts/${id}/comments`);
+export const fetchComments = (id: number, limit: number) => {
+  return api.get(`/posts/${id}/comments?limit=${limit}`, { withCredentials: true });
+};
+
+export const postComment = (id: number, comment: { content: string }) => {
+  return api.post(`/posts/${id}/comments`, comment, {
+    withCredentials: true,
+  });
+};
+
+export const getUsers = (limit: number) => {
+  return api.get(`/users?limit=${limit}`, { withCredentials: true });
 };

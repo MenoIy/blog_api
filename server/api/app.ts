@@ -1,19 +1,21 @@
-import dotenv from 'dotenv';
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import errorMiddleware from './middlewares/error.middleware';
-import { HttpException } from './exceptions/HttpException';
-import userRoutes from './routes/user.routes';
-import postRoutes from './routes/post.routes';
-import commentRoutes from './routes/comment.routes';
 import cors from 'cors';
 import morgan from 'morgan';
-import * as dbSetup from './setup';
+import dotenv from 'dotenv';
+
+import { errorMiddleware } from './middlewares/error.middleware';
+import { HttpException } from './exceptions/';
+import * as routes from './routes';
 
 dotenv.config();
 
-mongoose.connect(process.env.DB_URL || '', () => console.log('MongoDB connected successfully.'));
+try {
+  mongoose.connect(process.env.DB_URL || '', () => console.log('MongoDB connected successfully.'));
+} catch (error) {
+  console.log("Can't connect to mongodb");
+}
 mongoose.Promise = global.Promise;
 
 const app = express();
@@ -25,20 +27,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(
-  '/setup',
-  dbSetup.clear,
-  dbSetup.loadUsers,
-  dbSetup.loadContents,
-  (req: Request, res: Response, next: NextFunction) => {
-    res.status(201).send({ message: 'Setup done' });
-  }
-);
-app.use('/users', userRoutes);
-app.use('/posts', postRoutes);
-app.use('/users', postRoutes);
-app.use('/posts', commentRoutes);
-app.use('/comments', commentRoutes);
+app.use('/api/v1/setup', routes.setup);
+app.use('/api/v1/users', routes.userRoutes);
+app.use('/api/v1/posts', routes.postRoutes);
+app.use('/api/v1/users', routes.postRoutes);
+app.use('/api/v1/posts', routes.commentRoutes);
+app.use('/api/v1/comments', routes.commentRoutes);
 
 app.use((request: Request, response: Response, next: NextFunction) => {
   const error = new HttpException(404, 'Not found');

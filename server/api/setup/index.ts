@@ -1,12 +1,12 @@
-import { Request, Response, NextFunction, Express } from 'express';
-import userModel from '../models/user.model';
-import postModel from '../models/post.model';
+import { Request, Response, NextFunction } from 'express';
+
+import { userModel, commentModel, postModel } from '../models';
+import { IUserDocument, IPost } from '../interfaces';
+import * as Exception from '../exceptions';
+
 import usersDb from './users_data.json';
 import postsDb from './posts_data.json';
 import commentsDb from './comments_data.json';
-import commentModel from '../models/comment.model';
-import { IUserDocument } from '../interfaces/user.interface';
-import { IPost } from '../interfaces/post.interface';
 
 export const clear = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -31,8 +31,8 @@ export const loadUsers = async (req: Request, res: Response, next: NextFunction)
 
 export const loadContents = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const users = await userModel.find({});
-    if (!users) return res.status(404).send({ error: { message: 'users not Found' } });
+    const users: IUserDocument[] = await userModel.find({});
+    if (!users) return next(new Exception.UserNotFound());
 
     const posts = postsDb.map((post, index) => {
       const user: IUserDocument = users[index];
@@ -53,8 +53,7 @@ export const loadContents = async (req: Request, res: Response, next: NextFuncti
       return newPost;
     });
     await postModel.insertMany(posts);
-
-    next();
+    res.status(201).send({ message: 'Setup done' });
   } catch (error) {
     next(error);
   }

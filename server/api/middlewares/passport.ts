@@ -1,9 +1,12 @@
 import passport from 'passport';
 import dotenv from 'dotenv';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
-import userModel from '../models/user.model';
-import { IUserDocument } from '../interfaces/user.interface';
+import { Strategy as JwtStrategy } from 'passport-jwt';
+
+import { userModel } from '../models';
+import { IUserDocument } from '../interfaces';
+
+import * as Exception from '../exceptions';
 
 dotenv.config();
 
@@ -18,19 +21,15 @@ passport.use(
       try {
         const user: IUserDocument | null = await userModel.findOne({ username });
         if (!user) {
-          return done(null, false, {
-            message: 'username'
-          });
+          return done(new Exception.WrongUsername());
         }
         const passwordIsCorrect = await user.passwordIsCorrect(password);
 
         if (!passwordIsCorrect) {
-          return done(null, false, { message: 'password' });
+          return done(new Exception.WrongPassword());
         }
         if (!user.emailIsVerified) {
-          return done(null, false, {
-            message: 'email'
-          });
+          return done(new Exception.EmailNotVerified());
         }
         return done(null, user);
       } catch (error) {

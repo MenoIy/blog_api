@@ -1,6 +1,6 @@
-import Joi, { string } from 'joi';
+import Joi from 'joi';
 
-export const addCommentSchema = Joi.object().keys({
+export const createComment = Joi.object().keys({
   body: {
     content: Joi.string().required()
   },
@@ -9,15 +9,20 @@ export const addCommentSchema = Joi.object().keys({
   }
 });
 
-export const getCommentsSchema = Joi.object().keys({
-  postId: Joi.string().required().min(24).max(24).hex()
+export const getComments = Joi.object().keys({
+  params: {
+    postId: Joi.string().required().min(24).max(24).hex()
+  },
+  query: {
+    limit: Joi.number()
+  }
 });
 
-export const getCommentSchema = Joi.object().keys({
+export const getComment = Joi.object().keys({
   commentId: Joi.string().required().min(24).max(24).hex()
 });
 
-export const updateCommentSchema = Joi.object().keys({
+export const updateComment = Joi.object().keys({
   body: {
     content: Joi.string().required()
   },
@@ -26,6 +31,6 @@ export const updateCommentSchema = Joi.object().keys({
   }
 });
 
-export const deleteCommentSchema = Joi.object().keys({
+export const deleteComment = Joi.object().keys({
   commentId: Joi.string().required().min(24).max(24).hex()
 });

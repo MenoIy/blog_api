@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import passport from './passport';
-import userModel from '../models/user.model';
-import { IUserDocument } from '../interfaces/user.interface';
+
+import { userModel } from '../models';
+import { IUserDocument } from '../interfaces';
+import * as Exception from '../exceptions';
 
 export const authenticated = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', { session: false }, async (error, user) => {
@@ -12,10 +14,10 @@ export const authenticated = (req: Request, res: Response, next: NextFunction) =
         req.user = found;
         next();
       } else {
-        res.status(401).json({ error: { message: 'Invalid token' } });
+        return next(new Exception.InvalidToken());
       }
     } catch (error) {
-      res.status(400).json({ error: { message: 'Unauthorized' } });
+      return next(new Exception.Unauthorized());
     }
   })(req, res, next);
 };

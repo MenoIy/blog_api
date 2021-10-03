@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { IUserDocument, IUserModel } from '../interfaces/user.interface';
 import bcrypt from 'bcrypt';
+
+import { IUserDocument, IUserModel } from '../interfaces';
 
 const userSchema: Schema = new Schema<IUserDocument>({
   username: { type: String, unique: true, required: true },
@@ -17,12 +18,17 @@ const userSchema: Schema = new Schema<IUserDocument>({
   ]
 });
 
-userSchema.pre('save', function (next) {
-  bcrypt.hash(this.password, 10, (error, hash) => {
-    if (error) return next(error);
-    this.password = hash;
-    next();
-  });
+userSchema.methods.passwordIsCorrect = async function (password: string): Promise<boolean> {
+  const compare = await bcrypt.compare(password, this.password);
+  return compare;
+};
+
+userSchema.pre('save', async function (next) {
+  try {
+    this.password = await bcrypt.hash(this.password, 10);
+  } catch (error: any) {
+    next(error);
+  }
 });
 
 const emailIsVerified = async (email: string): Promise<boolean> => {
@@ -39,15 +45,8 @@ const usernameExists = async (username: string): Promise<boolean> => {
   return !!user;
 };
 
-userSchema.methods.passwordIsCorrect = async function (password: string): Promise<boolean> {
-  const compare = await bcrypt.compare(password, this.password);
-  return compare;
-};
-
 userSchema.statics.emailExists = emailExists;
 userSchema.statics.usernameExists = usernameExists;
 userSchema.statics.emailIsVerified = emailIsVerified;
 
-const userModel = model<IUserDocument, IUserModel>('User', userSchema);
-
-export default userModel;
+export const userModel = model<IUserDocument, IUserModel>('User', userSchema);
