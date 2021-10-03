@@ -4,693 +4,792 @@
 		"firstName": "Constance",
 		"lastName": "Sharon",
 		"email": "duis@vellectuscum.edu",
-		"password": "Pass1234"
+		"password": "Pass1234",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Marsden Phillips",
 		"firstName": "Shelley",
 		"lastName": "Ignacia",
 		"email": "nunc@volutpatnulla.edu",
-		"password": "FaI72MLS3He"
+		"password": "FaI72MLS3He",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Marcia Hyde",
 		"firstName": "Lael",
 		"lastName": "Whoopi",
 		"email": "praesent.luctus@atlacus.ca",
-		"password": "VhC64VUC6Ri"
+		"password": "VhC64VUC6Ri",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Amaya Bond",
 		"firstName": "Carolyn",
 		"lastName": "Shoshana",
 		"email": "eu.tellus@nullam.org",
-		"password": "YkY38NWO8Nh"
+		"password": "YkY38NWO8Nh",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Vernon Daugherty",
 		"firstName": "Kellie",
 		"lastName": "Ria",
 		"email": "libero.est@scelerisquelorem.ca",
-		"password": "JuI12GNG0Xf"
+		"password": "JuI12GNG0Xf",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Edan Mack",
 		"firstName": "Claudia",
 		"lastName": "Josephine",
 		"email": "et.arcu@egestasblandit.edu",
-		"password": "XvL89KIP5Xo"
+		"password": "XvL89KIP5Xo",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Sean Cardenas",
 		"firstName": "Illana",
 		"lastName": "Desiree",
 		"email": "dolor.sit@nostraper.co.uk",
-		"password": "CgC75VCT1Gj"
+		"password": "CgC75VCT1Gj",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Cairo English",
 		"firstName": "Idola",
 		"lastName": "Camille",
 		"email": "sit.amet.risus@eget.com",
-		"password": "KsW24KPJ2Sc"
+		"password": "KsW24KPJ2Sc",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Charity Page",
 		"firstName": "Aimee",
 		"lastName": "Montana",
 		"email": "orci.consectetuer.euismod@idenim.co.uk",
-		"password": "OcS36QNX2Ue"
+		"password": "OcS36QNX2Ue",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Jermaine Cooke",
 		"firstName": "Astra",
 		"lastName": "Imelda",
 		"email": "netus.et@sempererat.co.uk",
-		"password": "MmO22EYS2Wf"
+		"password": "MmO22EYS2Wf",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Drew Ryan",
 		"firstName": "Kristen",
 		"lastName": "Dominique",
 		"email": "sem.vitae.aliquam@donec.ca",
-		"password": "GaJ46OFI6Cb"
+		"password": "GaJ46OFI6Cb",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Micah Long",
 		"firstName": "Hadassah",
 		"lastName": "Amethyst",
 		"email": "risus.varius@vitae.ca",
-		"password": "BjG55JXG1Do"
+		"password": "BjG55JXG1Do",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Levi Oliver",
 		"firstName": "Savannah",
 		"lastName": "Olympia",
 		"email": "sed@nislelementum.net",
-		"password": "RqB02IGZ6Bt"
+		"password": "RqB02IGZ6Bt",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Yen Barron",
 		"firstName": "Eugenia",
 		"lastName": "Cora",
 		"email": "egestas.ligula@egetvolutpat.co.uk",
-		"password": "LsN71KQX5Pt"
+		"password": "LsN71KQX5Pt",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Gretchen Hutchinson",
 		"firstName": "Ava",
 		"lastName": "Bethany",
 		"email": "nibh@elementumpurus.co.uk",
-		"password": "GlS44NNP4Pm"
+		"password": "GlS44NNP4Pm",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Astra Hunter",
 		"firstName": "Emma",
 		"lastName": "Olga",
 		"email": "nunc.lectus@sempellentesque.edu",
-		"password": "HiW33FCQ3Ql"
+		"password": "HiW33FCQ3Ql",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Coby Bonner",
 		"firstName": "Evangeline",
 		"lastName": "Bo",
 		"email": "eu.turpis@aliquetphasellusfermentum.net",
-		"password": "XeL62YHP5By"
+		"password": "XeL62YHP5By",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Philip Campos",
 		"firstName": "Nerea",
 		"lastName": "Cara",
 		"email": "nunc.risus@vehiculapellentesquetincidunt.edu",
-		"password": "XiB52END4Yn"
+		"password": "XiB52END4Yn",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Nora Osborn",
 		"firstName": "Echo",
 		"lastName": "Erica",
 		"email": "purus.maecenas@atpedecras.ca",
-		"password": "MuJ44IRH3Gj"
+		"password": "MuJ44IRH3Gj",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Kaseem Macdonald",
 		"firstName": "McKenzie",
 		"lastName": "Nevada",
 		"email": "rhoncus.proin@mieleifend.com",
-		"password": "UsO27HLN7Qs"
+		"password": "UsO27HLN7Qs",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Judah Vasquez",
 		"firstName": "Florence",
 		"lastName": "Adena",
 		"email": "proin.vel@loremlorem.edu",
-		"password": "MbN64NOM5Ax"
+		"password": "MbN64NOM5Ax",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Talon Young",
 		"firstName": "Octavia",
 		"lastName": "Xandra",
 		"email": "porta.elit.a@purussapien.edu",
-		"password": "WdK64JQU0Sm"
+		"password": "WdK64JQU0Sm",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Brenda Roth",
 		"firstName": "Bryar",
 		"lastName": "Ainsley",
 		"email": "justo@tristiquepellentesque.com",
-		"password": "GuK66COS7Vn"
+		"password": "GuK66COS7Vn",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Graiden Hardy",
 		"firstName": "Velma",
 		"lastName": "Neve",
 		"email": "dolor.fusce@ipsumsuspendisse.com",
-		"password": "NhJ96GFM4Wg"
+		"password": "NhJ96GFM4Wg",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Lucy Massey",
 		"firstName": "Alexis",
 		"lastName": "Idola",
 		"email": "sapien.aenean.massa@facilisisvitaeorci.com",
-		"password": "RmL77EAO2Dy"
+		"password": "RmL77EAO2Dy",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Byron Horn",
 		"firstName": "Abra",
 		"lastName": "Brielle",
 		"email": "proin.ultrices@euismodmauriseu.co.uk",
-		"password": "JfC23UTT8Vq"
+		"password": "JfC23UTT8Vq",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Silas Pennington",
 		"firstName": "Zephr",
 		"lastName": "Karen",
 		"email": "dui.quis.accumsan@tellus.edu",
-		"password": "DlN55IJU4Kc"
+		"password": "DlN55IJU4Kc",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Victor Delgado",
 		"firstName": "Juliet",
 		"lastName": "Claire",
 		"email": "nascetur.ridiculus.mus@neque.org",
-		"password": "FoC84DVS6Hr"
+		"password": "FoC84DVS6Hr",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Louis Cox",
 		"firstName": "Linda",
 		"lastName": "Rosalyn",
 		"email": "suspendisse.sed@id.co.uk",
-		"password": "VpS81BJM5Vq"
+		"password": "VpS81BJM5Vq",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Yvette Rivas",
 		"firstName": "Macy",
 		"lastName": "Beatrice",
 		"email": "augue.malesuada@vitaesodalesat.edu",
-		"password": "NdV24JXX2Qw"
+		"password": "NdV24JXX2Qw",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Colton Joyner",
 		"firstName": "Shelby",
 		"lastName": "Aileen",
 		"email": "velit.quisque.varius@velmaurisinteger.org",
-		"password": "YbN47TFC6Rx"
+		"password": "YbN47TFC6Rx",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Pearl Sosa",
 		"firstName": "Quynn",
 		"lastName": "Jade",
 		"email": "scelerisque.dui@arcu.edu",
-		"password": "OxB58BFX2Ys"
+		"password": "OxB58BFX2Ys",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Orli Vinson",
 		"firstName": "Kylie",
 		"lastName": "Evangeline",
 		"email": "pellentesque.tincidunt@ante.co.uk",
-		"password": "DxQ53QIL7Tb"
+		"password": "DxQ53QIL7Tb",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Christine Holder",
 		"firstName": "Alana",
 		"lastName": "Sonya",
 		"email": "risus.donec@vitaealiquetnec.com",
-		"password": "WzD68VYB8Sh"
+		"password": "WzD68VYB8Sh",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Colby Ashley",
 		"firstName": "Quail",
 		"lastName": "Whoopi",
 		"email": "amet.faucibus@sit.org",
-		"password": "WrH37IBI9Qw"
+		"password": "WrH37IBI9Qw",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Cheryl Burns",
 		"firstName": "Wilma",
 		"lastName": "Blythe",
 		"email": "lectus.sit@urnanunc.co.uk",
-		"password": "NsV58QYQ2Wu"
+		"password": "NsV58QYQ2Wu",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Connor Sanford",
 		"firstName": "Naomi",
 		"lastName": "Britanney",
 		"email": "in.condimentum@laciniased.co.uk",
-		"password": "IhX25PTC0Go"
+		"password": "IhX25PTC0Go",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Mason Molina",
 		"firstName": "Sasha",
 		"lastName": "Lavinia",
 		"email": "facilisis@fuscedolorquam.co.uk",
-		"password": "LpY46MJE9Ki"
+		"password": "LpY46MJE9Ki",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Omar Daniels",
 		"firstName": "Alexis",
 		"lastName": "Courtney",
 		"email": "blandit.at@justo.net",
-		"password": "CtQ63TLU2Vp"
+		"password": "CtQ63TLU2Vp",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Adria Mosley",
 		"firstName": "Kristen",
 		"lastName": "Cailin",
 		"email": "tempor.lorem@adipiscing.com",
-		"password": "KyS89KXE1Bc"
+		"password": "KyS89KXE1Bc",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Maryam Padilla",
 		"firstName": "Gay",
 		"lastName": "Ursula",
 		"email": "sed.pede@dapibusrutrum.ca",
-		"password": "FcP88QUW0Vn"
+		"password": "FcP88QUW0Vn",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Joseph Hernandez",
 		"firstName": "Ursula",
 		"lastName": "Phoebe",
 		"email": "duis.ac@euismodindolor.net",
-		"password": "DeU54FBT2Ah"
+		"password": "DeU54FBT2Ah",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Maxwell Taylor",
 		"firstName": "Rebekah",
 		"lastName": "Jocelyn",
 		"email": "dictum@orci.edu",
-		"password": "MgG39RCO5Xn"
+		"password": "MgG39RCO5Xn",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Brent Jacobs",
 		"firstName": "Eugenia",
 		"lastName": "Fredericka",
 		"email": "interdum@aliquet.ca",
-		"password": "FeH33VNS4Ih"
+		"password": "FeH33VNS4Ih",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Martina Head",
 		"firstName": "Quail",
 		"lastName": "Melyssa",
 		"email": "aliquet.vel@aliquam.edu",
-		"password": "OcI81MLE8Ip"
+		"password": "OcI81MLE8Ip",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Davis Figueroa",
 		"firstName": "Nita",
 		"lastName": "Madaline",
 		"email": "non.magna.nam@nisimaurisnulla.ca",
-		"password": "CkE18IUL7Hy"
+		"password": "CkE18IUL7Hy",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Vernon Melton",
 		"firstName": "Phyllis",
 		"lastName": "Yetta",
 		"email": "ridiculus.mus.proin@nibhaliquam.edu",
-		"password": "HnH34EJF7Ix"
+		"password": "HnH34EJF7Ix",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Savannah Rodriguez",
 		"firstName": "May",
 		"lastName": "Cameron",
 		"email": "a.purus@euodio.org",
-		"password": "KkY28NSD8Ic"
+		"password": "KkY28NSD8Ic",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Reece Ellison",
 		"firstName": "Serena",
 		"lastName": "Abigail",
 		"email": "arcu.vestibulum@quamdignissim.com",
-		"password": "XdN65GBS9Ye"
+		"password": "XdN65GBS9Ye",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Leilani Kent",
 		"firstName": "Rhiannon",
 		"lastName": "Raya",
 		"email": "elementum.at.egestas@vitaesodales.ca",
-		"password": "FiG88OST2Vc"
+		"password": "FiG88OST2Vc",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Allegra Mayer",
 		"firstName": "Rinah",
 		"lastName": "Octavia",
 		"email": "massa.integer@nislnulla.net",
-		"password": "UpC61QSB4Vb"
+		"password": "UpC61QSB4Vb",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Dalton Kirby",
 		"firstName": "Indigo",
 		"lastName": "Isabella",
 		"email": "orci.phasellus@et.org",
-		"password": "UuG68LWN5Op"
+		"password": "UuG68LWN5Op",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Portia Woodard",
 		"firstName": "Katelyn",
 		"lastName": "Miranda",
 		"email": "nonummy.ut@metusaliquam.org",
-		"password": "MlW53LQQ8Yg"
+		"password": "MlW53LQQ8Yg",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Chantale Singleton",
 		"firstName": "Emi",
 		"lastName": "Imani",
 		"email": "sed.et@aliquetdiam.co.uk",
-		"password": "YyX75FCT8Fz"
+		"password": "YyX75FCT8Fz",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Lucy Dale",
 		"firstName": "Kim",
 		"lastName": "Claudia",
 		"email": "sed.facilisis@gravida.co.uk",
-		"password": "RnQ63WZN2Ra"
+		"password": "RnQ63WZN2Ra",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Brianna Logan",
 		"firstName": "Willa",
 		"lastName": "Mercedes",
 		"email": "arcu.sed@necimperdietnec.org",
-		"password": "VdD25YWJ3Oh"
+		"password": "VdD25YWJ3Oh",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Quinlan Knapp",
 		"firstName": "Carolyn",
 		"lastName": "Charissa",
 		"email": "fermentum.metus.aenean@atauctor.net",
-		"password": "TtN27FZI6Av"
+		"password": "TtN27FZI6Av",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Salvador Holt",
 		"firstName": "Kay",
 		"lastName": "Briar",
 		"email": "turpis.non@proindolor.edu",
-		"password": "VwH71CHH7Jj"
+		"password": "VwH71CHH7Jj",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Eaton Levine",
 		"firstName": "Alice",
 		"lastName": "Germaine",
 		"email": "dolor.sit@leoin.com",
-		"password": "TfS16SWT0Ob"
+		"password": "TfS16SWT0Ob",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Chase Mills",
 		"firstName": "Florence",
 		"lastName": "Megan",
 		"email": "molestie.arcu@pede.ca",
-		"password": "KcB87QVL8Od"
+		"password": "KcB87QVL8Od",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Tarik Harrington",
 		"firstName": "Alea",
 		"lastName": "Buffy",
 		"email": "mus@adipiscing.edu",
-		"password": "IiE11DCQ8Tb"
+		"password": "IiE11DCQ8Tb",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Caleb Gallegos",
 		"firstName": "Martina",
 		"lastName": "Odessa",
 		"email": "lacus.mauris@nuncquisqueornare.edu",
-		"password": "MdO44LNL4Au"
+		"password": "MdO44LNL4Au",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Clinton Sweet",
 		"firstName": "Shannon",
 		"lastName": "Leah",
 		"email": "mi.fringilla.mi@mollis.com",
-		"password": "HvT91VWH7Hu"
+		"password": "HvT91VWH7Hu",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Evangeline Mooney",
 		"firstName": "Kyra",
 		"lastName": "Daryl",
 		"email": "elit.curabitur.sed@diameu.net",
-		"password": "GbK83VGB1Yv"
+		"password": "GbK83VGB1Yv",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Tyrone Santos",
 		"firstName": "Leslie",
 		"lastName": "Tatiana",
 		"email": "sit@antelectus.edu",
-		"password": "JmO88FNU4Qq"
+		"password": "JmO88FNU4Qq",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Honorato Cross",
 		"firstName": "Nelle",
 		"lastName": "Molly",
 		"email": "arcu@fames.com",
-		"password": "VbJ28WZJ7Lk"
+		"password": "VbJ28WZJ7Lk",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Rana Goff",
 		"firstName": "Sigourney",
 		"lastName": "Ivy",
 		"email": "luctus.et.ultrices@miduis.edu",
-		"password": "MiP52JRI2Kv"
+		"password": "MiP52JRI2Kv",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Bernard Young",
 		"firstName": "Catherine",
 		"lastName": "Tashya",
 		"email": "eu@mattiscras.co.uk",
-		"password": "GiY74IHG2Nq"
+		"password": "GiY74IHG2Nq",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Hollee Pugh",
 		"firstName": "Naida",
 		"lastName": "Mara",
 		"email": "eu.turpis@fermentummetus.edu",
-		"password": "EwO18JEM4Df"
+		"password": "EwO18JEM4Df",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Arthur Mcconnell",
 		"firstName": "Shannon",
 		"lastName": "McKenzie",
 		"email": "cursus.a.enim@risusat.com",
-		"password": "SuG32IDX6Vy"
+		"password": "SuG32IDX6Vy",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Troy Fowler",
 		"firstName": "Blossom",
 		"lastName": "Dara",
 		"email": "enim.etiam.imperdiet@fusce.ca",
-		"password": "KbQ44FPA9Fd"
+		"password": "KbQ44FPA9Fd",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Jordan Whitley",
 		"firstName": "Sacha",
 		"lastName": "Irma",
 		"email": "augue@rutrumfusce.co.uk",
-		"password": "EhK82LKM7By"
+		"password": "EhK82LKM7By",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Cameron Dunlap",
 		"firstName": "Tamara",
 		"lastName": "Shay",
 		"email": "non@atpretiumaliquet.com",
-		"password": "XtI57KSE3Nk"
+		"password": "XtI57KSE3Nk",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Emmanuel Brady",
 		"firstName": "Nayda",
 		"lastName": "Cassandra",
 		"email": "sit.amet.ultricies@nuncrisusvarius.ca",
-		"password": "BfL77KXV6Qm"
+		"password": "BfL77KXV6Qm",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Rhoda Delgado",
 		"firstName": "Quin",
 		"lastName": "Eugenia",
 		"email": "vitae.sodales.nisi@leocras.net",
-		"password": "ElB01YGT6Mk"
+		"password": "ElB01YGT6Mk",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Cyrus Ford",
 		"firstName": "Marah",
 		"lastName": "Jenna",
 		"email": "sem.molestie@donec.edu",
-		"password": "LqT13SPA5Jl"
+		"password": "LqT13SPA5Jl",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Hasad Witt",
 		"firstName": "Venus",
 		"lastName": "Lunea",
 		"email": "est.tempor.bibendum@aliquamarcu.org",
-		"password": "BaI12CXJ5Ps"
+		"password": "BaI12CXJ5Ps",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Summer Rivas",
 		"firstName": "Charissa",
 		"lastName": "April",
 		"email": "duis.mi@donectempus.com",
-		"password": "GxT96IAM2Mq"
+		"password": "GxT96IAM2Mq",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Alisa Douglas",
 		"firstName": "Sage",
 		"lastName": "Hanae",
 		"email": "elit@risusdonec.net",
-		"password": "CeS41PHR0Qk"
+		"password": "CeS41PHR0Qk",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Jack Blanchard",
 		"firstName": "Daphne",
 		"lastName": "Rae",
 		"email": "vitae.sodales@arcuvel.edu",
-		"password": "FbX23ICV1Do"
+		"password": "FbX23ICV1Do",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Justin Cooley",
 		"firstName": "Melanie",
 		"lastName": "Janna",
 		"email": "interdum.ligula@scelerisqueduisuspendisse.edu",
-		"password": "DsN84HWP3Ex"
+		"password": "DsN84HWP3Ex",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Kerry Freeman",
 		"firstName": "Rosalyn",
 		"lastName": "Yoshi",
 		"email": "quis@faucibuslectus.ca",
-		"password": "BqM23IHF9Kq"
+		"password": "BqM23IHF9Kq",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Thane Deleon",
 		"firstName": "Mechelle",
 		"lastName": "Echo",
 		"email": "sollicitudin@tellusloremeu.net",
-		"password": "LyO64ONB8Gw"
+		"password": "LyO64ONB8Gw",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Finn Mccoy",
 		"firstName": "Basia",
 		"lastName": "Inga",
 		"email": "volutpat.nulla@neque.org",
-		"password": "SdD48HWI6Nc"
+		"password": "SdD48HWI6Nc",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Travis Andrews",
 		"firstName": "Haviva",
 		"lastName": "Mariko",
 		"email": "lacus.quisque@scelerisque.ca",
-		"password": "JoY73TOA8Mv"
+		"password": "JoY73TOA8Mv",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Sonya Richard",
 		"firstName": "Lesley",
 		"lastName": "Glenna",
 		"email": "in.faucibus@vulputateullamcorper.edu",
-		"password": "IgM25ZKI5Sl"
+		"password": "IgM25ZKI5Sl",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Dominic Cox",
 		"firstName": "Caryn",
 		"lastName": "Jada",
 		"email": "mauris.blandit@nulladonec.net",
-		"password": "SiH85NTW1Vf"
+		"password": "SiH85NTW1Vf",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Ahmed French",
 		"firstName": "Amanda",
 		"lastName": "Margaret",
 		"email": "parturient@ridiculusmus.co.uk",
-		"password": "QcO47GWE1Zs"
+		"password": "QcO47GWE1Zs",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Unity Harrell",
 		"firstName": "Marny",
 		"lastName": "Halee",
 		"email": "sagittis.placerat@lorem.edu",
-		"password": "IdP24ZJR2Co"
+		"password": "IdP24ZJR2Co",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Aurelia Pierce",
 		"firstName": "Deborah",
 		"lastName": "Adele",
 		"email": "pellentesque.sed@cursus.co.uk",
-		"password": "LqB76KGH6Do"
+		"password": "LqB76KGH6Do",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Berk Neal",
 		"firstName": "Olympia",
 		"lastName": "Alyssa",
 		"email": "ridiculus@nullafacilisi.ca",
-		"password": "NbL90WIP7Gr"
+		"password": "NbL90WIP7Gr",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Levi Wells",
 		"firstName": "Vielka",
 		"lastName": "Leigh",
 		"email": "eleifend.vitae@felisdonec.co.uk",
-		"password": "VqH25OSW8Ri"
+		"password": "VqH25OSW8Ri",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Vivian Carney",
 		"firstName": "Sharon",
 		"lastName": "Nita",
 		"email": "porttitor.scelerisque.neque@facilisis.org",
-		"password": "DnK15SXJ6Rf"
+		"password": "DnK15SXJ6Rf",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Sharon Bullock",
 		"firstName": "Velma",
 		"lastName": "Dawn",
 		"email": "et@rhoncusproinnisl.org",
-		"password": "MjL12KSY1Gk"
+		"password": "MjL12KSY1Gk",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Piper Bradley",
 		"firstName": "Ursa",
 		"lastName": "Josephine",
 		"email": "ut.sem.nulla@morbinon.com",
-		"password": "WjF05MWK1Lx"
+		"password": "WjF05MWK1Lx",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Grady Morrow",
 		"firstName": "Beverly",
 		"lastName": "Hermione",
 		"email": "augue.eu.tellus@mollisduissit.org",
-		"password": "RmN49SJU4Cd"
+		"password": "RmN49SJU4Cd",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Nolan Kirkland",
 		"firstName": "Basia",
 		"lastName": "Yvette",
 		"email": "malesuada@sempereratin.org",
-		"password": "KmN87QFO5Xs"
+		"password": "KmN87QFO5Xs",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Xaviera Good",
 		"firstName": "Alisa",
 		"lastName": "Elaine",
 		"email": "pellentesque.massa@sitametmetus.co.uk",
-		"password": "IuK27JOX4Jb"
+		"password": "IuK27JOX4Jb",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Thor Boyer",
 		"firstName": "Olivia",
 		"lastName": "Amena",
 		"email": "fermentum.risus.at@uteros.co.uk",
-		"password": "OxS57EYP9Nq"
+		"password": "OxS57EYP9Nq",
+    "avatar" : "https://picsum.photos/"
 	},
 	{
 		"username": "Carl Sims",
