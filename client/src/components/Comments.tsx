@@ -1,6 +1,6 @@
-import { useState, forwardRef, useContext } from "react";
+import React, { forwardRef, useContext, useState } from "react";
 import styled from "styled-components";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient, useInfiniteQuery } from "react-query";
 import { useFormik } from "formik";
 import dotenv from "dotenv";
 
@@ -16,14 +16,14 @@ import Comment from "./Comment";
 dotenv.config();
 
 //fetch all comments
-const useFetchComments = (id: number, limit: number) => {
-  const fetchComment = async (): Promise<IComment[]> => {
-    return await api
-      .get(`/posts/${id}/comments?limit=${limit}`)
-      .then(({ data }: { data: IComment[] }) => data.reverse());
-  };
-
-  return useQuery(["fetchComments", { id, limit }], fetchComment);
+const fetchComments = async (id: number, max: number, pageParam: number) => {
+  const offset = pageParam * 3;
+  const limit = pageParam === 0 ? 3 : max;
+  return await api
+    .get(`/posts/${id}/comments?offset=${offset}&limit=${limit}`)
+    .then(({ data }: { data: IComment[] }) => {
+      return { data: data.reverse(), nextPage: pageParam < 1 ? pageParam + 1 : undefined };
+    });
 };
 
 // create new comment
@@ -43,25 +43,21 @@ type CommentsProps = {
 
 const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JSX.Element => {
   //
-  const [showAll, setShowAll] = useState<boolean>(props.repliesCount > 3);
-  const limit = showAll ? 3 : 0;
-  const { data, isLoading, isError } = useFetchComments(props.id, limit);
   const context = useContext(UserContext);
 
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(createComment, {
     onSuccess: async (newComment) => {
-      await queryClient.cancelQueries(["fetchComments", { id: props.id, limit }]);
+      await queryClient.cancelQueries(`fetch Comments ${props.id}`);
 
-      queryClient.setQueriesData(["fetchComments", { id: props.id, limit }], (prev: any) => [
-        ...prev,
-        newComment,
-      ]);
+      queryClient.setQueriesData(`fetch Comments ${props.id}`, (prev: any) => {
+        prev.pages[0].data.push(newComment);
+        return { ...prev };
+      });
     },
-
     onSettled: () => {
-      queryClient.invalidateQueries(["fetchComments", { id: props.id, limit }]);
+      queryClient.invalidateQueries(`fetch Comments ${props.id}`);
     },
   });
 
@@ -76,36 +72,15 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
 
   //
 
-  const handleClick = () => {
-    setShowAll((prev) => !prev);
-  };
-
   const closeReplyField = () => {
     props.setShowReplyField(false);
   };
 
   //
-  if (isError) return <h1>Error</h1>;
 
   return (
     <Container>
-      {showAll && props.repliesCount > 3 && (
-        <ShowMore onClick={handleClick}>
-          <span className="fa fa-eye">{` Show all ${props.repliesCount} comments`} </span>
-        </ShowMore>
-      )}
-      {isLoading && <Loading>Loading Comments</Loading>}
-      {data &&
-        data.map((comment: any) => (
-          <Comment
-            key={comment._id}
-            author={comment.createdBy.username}
-            avatar={comment.createdBy.avatar}
-            createdAt={comment.createdAt}
-            content={comment.content}
-          ></Comment>
-        ))}
-
+      <ShowComments postId={props.id} repliesCount={props.repliesCount} />
       {props.showReplyField && (
         <ReplyField onSubmit={formik.handleSubmit}>
           <ReplyInput>
@@ -129,6 +104,59 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
         </ReplyField>
       )}
     </Container>
+  );
+});
+
+type ShowProps = {
+  repliesCount: number;
+  postId: number;
+};
+
+const ShowComments = React.memo((props: ShowProps) => {
+  const [showMore, setShowMore] = useState<boolean>(props.repliesCount > 3);
+  const { status, ...infiniteQuery } = useInfiniteQuery(
+    `fetch Comments ${props.postId}`,
+    ({ pageParam = 0 }) => fetchComments(props.postId, props.repliesCount, pageParam),
+    {
+      getNextPageParam: (data) => data.nextPage,
+    }
+  );
+
+  const handleClick = () => {
+    infiniteQuery.fetchNextPage();
+    setShowMore(false);
+  };
+
+  if (status === "error") return <h1>Error</h1>;
+
+  return (
+    <>
+      {showMore && (
+        <ShowMore onClick={handleClick}>
+          <span className="fa fa-eye">{` Show all ${props.repliesCount} comments`} </span>
+        </ShowMore>
+      )}
+      {infiniteQuery.isFetching && <Loading>Loading Comments</Loading>}
+      {status === "success" &&
+        infiniteQuery.data?.pages
+          .slice(0)
+          .reverse()
+          .map((group, index) => (
+            <div key={index}>
+              {group.data.map((comment, i) => (
+                <Comment
+                  key={comment._id}
+                  id={comment._id}
+                  author={comment.createdBy.username}
+                  avatar={comment.createdBy.avatar}
+                  createdAt={comment.createdAt}
+                  content={comment.content}
+                  postId={props.postId}
+                />
+              ))}
+            </div>
+          ))}
+    </>
   );
 });
 
