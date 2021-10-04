@@ -95,7 +95,7 @@ const ShowPosts = React.memo(() => {
     };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [infiniteQuery]);
 
   if (status === "error") return <h1>khorda</h1>;
 
