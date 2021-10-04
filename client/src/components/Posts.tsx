@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useInfiniteQuery, useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { useFormik } from "formik";
+import dotenv from "dotenv";
 
 import { api } from "../api/";
 import { IPost } from "../interfaces";
@@ -9,6 +10,8 @@ import Avatar from "./Avatar";
 import UserContext from "../context/user";
 
 import Post from "./Post";
+
+dotenv.config();
 
 const fetchPosts = async ({ pageParam = 0 }) => {
   const offset = pageParam * 10;
@@ -56,7 +59,11 @@ const Posts = (props: { username?: string }) => {
       <Body>
         <PostForm onSubmit={formik.handleSubmit}>
           <FormInput>
-            <Avatar img={context.user?.avatar || "avatar.png"} />
+            <Avatar
+              img={`${
+                context.user?.avatar ? `${process.env.REACT_APP_API}${context.user.avatar}` : ""
+              }`}
+            />
             <textarea
               name="body"
               value={formik.values.body}

@@ -2,6 +2,7 @@ import { useState, forwardRef, useContext } from "react";
 import styled from "styled-components";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useFormik } from "formik";
+import dotenv from "dotenv";
 
 import { commentSchema } from "../validators";
 import { IComment } from "../interfaces";
@@ -11,6 +12,8 @@ import { api } from "../api";
 
 import Avatar from "./Avatar";
 import Comment from "./Comment";
+
+dotenv.config();
 
 //fetch all comments
 const useFetchComments = (id: number, limit: number) => {
@@ -107,7 +110,9 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
         <ReplyField onSubmit={formik.handleSubmit}>
           <ReplyInput>
             <Avatar
-              img={context.user?.avatar || "avatar.png"}
+              img={`${
+                context.user?.avatar ? `${process.env.REACT_APP_API}${context.user.avatar}` : ""
+              }`}
               size={{ width: "30px", height: "30px" }}
             />
             <textarea
