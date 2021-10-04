@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import dotenv from "dotenv";
 
 import Author from "./Author";
 import TextArea from "./TextArea";
@@ -10,6 +11,8 @@ type CommentProps = {
   avatar: string;
 };
 
+dotenv.config();
+
 const Comment = (props: CommentProps): JSX.Element => {
   const { author, content, createdAt, avatar } = props;
 
@@ -17,7 +20,7 @@ const Comment = (props: CommentProps): JSX.Element => {
     <Container>
       <Author
         username={author}
-        avatar={avatar}
+        avatar={avatar ? `${process.env.REACT_APP_API || ""}${avatar}` : ""}
         date={createdAt}
         size={{ width: "30px", height: "30px" }}
         gap={"6px"}

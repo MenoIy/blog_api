@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import dotenv from "dotenv";
 
 import Author from "./Author";
 import TextArea from "./TextArea";
 import Comments from "./Comments";
+
+dotenv.config();
 
 type PostProps = {
   id: number;
@@ -37,7 +39,13 @@ const Post = (props: PostProps): JSX.Element => {
 
   return (
     <Container>
-      <Author username={author} avatar={avatar} date={date} gap="15px" direction="column" />
+      <Author
+        username={author}
+        avatar={avatar ? `${process.env.REACT_APP_API || ""}${avatar}` : ""}
+        date={date}
+        gap="15px"
+        direction="column"
+      />
 
       <Content>
         <TextArea limit={200}>{content}</TextArea>
