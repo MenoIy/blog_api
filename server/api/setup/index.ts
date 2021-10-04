@@ -22,7 +22,10 @@ export const clear = async (req: Request, res: Response, next: NextFunction) => 
 export const loadUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await userModel.insertMany(usersDb);
-    await userModel.updateMany({}, { emailIsVerified: true });
+    await userModel.updateMany(
+      {},
+      { emailIsVerified: true, avatar: `uploads/${Math.floor(Math.random() * 7) + 1}.png` }
+    );
     next();
   } catch (error) {
     next(error);
