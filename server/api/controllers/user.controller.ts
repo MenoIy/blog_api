@@ -13,8 +13,7 @@ import passport from '../middlewares/passport';
 dotenv.config();
 
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
-  const newUser: IUserDocument = new userModel(req.body);
-
+  const newUser: IUserDocument = new userModel({ ...req.body, avatar: req.file?.path });
   try {
     // check if email already exist
     const emailExists: boolean = await userModel.emailExists(req.body.email);
@@ -57,9 +56,9 @@ export const authToken = (req: Request, res: Response) => {
 };
 
 export const me = (req: Request, res: Response, next: NextFunction) => {
-  const { _id, username, firstName, lastName, email } = req.user;
+  const { _id, username, firstName, lastName, email, avatar } = req.user;
 
-  res.status(200).send({ _id, firstName, lastName, username, email });
+  res.status(200).send({ _id, firstName, lastName, username, email, avatar });
 };
 
 export const getUserByUsername = async (req: Request, res: Response, next: NextFunction) => {
@@ -70,8 +69,8 @@ export const getUserByUsername = async (req: Request, res: Response, next: NextF
       return next(new Exception.UserNotFound());
     }
 
-    const { _id, username, firstName, lastName, email } = user;
-    res.status(200).send({ _id, username, firstName, lastName, email });
+    const { _id, username, firstName, lastName, email, avatar } = user;
+    res.status(200).send({ _id, username, firstName, lastName, email, avatar });
   } catch (error) {
     next(error);
   }
@@ -128,6 +127,8 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
       newInfo.password = await bcrypt.hash(newInfo.password, 10);
     }
 
+    if (req.file) newInfo.avatar = req.file.path;
+
     await user.update(newInfo);
 
     res.status(200).send({ message: 'User updated' });
@@ -138,7 +139,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 
 export const sendMail = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { _id, username, firstName, lastName, email } = res.locals.user;
+    const { _id, username, firstName, lastName, email, avatar } = res.locals.user;
     const payload = { _id, email };
     const verifyMail: IMail = new mailModel({
       user: _id,
@@ -149,7 +150,7 @@ export const sendMail = async (req: Request, res: Response, next: NextFunction) 
 
     const body: string = process.env.HOST + ':' + process.env.PORT + '/users/verify/' + verifyMail.token;
     mail.sendMail(email, 'Account activation', body);
-    res.status(201).send({ _id, username, firstName, lastName, email });
+    res.status(201).send({ _id, username, firstName, lastName, email, avatar });
   } catch (error) {
     next(error);
   }

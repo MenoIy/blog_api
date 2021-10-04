@@ -6,6 +6,7 @@ export interface IUser {
   lastName: string;
   email: string;
   password: string;
+  avatar: string;
 }
 
 export interface IUserDocument extends IUser, Document {
@@ -28,4 +29,5 @@ export type IUpdateUser = {
   lastName?: string;
   email?: string;
   emailIsVerified?: boolean;
+  avatar?: string;
 };

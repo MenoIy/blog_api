@@ -17,7 +17,7 @@ export const loginUser = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const updateUser = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = userSchema.updateUser.validate(req.body);
+  const { error } = userSchema.updateUser.validate({ ...req.body, avatar: req.file?.path });
 
   if (!error) return next();
   res.status(400).json({ error: { message: error.message } });

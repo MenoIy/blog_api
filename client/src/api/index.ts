@@ -1,4 +1,7 @@
 import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 type loginProps = {
   username: string;
@@ -14,7 +17,7 @@ type RegisterProps = {
 };
 
 export const api = axios.create({
-  baseURL: "http://localhost:5000/api/v1",
+  baseURL: process.env.REACT_APP_API || "",
   withCredentials: true,
 });
 
