@@ -104,7 +104,7 @@ const ShowPosts = React.memo(() => {
       {status === "success" &&
         infiniteQuery.data?.pages.map((group, index) => (
           <div key={index}>
-            {group.data.map((post) => (
+            {group.data.map((post, i) => (
               <Post
                 key={post._id}
                 avatar={post.createdBy.avatar}
@@ -113,6 +113,7 @@ const ShowPosts = React.memo(() => {
                 date={post.createdAt}
                 content={post.body}
                 repliesCount={post.comments.length}
+                index={[index, i]}
               />
             ))}
           </div>
