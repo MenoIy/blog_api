@@ -14,6 +14,7 @@ export const getComments = Joi.object().keys({
     postId: Joi.string().required().min(24).max(24).hex()
   },
   query: {
+    offset: Joi.number(),
     limit: Joi.number()
   }
 });

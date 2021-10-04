@@ -24,6 +24,8 @@ export const createComment = async (req: Request, res: Response, next: NextFunct
 
 export const getComments = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const offset = Number(req.query.offset) || 0;
+    const limit = Number(req.query.limit) || 3;
     const post: IPost | null = await postModel.findById(req.params.postId, 'comments');
     if (!post) {
       return next(new Exception.PostNotFound());
@@ -32,7 +34,8 @@ export const getComments = async (req: Request, res: Response, next: NextFunctio
       .find({ _id: { $in: post.comments } })
       .populate('createdBy', 'username avatar')
       .sort({ createdAt: -1 })
-      .limit(Number(req.query.limit));
+      .skip(offset)
+      .limit(limit);
 
     res.status(201).send(comments);
   } catch (error) {
