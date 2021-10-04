@@ -30,9 +30,10 @@ export const updateUser = Joi.object()
     password: Joi.string()
       .min(8)
       .max(24)
-      .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/)
+      .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/),
+    avatar: Joi.any()
   })
-  .or('username', 'firstName', 'lastName', 'email', 'password');
+  .or('username', 'firstName', 'lastName', 'email', 'password', 'avatar');
 
 export const getUserByUsername = Joi.object().keys({
   username: Joi.string().min(6).max(24).alphanum().required()

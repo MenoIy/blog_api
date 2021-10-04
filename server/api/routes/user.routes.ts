@@ -18,4 +18,4 @@ router.get('/:username', authenticated, userMiddleware.getUserByUsername, userCo
 router.get('/', authenticated, userMiddleware.getUsers, userController.getUsers);
 //TODO getUserbyId
 
-router.patch('/profile', authenticated, userMiddleware.updateUser, userController.updateUser);
+router.patch('/profile', authenticated, upload, userMiddleware.updateUser, userController.updateUser);
