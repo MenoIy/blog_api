@@ -178,6 +178,10 @@ const Content = styled.div`
     margin-top: auto;
     margin-left: 7px;
     cursor: pointer;
+    color: #d7dae6;
+  }
+  i:hover {
+    color: #8224e3;
   }
 `;
 
