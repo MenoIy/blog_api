@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { api } from "../api";
 import Button from "./Button";
+import { commentSchema } from "../validators/";
 
 import { IComment } from "../interfaces";
 
@@ -41,6 +42,7 @@ const EditComment = ({ id, postId, content, setEditing, cacheIndex }: EditProps)
 
   const formik = useFormik({
     initialValues: { content },
+    validationSchema: commentSchema,
     onSubmit: ({ content }) => {
       mutate({ id, content });
       setEditing(false);
@@ -49,10 +51,15 @@ const EditComment = ({ id, postId, content, setEditing, cacheIndex }: EditProps)
 
   return (
     <EditForm onSubmit={formik.handleSubmit}>
-      <textarea name="content" value={formik.values.content} onChange={formik.handleChange} />
+      <EditField
+        name="content"
+        value={formik.values.content}
+        onChange={formik.handleChange}
+        borderColor={formik.errors.content ? "#ff0000" : "#8224e3"}
+      />
       <div>
         <span onClick={() => setEditing(false)}>Cancel</span>
-        <Button type="submit" width="90px" height="25px">
+        <Button type="submit" width="90px" height="25px" disabled={!!formik.errors.content}>
           Edit
         </Button>
       </div>
@@ -67,35 +74,37 @@ const EditForm = styled.form`
   width: 100%;
   flex-direction: column;
 
-  textarea {
-    border: 1px solid #e7edf2;
-    border-radius: 50px;
-    height: 2.8rem;
-    resize: vertical;
-    outline: none;
-    color: #626c72;
-    font-family: inherit;
-    margin-left: 3px;
-    padding: 10px 20px;
-    width: 100%;
-  }
-  textarea:focus {
-    border-color: #8224e3;
-  }
-
   div {
     display: flex;
     align-items: center;
     gap: 30px;
     margin-top: 10px;
-    margin-left: auto;
+    width: 100%;
   }
   span {
+    margin-left: auto;
     cursor: pointer;
     color: #8224e3;
     &:hover {
       text-decoration: underline;
     }
+  }
+`;
+
+const EditField = styled.textarea<{ borderColor: string }>`
+  border: 1px solid;
+  border-color: ${(props) => (props.borderColor === "#ff0000" ? "#ff0000" : "#e7edf2")};
+  border-radius: 10px;
+  height: 2.8rem;
+  resize: vertical;
+  outline: none;
+  color: #626c72;
+  font-family: inherit;
+  margin-left: 3px;
+  padding: 10px 20px;
+  width: 100%;
+  &:focus {
+    border-color: ${(props) => props.borderColor};
   }
 `;
 

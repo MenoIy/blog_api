@@ -10,10 +10,7 @@ export const registerSchema = yup.object({
     .min(8)
     .max(24)
     .required()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/,
-      "Must Contain 8 Characters, One Number"
-    ),
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/, "Must Contain 8 Characters, One Number"),
 });
 
 export const loginSchema = yup.object({
@@ -23,12 +20,13 @@ export const loginSchema = yup.object({
     .min(8)
     .max(24)
     .required()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/,
-      "Must contain 8 characters, one number"
-    ),
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/, "Must contain 8 characters, one number"),
 });
 
 export const commentSchema = yup.object({
   content: yup.string().required("cannot send empty comment").max(500),
+});
+
+export const postSchema = yup.object({
+  body: yup.string().required("cannot send empty post").max(2000),
 });
