@@ -51,7 +51,6 @@ const Post = (props: PostProps): JSX.Element => {
   };
 
   const handleEditPost = () => {
-    console.log("set to true");
     setEditing(true);
   };
   //
@@ -113,6 +112,7 @@ const EditPost = (props: EditProps) => {
       await queryClient.cancelQueries("fetch Posts");
       queryClient.setQueriesData("fetch Posts", (prev: any) => {
         prev.pages[props.index[0]].data[props.index[1]] = newPost;
+        return prev;
       });
     },
     onSettled: () => {
@@ -122,7 +122,10 @@ const EditPost = (props: EditProps) => {
 
   const formik = useFormik({
     initialValues: { body: props.content },
-    onSubmit: ({ body }) => mutate({ id: props.id, body }),
+    onSubmit: ({ body }) => {
+      mutate({ id: props.id, body });
+      props.setEditing(false);
+    },
   });
 
   return (

@@ -152,6 +152,7 @@ const ShowComments = React.memo((props: ShowProps) => {
                   createdAt={comment.createdAt}
                   content={comment.content}
                   postId={props.postId}
+                  index={[index, i]}
                 />
               ))}
             </div>
