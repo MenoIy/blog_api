@@ -59,11 +59,7 @@ const Posts = (props: { username?: string }) => {
       <Body>
         <PostForm onSubmit={formik.handleSubmit}>
           <FormInput>
-            <Avatar
-              img={`${
-                context.user?.avatar ? `${process.env.REACT_APP_API}${context.user.avatar}` : ""
-              }`}
-            />
+            <Avatar avatar={context.user?.avatar || ""} />
             <textarea
               name="body"
               value={formik.values.body}

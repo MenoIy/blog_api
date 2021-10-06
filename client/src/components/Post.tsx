@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 import Author from "./Author";
 import TextArea from "./TextArea";
-import Comments from "./Comments";
+import Comments from "./comments/";
 import UserContext from "../context/user";
 
 import EditPost from "./EditPost";
@@ -22,6 +22,7 @@ type PostProps = {
 
 const Post = (props: PostProps): JSX.Element => {
   //
+  const [_, setCount] = useState<number>(0);
   const { content, author, date, avatar, ...replyProps } = props;
 
   const [editing, setEditing] = useState<boolean>(false);
@@ -49,13 +50,7 @@ const Post = (props: PostProps): JSX.Element => {
 
   return (
     <Container>
-      <Author
-        username={author}
-        avatar={avatar ? `${process.env.REACT_APP_API || ""}${avatar}` : ""}
-        date={date}
-        gap="15px"
-        direction="column"
-      />
+      <Author username={author} avatar={avatar || ""} date={date} gap="15px" direction="column" />
 
       <Content>
         {editing ? (
@@ -86,8 +81,9 @@ const Post = (props: PostProps): JSX.Element => {
       </Interactions>
 
       <Comments
-        ref={replyFieldRef}
-        {...replyProps}
+        setCount={setCount}
+        postId={replyProps.id}
+        count={replyProps.repliesCount}
         showReplyField={showReplyField}
         setShowReplyField={setShowReplyField}
       ></Comments>

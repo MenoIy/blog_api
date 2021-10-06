@@ -1,28 +1,21 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
-import dotenv from "dotenv";
-import { useFormik } from "formik";
-import { useMutation, useQueryClient } from "react-query";
 
-import Author from "./Author";
-import TextArea from "./TextArea";
+import Author from "../Author";
+import TextArea from "../TextArea";
+import UserContext from "../../context/user";
 import EditComment from "./EditComment";
-import UserContext from "../context/user";
+import { IComment } from "../../interfaces";
 
 type CommentProps = {
-  id: number;
-  author: string;
-  content: string;
-  createdAt: Date;
-  avatar: string;
   postId: number;
-  index: number[];
+  comment: IComment;
+  cacheIndex: number[];
 };
 
-dotenv.config();
-
-const Comment = (props: CommentProps): JSX.Element => {
-  const { author, content, createdAt, avatar } = props;
+const Comment = (props: CommentProps) => {
+  const { comment, ...rest } = props;
+  const { _id, createdBy, createdAt, content } = comment;
   const [editing, setEditing] = useState<boolean>(false);
 
   const { user } = useContext(UserContext);
@@ -30,25 +23,21 @@ const Comment = (props: CommentProps): JSX.Element => {
   return (
     <Container>
       <Author
-        username={author}
-        avatar={avatar}
+        username={createdBy.username}
+        avatar={createdBy.avatar}
         date={createdAt}
         size={{ width: "30px", height: "30px" }}
-        gap={"6px"}
+        gap="6px"
       />
       <Content>
         {editing ? (
-          <EditComment
-            id={props.id}
-            postId={props.postId}
-            cacheIndex={props.index}
-            setEditing={setEditing}
-            content={content}
-          />
+          <EditComment setEditing={setEditing} id={_id} content={content} {...rest} />
         ) : (
           <>
             <TextArea limit={100}>{content}</TextArea>
-            {user && <i className="fas fa-pencil-alt" onClick={() => setEditing(true)}></i>}
+            {user?._id === createdBy._id && (
+              <i className="fas fa-pencil-alt" onClick={() => setEditing(true)}></i>
+            )}
           </>
         )}
       </Content>

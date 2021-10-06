@@ -84,12 +84,7 @@ const Comments = forwardRef<HTMLTextAreaElement, CommentsProps>((props, ref): JS
       {props.showReplyField && (
         <ReplyField onSubmit={formik.handleSubmit}>
           <ReplyInput>
-            <Avatar
-              img={`${
-                context.user?.avatar ? `${process.env.REACT_APP_API}${context.user.avatar}` : ""
-              }`}
-              size={{ width: "30px", height: "30px" }}
-            />
+            <Avatar avatar={context.user?.avatar || ""} size={{ width: "30px", height: "30px" }} />
             <textarea
               ref={ref}
               name="content"
@@ -138,25 +133,22 @@ const ShowComments = React.memo((props: ShowProps) => {
       )}
       {infiniteQuery.isFetching && <Loading>Loading Comments</Loading>}
       {status === "success" &&
-        infiniteQuery.data?.pages
-          .slice(0)
-          .reverse()
-          .map((group, index) => (
-            <div key={index}>
-              {group.data.map((comment, i) => (
-                <Comment
-                  key={comment._id}
-                  id={comment._id}
-                  author={comment.createdBy.username}
-                  avatar={comment.createdBy.avatar}
-                  createdAt={comment.createdAt}
-                  content={comment.content}
-                  postId={props.postId}
-                  index={[index, i]}
-                />
-              ))}
-            </div>
-          ))}
+        infiniteQuery.data?.pages.map((group, index) => (
+          <div key={index}>
+            {group.data.map((comment, i) => (
+              <Comment
+                key={comment._id}
+                id={comment._id}
+                author={comment.createdBy.username}
+                avatar={comment.createdBy.avatar}
+                createdAt={comment.createdAt}
+                content={comment.content}
+                postId={props.postId}
+                index={[index, i]}
+              />
+            ))}
+          </div>
+        ))}
     </>
   );
 });
