@@ -28,5 +28,5 @@ export const commentSchema = yup.object({
 });
 
 export const postSchema = yup.object({
-  body: yup.string().required("cannot send empty post").max(2000),
+  content: yup.string().required("cannot send empty post").max(2000),
 });
