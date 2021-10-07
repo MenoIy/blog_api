@@ -57,10 +57,11 @@ const NewPost = () => {
   const formik = useFormik({
     initialValues: { content: "" },
     validationSchema: postSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: ({ content }) => {
       mutate(content);
       formik.setValues({ content: "" });
+      setShowButtons(false);
     },
   });
 
