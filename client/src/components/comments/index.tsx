@@ -7,7 +7,6 @@ import NewComment from "./NewComment";
 
 import { api } from "../../api";
 import { IComment } from "../../interfaces";
-import { te } from "date-fns/locale";
 
 type FetchProps = {
   postId: number;
