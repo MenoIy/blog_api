@@ -9,7 +9,7 @@ import { FetchPromise } from "./";
 import { IComment } from "../../interfaces";
 
 import Button from "../Button";
-import EditField from "./EditField";
+import EditField from "../EditField";
 
 type UpdateProps = {
   id: number;

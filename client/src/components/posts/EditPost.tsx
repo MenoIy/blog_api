@@ -9,6 +9,7 @@ import { FetchPromise } from "./";
 import { IPost } from "../../interfaces";
 
 import Button from "../Button";
+import EditField from "../EditField";
 
 type UpdateProps = {
   id: number;
@@ -69,7 +70,12 @@ const EditPost = ({ id, content, setEditing, cacheIndex }: EditProps) => {
 
   return (
     <EditForm onSubmit={formik.handleSubmit}>
-      <textarea name="content" value={formik.values.content} onChange={formik.handleChange} />
+      <EditField
+        name="content"
+        value={formik.values.content}
+        onChange={formik.handleChange}
+        hasError={!!formik.errors.content}
+      />
       <div>
         <span onClick={() => setEditing(false)}>Cancel</span>
         <Button type="submit" width="90px" height="25px" disabled={!!formik.errors.content}>
@@ -86,22 +92,6 @@ const EditForm = styled.form`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  textarea {
-    border: 1px solid #e7edf2;
-    border-radius: 50px;
-    height: 2.8rem;
-    resize: vertical;
-    font-size: 14px;
-    outline: none;
-    color: #626c72;
-    font-family: inherit;
-    margin-left: 3px;
-    padding: 10px 20px;
-    width: 100%;
-  }
-  textarea:focus {
-    border-color: #8224e3;
-  }
 
   div {
     display: flex;

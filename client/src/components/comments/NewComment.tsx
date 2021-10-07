@@ -11,7 +11,7 @@ import { commentSchema } from "../../validators";
 import UserContext from "../../context/user";
 import Avatar from "../Avatar";
 import Button from "../Button";
-import EditField from "./EditField";
+import EditField from "../EditField";
 
 type CreateProps = {
   postId: number;
@@ -91,7 +91,7 @@ const NewComment = React.forwardRef<HTMLTextAreaElement, NewCommentProps>((props
       </ReplyInput>
       <ReplyButtons>
         <span onClick={() => setShowReplyField(false)}>Cancel</span>
-        <Button type="submit" width="90px" height="25px">
+        <Button type="submit" width="90px" height="25px" disabled={!!formik.errors.content}>
           Reply
         </Button>
       </ReplyButtons>

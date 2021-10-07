@@ -5,7 +5,7 @@ const EditField = styled.textarea<{ hasError: boolean }>`
   border-color: ${(props) => (props.hasError ? "#ff0000" : "#e7edf2")};
   border-radius: 10px;
   height: 3rem;
-  font-size: 16px;
+  font-size: 14px;
   outline: none;
   resize: none;
   color: #626c72;
