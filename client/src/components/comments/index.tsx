@@ -67,7 +67,7 @@ const Comments = (props: CommentsProps) => {
           <span className="fa fa-eye">{` Show all ${count} comments`} </span>
         </LoadMore>
       )}
-      {infiniteQuery.isFetching && <Loading></Loading>}
+      {infiniteQuery.isFetching && <Loading />}
       {infiniteQuery.isSuccess &&
         infiniteQuery.data.pages
           .slice(0)
