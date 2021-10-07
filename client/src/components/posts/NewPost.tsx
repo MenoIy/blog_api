@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { useMutation, useQueryClient, InfiniteData } from "react-query";
 import { useFormik } from "formik";
@@ -11,14 +11,16 @@ import { postSchema } from "../../validators/";
 import UserContext from "../../context/user";
 import Avatar from "../Avatar";
 import Button from "../Button";
+import EditField from "../EditField";
 
 type Infinite = InfiniteData<FetchPromise>;
 
-const createPost = async (body: string): Promise<IPost> => {
-  return await api.post(`/posts`, { body }).then(({ data }: { data: IPost }) => data);
+const createPost = async (content: string): Promise<IPost> => {
+  return await api.post(`/posts`, { body: content }).then(({ data }: { data: IPost }) => data);
 };
 
 const NewPost = () => {
+  const [showButtons, setShowButtons] = useState<boolean>(false);
   const queryClient = useQueryClient();
   const queryKey = `fetch Posts`;
   const { user } = useContext(UserContext);
@@ -53,38 +55,48 @@ const NewPost = () => {
   });
 
   const formik = useFormik({
-    initialValues: { body: "" },
+    initialValues: { content: "" },
     validationSchema: postSchema,
-    onSubmit: ({ body }) => {
-      mutate(body);
-      formik.setValues({ body: "" });
+    validateOnChange: false,
+    onSubmit: ({ content }) => {
+      mutate(content);
+      formik.setValues({ content: "" });
     },
   });
+
+  const handleClose = () => {
+    setShowButtons(false);
+    formik.setValues({ content: "" });
+  };
 
   return (
     <Container onSubmit={formik.handleSubmit}>
       <FormInput>
         <Avatar avatar={user!.avatar} />
-        <textarea
-          name="body"
-          value={formik.values.body}
+        <EditField
+          name="content"
+          value={formik.values.content}
           placeholder={`What's new, ?`}
           onChange={formik.handleChange}
+          hasError={!!formik.errors.content}
+          onClick={() => setShowButtons(true)}
         />
       </FormInput>
-      <PostButtons>
-        <span onClick={() => formik.setValues({ body: "" })}>Cancel</span>
-        <Button type="submit" width="190px" height="35px">
-          Post
-        </Button>
-      </PostButtons>
+      {showButtons && (
+        <PostButtons>
+          <span onClick={handleClose}>Cancel</span>
+          <Button type="submit" width="190px" height="35px">
+            Post
+          </Button>
+        </PostButtons>
+      )}
     </Container>
   );
 };
 
 const Container = styled.form`
   display: flex;
-  margin-top: 20px;
+  margin: 20px 0px;
   padding: 30px 0px;
   flex-direction: column;
   width: 100%;
@@ -93,22 +105,6 @@ const FormInput = styled.div`
   display: flex;
   gap: 6px;
   align-items: center;
-  textarea {
-    border: 1px solid #e7edf2;
-    border-radius: 50px;
-    height: 2.8rem;
-    resize: vertical;
-    font-size: 16px;
-    outline: none;
-    color: #626c72;
-    font-family: inherit;
-    margin-left: 3px;
-    padding: 10px 20px;
-    width: 100%;
-  }
-  textarea:focus {
-    border-color: #8224e3;
-  }
 `;
 const PostButtons = styled.div`
   display: flex;
