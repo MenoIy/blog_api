@@ -4,11 +4,12 @@ import { useFormik } from "formik";
 import styled from "styled-components";
 
 import { api } from "../../api";
-import Button from "../Button";
 import { commentSchema } from "../../validators/";
 import { FetchPromise } from "./";
-
 import { IComment } from "../../interfaces";
+
+import Button from "../Button";
+import EditField from "./EditField";
 
 type UpdateProps = {
   id: number;
@@ -72,7 +73,7 @@ const EditComment = ({ id, postId, content, setEditing, cacheIndex }: EditProps)
         name="content"
         value={formik.values.content}
         onChange={formik.handleChange}
-        borderColor={formik.errors.content ? "#ff0000" : "#8224e3"}
+        hasError={!!formik.errors.content}
       />
       <div>
         <span onClick={() => setEditing(false)}>Cancel</span>
@@ -105,23 +106,6 @@ const EditForm = styled.form`
     &:hover {
       text-decoration: underline;
     }
-  }
-`;
-
-const EditField = styled.textarea<{ borderColor: string }>`
-  border: 1px solid;
-  border-color: ${(props) => (props.borderColor === "#ff0000" ? "#ff0000" : "#e7edf2")};
-  border-radius: 10px;
-  height: 2.8rem;
-  resize: vertical;
-  outline: none;
-  color: #626c72;
-  font-family: inherit;
-  margin-left: 3px;
-  padding: 10px 20px;
-  width: 100%;
-  &:focus {
-    border-color: ${(props) => props.borderColor};
   }
 `;
 

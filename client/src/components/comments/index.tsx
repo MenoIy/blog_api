@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useInfiniteQuery } from "react-query";
 
@@ -7,6 +7,7 @@ import NewComment from "./NewComment";
 
 import { api } from "../../api";
 import { IComment } from "../../interfaces";
+import { te } from "date-fns/locale";
 
 type FetchProps = {
   postId: number;
@@ -44,6 +45,7 @@ type CommentsProps = {
 
 const Comments = (props: CommentsProps) => {
   const { postId, count, setCount, showReplyField, setShowReplyField } = props;
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const infiniteQuery = useInfiniteQuery(
     `fetch Comments ${props.postId}`,
@@ -52,6 +54,10 @@ const Comments = (props: CommentsProps) => {
       getNextPageParam: (data) => data.nextPage,
     }
   );
+
+  useEffect(() => {
+    if (showReplyField && textAreaRef.current) textAreaRef.current.focus();
+  }, [showReplyField]);
 
   if (infiniteQuery.isError) return <p>Error</p>;
 
@@ -80,7 +86,12 @@ const Comments = (props: CommentsProps) => {
             </div>
           ))}
       {showReplyField && (
-        <NewComment postId={postId} setCount={setCount} setShowReplyField={setShowReplyField} />
+        <NewComment
+          ref={textAreaRef}
+          postId={postId}
+          setCount={setCount}
+          setShowReplyField={setShowReplyField}
+        />
       )}
     </Container>
   );

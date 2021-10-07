@@ -11,6 +11,7 @@ import { commentSchema } from "../../validators";
 import UserContext from "../../context/user";
 import Avatar from "../Avatar";
 import Button from "../Button";
+import EditField from "./EditField";
 
 type CreateProps = {
   postId: number;
@@ -31,12 +32,11 @@ const createComment = async ({ postId, content }: CreateProps): Promise<IComment
     .then(({ data }: { data: IComment }) => data);
 };
 
-const NewComment = (props: NewCommentProps) => {
+const NewComment = React.forwardRef<HTMLTextAreaElement, NewCommentProps>((props, ref) => {
   const { postId, setCount, setShowReplyField } = props;
   const queryClient = useQueryClient();
   const queryKey = `fetch Comments ${postId}`;
   const { user } = useContext(UserContext);
-  const ref = useRef<HTMLTextAreaElement>(null);
 
   const { mutate } = useMutation(createComment, {
     onMutate: async ({ content }) => {
@@ -51,13 +51,16 @@ const NewComment = (props: NewCommentProps) => {
           createdBy: { _id: user._id, username: user.username, avatar: user.avatar },
           createdAt: new Date(),
         });
-
+        setCount((prev) => prev + 1);
         queryClient.setQueryData<Infinite>(queryKey, newCache);
       }
       return previous;
     },
     onError: (error, variables, previous?: Infinite) => {
-      if (previous) queryClient.setQueryData<Infinite>(queryKey, previous);
+      if (previous) {
+        queryClient.setQueryData<Infinite>(queryKey, previous);
+        setCount((prev) => prev - 1);
+      }
     },
     onSettled: () => {
       queryClient.invalidateQueries(queryKey);
@@ -74,23 +77,11 @@ const NewComment = (props: NewCommentProps) => {
     },
   });
 
-  useEffect(() => {
-    ref.current?.focus();
-  }, []);
-
-  useEffect(() => {
-    if (!ref.current) return;
-
-    ref.current.style.height = "0px";
-    const scrollheight = ref.current.scrollHeight;
-    ref.current.style.height = `${scrollheight}px`;
-  }, [formik.values.content]);
-
   return (
     <ReplyField onSubmit={formik.handleSubmit}>
-      <ReplyInput hasError={!!formik.errors.content}>
+      <ReplyInput>
         <Avatar avatar={user!.avatar} size={{ width: "30px", height: "30px" }} />
-        <TextField
+        <EditField
           ref={ref}
           name="content"
           value={formik.values.content}
@@ -106,25 +97,7 @@ const NewComment = (props: NewCommentProps) => {
       </ReplyButtons>
     </ReplyField>
   );
-};
-
-const TextField = styled.textarea<{ hasError: boolean }>`
-  border: 1px solid;
-  border-color: ${(props) => (props.hasError ? "#ff0000" : "#e7edf2")};
-  border-radius: 10px;
-  min-height: 1.8rem;
-  font-size: 16px;
-  outline: none;
-  color: #626c72;
-  font-family: inherit;
-  margin-left: 3px;
-  padding: 10px 20px;
-  width: 100%;
-
-  &:focus {
-    border-color: ${(props) => (props.hasError ? "#ff0000" : "#8224e3")};
-  }
-`;
+});
 
 const ReplyField = styled.form`
   display: flex;
@@ -132,7 +105,7 @@ const ReplyField = styled.form`
   margin-top: 20px;
 `;
 
-const ReplyInput = styled.div<{ hasError: boolean }>`
+const ReplyInput = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
