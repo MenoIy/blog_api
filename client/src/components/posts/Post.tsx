@@ -51,9 +51,9 @@ const Post = (props: PostProps) => {
           Like
           <span> 7</span>
         </Like>
-        <ReplyBtn onClick={() => setShowReplyField}>
+        <ReplyBtn onClick={() => setShowReplyField(true)}>
           <span>Comment</span>
-          <span>{commentCount}</span>
+          <span>{count}</span>
         </ReplyBtn>
       </Interactions>
       <Comments
