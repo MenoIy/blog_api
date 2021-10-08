@@ -15,7 +15,7 @@ router.get('/verify/:token', userMiddleware.verifyEmail, userController.verifyEm
 
 router.get('/me', authenticated, userMiddleware.me, userController.me);
 router.get('/:username', authenticated, userMiddleware.getUserByUsername, userController.getUserByUsername);
-router.get('/', authenticated, userMiddleware.getUsers, userController.getUsers);
+router.get('/', userMiddleware.getUsers, userController.getUsers);
 //TODO getUserbyId
 
 router.patch('/profile', authenticated, upload, userMiddleware.updateUser, userController.updateUser);
