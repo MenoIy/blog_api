@@ -17,7 +17,6 @@ type UpdateProps = {
 };
 
 const updatePost = async ({ id, content }: UpdateProps): Promise<IPost> => {
-  console.log("upda");
   return await api
     .patch(`/posts/${id}`, { body: content })
     .then(({ data }: { data: IPost }) => data);
