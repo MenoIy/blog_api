@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useInfiniteQuery } from "react-query";
 
 import { IPost } from "../../interfaces";
 import { api } from "../../api";
 
+import UserContext from "../../context/user";
 import NewPost from "./NewPost";
 import Post from "./Post";
 
@@ -30,6 +31,7 @@ type PostsProps = {
 
 const Posts = (props: PostsProps) => {
   const { username } = props;
+  const { user } = useContext(UserContext);
 
   const infiniteQuery = useInfiniteQuery(
     `fetch Posts`,
@@ -55,7 +57,7 @@ const Posts = (props: PostsProps) => {
   return (
     <Container>
       <Body>
-        <NewPost />
+        {user && <NewPost />}
         {infiniteQuery.isLoading && <Loading />}
         {infiniteQuery.isSuccess &&
           infiniteQuery.data.pages.map((page, x) => (

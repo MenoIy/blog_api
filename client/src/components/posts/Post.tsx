@@ -45,17 +45,19 @@ const Post = (props: PostProps) => {
           </>
         )}
       </Content>
-      <Interactions>
-        <Like>
-          <i className="far fa-heart"></i>
-          Like
-          <span> 7</span>
-        </Like>
-        <ReplyBtn onClick={() => setShowReplyField(true)}>
-          <span>Comment</span>
-          <span>{count}</span>
-        </ReplyBtn>
-      </Interactions>
+      {user && (
+        <Interactions>
+          <Like>
+            <i className="far fa-heart"></i>
+            Like
+            <span> 7</span>
+          </Like>
+          <ReplyBtn onClick={() => setShowReplyField(true)}>
+            <span>Comment</span>
+            <span>{count}</span>
+          </ReplyBtn>
+        </Interactions>
+      )}
       <Comments
         setCount={setCount}
         postId={_id}
@@ -75,6 +77,7 @@ const Container = styled.div`
 `;
 const Content = styled.div`
   margin-top: 20px;
+  margin-bottom: 1.8rem;
   align-items: center;
   display: flex;
   @media (min-width: 767.98px) {
@@ -92,7 +95,6 @@ const Content = styled.div`
 `;
 
 const Interactions = styled.div`
-  margin-top: 1.6rem;
   display: flex;
   border-top: 1px solid #e7edf2;
   border-bottom: 1px solid #e7edf2;
