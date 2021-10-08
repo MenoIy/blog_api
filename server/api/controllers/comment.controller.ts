@@ -66,7 +66,7 @@ export const updateComment = async (req: Request, res: Response, next: NextFunct
     }
 
     if (String(comment.createdBy) !== String(req.user._id)) {
-      return next(new Exception.Unauthorized());
+      return next(new Exception.Forbidden());
     }
     comment.content = req.body.content;
     await comment.save();

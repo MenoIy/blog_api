@@ -14,6 +14,12 @@ export class Unauthorized extends HttpException {
   }
 }
 
+export class Forbidden extends HttpException {
+  constructor() {
+    super(403, 'Forbidden');
+  }
+}
+
 export class UserNotFound extends HttpException {
   constructor() {
     super(404, 'User not found');

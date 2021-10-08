@@ -73,7 +73,7 @@ export const deletePost = async (req: Request, res: Response, next: NextFunction
     }
 
     if (String(post.createdBy) !== String(req.user._id)) {
-      return next(new Exception.Unauthorized());
+      return next(new Exception.Forbidden());
     }
 
     const user: IUserDocument | null = await userModel.findOneAndUpdate(
@@ -101,7 +101,7 @@ export const updatePost = async (req: Request, res: Response, next: NextFunction
     }
 
     if (String(post.createdBy) !== String(req.user._id)) {
-      return next(new Exception.Unauthorized());
+      return next(new Exception.Forbidden());
     }
 
     post.body = req.body.body;
