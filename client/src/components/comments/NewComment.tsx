@@ -72,8 +72,7 @@ const NewComment = React.forwardRef<HTMLTextAreaElement, NewCommentProps>((props
     validationSchema: commentSchema,
     onSubmit: ({ content }) => {
       mutate({ postId, content });
-      formik.setValues({ content: "" });
-      setShowReplyField(false);
+      formik.setValues({ content: "" }, false);
     },
   });
 
