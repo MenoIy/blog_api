@@ -40,9 +40,9 @@ function App() {
             <Route path="/register">
               <Register />
             </Route>
-            <PrivateRoute path="/" redirect="/login">
+            <Route path="/">
               <Home />
-            </PrivateRoute>
+            </Route>
           </Switch>
         </Router>
       </QueryClientProvider>

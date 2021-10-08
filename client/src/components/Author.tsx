@@ -26,7 +26,7 @@ const Author = (props: AuthorProps): JSX.Element => {
   return (
     <Container gap={gap} direction={direction}>
       <Link to={{ pathname: path }}>
-        <Avatar img={avatar} size={size} />
+        <Avatar avatar={avatar} size={size} />
       </Link>
       <div>
         <Link to={{ pathname: path }}>{username}</Link>

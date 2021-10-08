@@ -27,7 +27,7 @@ const Peoples = () => {
         <Members>
           {data.map((user: IUser) => (
             <Member key={user._id}>
-              <Avatar img="avatar.png"></Avatar>
+              <Avatar avatar="uploads/1.png"></Avatar>
               <Name>
                 <a href=".">{user.username}</a>
               </Name>

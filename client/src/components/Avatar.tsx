@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 type AvatarProps = {
-  img: string;
+  avatar: string;
   size?: {
     width: string;
     height: string;
@@ -9,10 +12,11 @@ type AvatarProps = {
 };
 
 const Avatar = (props: AvatarProps): JSX.Element => {
-  const { img, size } = props;
+  const { avatar, size } = props;
+  const src = avatar ? `${process.env.REACT_APP_API}${avatar}` : "avatar,png";
   return (
     <Container width={size?.width || "40px"} height={size?.height || "40px"}>
-      <img src={img} alt="avatar"></img>
+      <img src={src} alt="avatar"></img>
     </Container>
   );
 };

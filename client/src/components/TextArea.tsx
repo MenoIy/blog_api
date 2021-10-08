@@ -25,6 +25,7 @@ const TextArea = (props: textAreaProps): JSX.Element => {
 };
 
 const Text = styled.p`
+  width: 100%;
   span {
     cursor: pointer;
     color: #8224e3;

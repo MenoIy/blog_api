@@ -1,4 +1,4 @@
-import Posts from "../components/Posts";
+import Posts from "../components/posts/";
 import styled from "styled-components";
 import Peoples from "../components/Peoples";
 
