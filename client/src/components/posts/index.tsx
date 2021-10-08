@@ -92,7 +92,7 @@ const Container = styled.div`
       opacity: 0.7;
     }
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1024.6px) {
     max-width: 66.666667%;
   }
   transition: max-width 0.75s cubic-bezier(0.685, 0.0473, 0.346, 1);
