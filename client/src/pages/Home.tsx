@@ -30,6 +30,7 @@ const Body = styled.div`
   color: #626c72;
   display: flex;
   margin-top: 60px;
+  height: calc(100vh - 60px);
 `;
 
 const Header = styled.div`
@@ -44,7 +45,8 @@ const Header = styled.div`
 
 const Content = styled.div`
   display: flex;
-  flex: 76%;
+  flex: 1 1 70%;
+  overflow: auto;
 `;
 
 export default Home;

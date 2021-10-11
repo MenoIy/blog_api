@@ -48,7 +48,10 @@ const Container = styled.div`
   border-radius: 20px;
   text-transform: capitalize;
   background-color: white;
-  margin-top: 190px;
+  margin-top: 120px;
+  @media screen and (max-width: 1440.6px) {
+    display: none;
+  }
 `;
 
 const User = styled.div`
