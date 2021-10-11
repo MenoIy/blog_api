@@ -1,39 +1,37 @@
 import { useContext } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import UserContext from "../context/user";
 import Avatar from "../components/Avatar";
 
 const Modal = () => {
-  const { user } = useContext(UserContext);
+  const { user, isLoading } = useContext(UserContext);
 
+  if (isLoading && !user) return <p>Loading</p>;
   return (
     <Container>
-      <Avatar avatar={user?.avatar || ""} size={{ width: "50px", height: "50px" }} />
+      <Link to={{ pathname: `/${user!.username}` }}>
+        <Avatar avatar={user!.avatar} size={{ width: "50px", height: "50px" }} />
+      </Link>
       <User>
-        <p>{user?.username}</p>
+        <Link to={{ pathname: `/${user!.username}` }}>
+          <p>{user!.username}</p>
+        </Link>
+
         <span>Member</span>
       </User>
       <Info>
         <div>
-          <p>1</p>
-          <span>Name</span>
+          <p>{user!.comments.length}</p>
+          <span>Comments</span>
         </div>
         <div>
-          <p>7</p>
-          <span>Name</span>
+          <p>{user?.posts.length}</p>
+          <span>Posts</span>
         </div>
       </Info>
     </Container>
-  );
-};
-
-const Item = ({ name, icone }: { name: string; icone: string }) => {
-  return (
-    <>
-      <i>{name}</i>
-      <span className={icone}></span>
-    </>
   );
 };
 
@@ -56,6 +54,9 @@ const Container = styled.div`
 const User = styled.div`
   width: 90%;
   padding: 15px;
+  a {
+    text-decoration: none;
+  }
 
   p {
     font-size: 1rem;
