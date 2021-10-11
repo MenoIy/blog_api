@@ -6,7 +6,7 @@ import Avatar from "../components/Avatar";
 
 const Modal = () => {
   const { user } = useContext(UserContext);
-  console.log("here", user);
+
   return (
     <Container>
       <Avatar avatar={user?.avatar || ""} size={{ width: "50px", height: "50px" }} />
@@ -38,9 +38,10 @@ const Item = ({ name, icone }: { name: string; icone: string }) => {
 };
 
 const Container = styled.div`
-  width: 250px;
-  height: 225px;
-  border: red solid 1px;
+  box-shadow: 0 15px 100px rgb(58 46 68 / 6%);
+  max-width: 250px;
+  width: 80%;
+  height: 245px;
   padding: 33px;
   display: flex;
   align-items: center;
@@ -48,6 +49,8 @@ const Container = styled.div`
   text-align: center;
   border-radius: 20px;
   text-transform: capitalize;
+  background-color: white;
+  margin-top: 190px;
 `;
 
 const User = styled.div`
@@ -66,9 +69,12 @@ const User = styled.div`
   }
   border-bottom: 1px rgb(231, 237, 242) solid;
 `;
+
 const Info = styled.div`
   display: flex;
+  line-height: 1.35;
   gap: 30px;
+  margin-top: 10px;
   p {
     font-size: 14px;
     font-weight: 600;
