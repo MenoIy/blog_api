@@ -7,13 +7,7 @@ import * as Exception from '../exceptions';
 export const createPost = async (req: Request, res: Response, next: NextFunction) => {
   const post: IPost = new postModel({ ...req.body, createdBy: req.user._id });
   try {
-    const user: IUserDocument | null = await userModel.findOne({ _id: req.user._id });
-    if (!user) {
-      return next(new Exception.UserNotFound());
-    }
-
-    user.posts.push(post._id);
-    await user.save();
+    await userModel.updateOne({ id: req.user._id }, { $push: { posts: post._id } });
     await post.save();
 
     res.status(201).send(post);

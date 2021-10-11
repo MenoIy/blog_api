@@ -56,9 +56,7 @@ export const authToken = (req: Request, res: Response) => {
 };
 
 export const me = (req: Request, res: Response, next: NextFunction) => {
-  const { _id, username, firstName, lastName, email, avatar } = req.user;
-
-  res.status(200).send({ _id, firstName, lastName, username, email, avatar });
+  res.status(200).send(req.user);
 };
 
 export const getUserByUsername = async (req: Request, res: Response, next: NextFunction) => {

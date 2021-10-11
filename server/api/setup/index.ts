@@ -54,6 +54,7 @@ export const loadContents = async (req: Request, res: Response, next: NextFuncti
           post: newPost._id
         });
         newPost.comments.push(newComment._id);
+        user.comments.push(newComment._id);
         newComment.save();
       });
       user.save();
