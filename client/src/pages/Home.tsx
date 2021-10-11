@@ -44,7 +44,7 @@ const Header = styled.div`
 
 const Content = styled.div`
   display: flex;
-  flex: 80%;
+  flex: 76%;
 `;
 
 export default Home;
