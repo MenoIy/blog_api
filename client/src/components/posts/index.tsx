@@ -1,13 +1,13 @@
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { useInfiniteQuery } from "react-query";
 
 import { IPost } from "../../interfaces";
 import { api } from "../../api";
 
-import UserContext from "../../context/user";
 import NewPost from "./NewPost";
 import Post from "./Post";
+import { useUserState } from "../../context/userContext";
 
 export type FetchPromise = {
   data: IPost[];
@@ -31,7 +31,7 @@ type PostsProps = {
 
 const Posts = (props: PostsProps) => {
   const { username } = props;
-  const { user } = useContext(UserContext);
+  const user = useUserState();
 
   const infiniteQuery = useInfiniteQuery(
     `fetch Posts`,
