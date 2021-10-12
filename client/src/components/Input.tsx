@@ -6,19 +6,21 @@ type InputProps = {
   onChange: (e: React.ChangeEvent) => void;
   value: string;
   error?: string;
+  touched?: boolean;
 };
 
 const Input = (props: InputProps) => {
-  const { error, ...rest } = props;
+  const { error, touched, ...rest } = props;
+
   return (
-    <Container error={!!error}>
+    <Container error={!!error && !!touched}>
       <input {...rest} type={rest.name === "password" ? "password" : "text"} />
-      {error && <p>{props.error}</p>}
+      {error && touched && <p>{props.error}</p>}
     </Container>
   );
 };
 
-const Container = styled.div<{ error?: boolean }>`
+const Container = styled.div<{ error: boolean }>`
   input {
     border-radius: 20px;
     font-size: 14px;
@@ -31,7 +33,7 @@ const Container = styled.div<{ error?: boolean }>`
     outline: none;
   }
   input:focus {
-    border-color: #a968ec;
+    border-color: ${(props) => (props.error ? "#ff2525" : "#a968ec")};
   }
   p {
     color: red;
