@@ -79,6 +79,10 @@ const Container = styled.div`
   max-width: 100%;
   flex: 66.6666%;
   overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
 
   @media screen and (min-width: 767.98px) {
     &::before {
@@ -99,6 +103,7 @@ const Container = styled.div`
   }
   transition: max-width 0.75s cubic-bezier(0.685, 0.0473, 0.346, 1);
 `;
+
 const Loading = styled.div`
   cursor: pointer;
   font-size: 16px;
