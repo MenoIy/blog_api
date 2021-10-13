@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useMutation, useQueryClient, InfiniteData } from "react-query";
 import { useFormik } from "formik";
@@ -8,7 +8,7 @@ import { api } from "../../api";
 import { FetchPromise } from "./";
 import { postSchema } from "../../validators/";
 
-import UserContext from "../../context/user";
+import { useUserState } from "../../context/userContext";
 import Avatar from "../Avatar";
 import Button from "../Button";
 import EditField from "../EditField";
@@ -23,19 +23,19 @@ const NewPost = () => {
   const [showButtons, setShowButtons] = useState<boolean>(false);
   const queryClient = useQueryClient();
   const queryKey = `fetch Posts`;
-  const { user } = useContext(UserContext);
+  const user = useUserState();
 
   const { mutate } = useMutation(createPost, {
     onMutate: async (body) => {
       await queryClient.cancelQueries(queryKey);
       const previous = queryClient.getQueryData<Infinite>(queryKey);
 
-      if (previous && user) {
+      if (previous) {
         const newCache = { ...previous };
         const tmpPost: IPost = {
           body: body,
           _id: 0x0,
-          createdBy: { _id: user._id, username: user.username, avatar: user.avatar },
+          createdBy: { _id: user!._id, username: user!.username, avatar: user!.avatar },
           createdAt: new Date(),
           comments: [],
         };
@@ -51,6 +51,7 @@ const NewPost = () => {
     },
     onSettled: () => {
       queryClient.invalidateQueries(queryKey);
+      queryClient.invalidateQueries("auth");
     },
   });
 

@@ -5,7 +5,7 @@ import { IPost } from "../../interfaces";
 
 import Author from "../Author";
 import TextArea from "../TextArea";
-import UserContext from "../../context/user";
+import { useUserState } from "../../context/userContext";
 import Comments from "../comments/";
 import EditPost from "./EditPost";
 
@@ -22,7 +22,7 @@ const Post = (props: PostProps) => {
   const [count, setCount] = useState<number>(commentCount);
 
   const { _id, createdBy, createdAt, body: content } = post;
-  const { user } = useContext(UserContext);
+  const user = useUserState();
 
   return (
     <Container>
