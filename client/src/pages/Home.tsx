@@ -2,6 +2,7 @@ import Posts from "../components/posts/";
 import styled from "styled-components";
 import Peoples from "../components/Peoples";
 import SideBar from "../components/sideBar";
+import Header from "../components/Header/";
 
 const Home = () => {
   return (
@@ -18,9 +19,7 @@ const Home = () => {
   );
 };
 
-const Container = styled.div`
-  height: auto;
-`;
+const Container = styled.div``;
 
 const Body = styled.div`
   width: 100%;
@@ -29,23 +28,15 @@ const Body = styled.div`
   font-weight: 400;
   color: #626c72;
   display: flex;
-  margin-top: 60px;
-  height: calc(100vh - 60px);
-`;
-
-const Header = styled.div`
-  border: solid 1px blue;
-  height: 60px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: red;
-  z-index: 4;
+  height: calc(100vh);
 `;
 
 const Content = styled.div`
-  display: flex;
+  margin-top: 70px;
   flex: 1 1 70%;
+
+  display: flex;
+  border-top: 1px solid #e7edf2;
 `;
 
 export default Home;
