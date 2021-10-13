@@ -16,6 +16,12 @@ const userSchema: Schema = new Schema<IUserDocument>({
       type: Schema.Types.ObjectId,
       ref: 'Post'
     }
+  ],
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment'
+    }
   ]
 });
 

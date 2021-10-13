@@ -12,7 +12,8 @@ export interface IUser {
 export interface IUserDocument extends IUser, Document {
   passwordIsCorrect: (password: string) => Promise<boolean>;
   emailIsVerified: boolean;
-  Posts: [ObjectId];
+  posts: [ObjectId];
+  comments: [Object];
   [key: string]: any;
 }
 

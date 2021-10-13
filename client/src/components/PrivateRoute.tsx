@@ -1,6 +1,5 @@
-import { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import UserContext from "../context/user";
+import { useUserState } from "../context/userContext";
 
 type Props = {
   children: any;
@@ -11,12 +10,11 @@ type Props = {
 const PrivateRoute = (props: Props) => {
   const { children, ...rest } = props;
 
-  const context = useContext(UserContext);
+  const user = useUserState();
 
-  if (context.isLoading) return <h1>Loading</h1>;
   return (
     <>
-      {context.user ? (
+      {user ? (
         <Route path={rest.path}>{children}</Route>
       ) : (
         <Redirect to={{ pathname: rest.redirect }} />

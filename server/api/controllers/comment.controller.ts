@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { commentModel, postModel } from '../models';
-import { IComment, IPost } from '../interfaces';
+import { commentModel, postModel, userModel } from '../models';
+import { IComment, IPost, IUserDocument } from '../interfaces';
 
 import * as Exception from '../exceptions';
 
@@ -13,6 +13,8 @@ export const createComment = async (req: Request, res: Response, next: NextFunct
       return next(new Exception.PostNotFound());
     }
     post.comments.push(comment._id);
+
+    await userModel.updateOne({ id: req.user._id }, { $push: { comments: comment._id } });
     await post.save();
     await comment.save();
 
@@ -93,6 +95,15 @@ export const deleteComment = async (req: Request, res: Response, next: NextFunct
 
     if (!post) {
       return next(new Exception.PostNotFound());
+    }
+
+    const user: IUserDocument | null = await userModel.findOneAndUpdate(
+      { _id: req.user._id },
+      { $pull: { comments: { $eq: comment._id } } }
+    );
+
+    if (!user) {
+      return next(new Exception.UserNotFound());
     }
 
     await comment.delete();

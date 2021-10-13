@@ -7,20 +7,24 @@ export const registerSchema = yup.object({
   email: yup.string().email().required(),
   password: yup
     .string()
-    .min(8)
-    .max(24)
-    .required()
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/, "Must Contain 8 Characters, One Number"),
+    .matches(/^(?=.*?[A-Z])/, "Must contain at least one upper case")
+    .matches(/^(?=.*?[0-9])/, "Must contain at least one digit")
+    .matches(/^(?=.*?[a-z])/, "Must contain at least one lower case")
+    .min(8, "Minimum 8 characters")
+    .max(24, "Maximum 24 characters")
+    .required("Password is required"),
 });
 
 export const loginSchema = yup.object({
   username: yup.string().min(6).max(24).required(),
   password: yup
     .string()
-    .min(8)
-    .max(24)
-    .required()
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/, "Must contain 8 characters, one number"),
+    .matches(/^(?=.*?[A-Z])/, "Must contain at least one upper case")
+    .matches(/^(?=.*?[0-9])/, "Must contain at least one digit")
+    .matches(/^(?=.*?[a-z])/, "Must contain at least one lower case")
+    .min(8, "Minimum 8 characters")
+    .max(24, "Maximum 24 characters")
+    .required("Password is required"),
 });
 
 export const commentSchema = yup.object({

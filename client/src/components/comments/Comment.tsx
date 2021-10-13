@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 import Author from "../Author";
 import TextArea from "../TextArea";
-import UserContext from "../../context/user";
+import { useUserState } from "../../context/userContext";
 import EditComment from "./EditComment";
 import { IComment } from "../../interfaces";
 
@@ -18,7 +18,7 @@ const Comment = (props: CommentProps) => {
   const { _id, createdBy, createdAt, content } = comment;
   const [editing, setEditing] = useState<boolean>(false);
 
-  const { user } = useContext(UserContext);
+  const user = useUserState();
 
   return (
     <Container>

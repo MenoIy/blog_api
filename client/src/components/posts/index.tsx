@@ -1,13 +1,13 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useInfiniteQuery } from "react-query";
 
 import { IPost } from "../../interfaces";
 import { api } from "../../api";
 
-import UserContext from "../../context/user";
 import NewPost from "./NewPost";
 import Post from "./Post";
+import { useUserState } from "../../context/userContext";
 
 export type FetchPromise = {
   data: IPost[];
@@ -31,7 +31,8 @@ type PostsProps = {
 
 const Posts = (props: PostsProps) => {
   const { username } = props;
-  const { user } = useContext(UserContext);
+  const user = useUserState();
+  const ref = useRef<HTMLDivElement>(null);
 
   const infiniteQuery = useInfiniteQuery(
     `fetch Posts`,
@@ -42,20 +43,20 @@ const Posts = (props: PostsProps) => {
   );
 
   useEffect(() => {
+    if (!ref.current) return;
+    const node = ref.current;
     const onScroll = function () {
       if (infiniteQuery.status === "loading") return;
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        infiniteQuery.fetchNextPage();
-      }
+      if (node.scrollTop + node.offsetHeight >= node.scrollHeight) infiniteQuery.fetchNextPage();
     };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    node.addEventListener("scroll", onScroll);
+    return () => node.removeEventListener("scroll", onScroll);
   });
 
   if (infiniteQuery.isError) return <p>Error</p>;
 
   return (
-    <Container>
+    <Container ref={ref}>
       <Body>
         {user && <NewPost />}
         {infiniteQuery.isLoading && <Loading />}
@@ -77,6 +78,11 @@ const Container = styled.div`
   position: relative;
   max-width: 100%;
   flex: 66.6666%;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
 
   @media screen and (min-width: 767.98px) {
     &::before {
@@ -92,11 +98,12 @@ const Container = styled.div`
       opacity: 0.7;
     }
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1024.6px) {
     max-width: 66.666667%;
   }
   transition: max-width 0.75s cubic-bezier(0.685, 0.0473, 0.346, 1);
 `;
+
 const Loading = styled.div`
   cursor: pointer;
   font-size: 16px;

@@ -5,6 +5,8 @@ export interface IUser {
   lastName: string;
   email: string;
   avatar: string;
+  posts: [];
+  comments: [];
 }
 
 export interface IComment {

@@ -1,28 +1,45 @@
 import Posts from "../components/posts/";
 import styled from "styled-components";
 import Peoples from "../components/Peoples";
+import SideBar from "../components/sideBar";
+import Header from "../components/Header/";
 
 const Home = () => {
   return (
     <Container>
+      <Header />
       <Body>
-        <Posts />
-        <Peoples />
+        <SideBar />
+        <Content>
+          <Posts />
+          <Peoples />
+        </Content>
       </Body>
     </Container>
   );
 };
 
-const Container = styled.div`
+const Container = styled.div``;
+
+const Body = styled.div`
   width: 100%;
   font-family: "Nunito Sans", Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: #626c72;
+  display: flex;
+  height: calc(100vh);
 `;
 
-const Body = styled.div`
+const Content = styled.div`
+  margin-top: 70px;
+  flex: 1 1 70%;
   display: flex;
+
+  border-top: 1px solid #e7edf2;
+  @media screen and (max-width: 767.98px) {
+    margin-top: 140px;
+  }
 `;
 
 export default Home;

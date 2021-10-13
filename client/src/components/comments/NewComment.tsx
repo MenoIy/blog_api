@@ -1,4 +1,4 @@
-import React, { SetStateAction, useContext } from "react";
+import React, { SetStateAction } from "react";
 import { useMutation, useQueryClient, InfiniteData } from "react-query";
 import { useFormik } from "formik";
 import styled from "styled-components";
@@ -8,7 +8,7 @@ import { IComment } from "../../interfaces";
 import { FetchPromise } from "./";
 import { commentSchema } from "../../validators";
 
-import UserContext from "../../context/user";
+import { useUserState } from "../../context/userContext";
 import Avatar from "../Avatar";
 import Button from "../Button";
 import EditField from "../EditField";
@@ -36,19 +36,19 @@ const NewComment = React.forwardRef<HTMLTextAreaElement, NewCommentProps>((props
   const { postId, setCount, setShowReplyField } = props;
   const queryClient = useQueryClient();
   const queryKey = `fetch Comments ${postId}`;
-  const { user } = useContext(UserContext);
+  const user = useUserState();
 
   const { mutate } = useMutation(createComment, {
     onMutate: async ({ content }) => {
       await queryClient.cancelQueries(queryKey);
       const previous = queryClient.getQueryData<Infinite>(queryKey);
 
-      if (previous && user) {
+      if (previous) {
         const newCache = { ...previous };
         newCache.pages[0].data.push({
           content: content,
           _id: 0x0,
-          createdBy: { _id: user._id, username: user.username, avatar: user.avatar },
+          createdBy: { _id: user!._id, username: user!.username, avatar: user!.avatar },
           createdAt: new Date(),
         });
         setCount((prev) => prev + 1);
@@ -64,6 +64,7 @@ const NewComment = React.forwardRef<HTMLTextAreaElement, NewCommentProps>((props
     },
     onSettled: () => {
       queryClient.invalidateQueries(queryKey);
+      queryClient.invalidateQueries(`auth`);
     },
   });
 
