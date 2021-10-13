@@ -39,7 +39,7 @@ const Container = styled.div`
   height: auto;
 
   @media screen and (max-width: 1440.6px) {
-    background: linear-gradient(#383a45 100px, #f8f9fb 9%);
+    background: linear-gradient(#383a45 70px, #f8f9fb 70px);
     flex: 0 0 65px;
   }
   @media screen and (max-width: 767.98px) {
