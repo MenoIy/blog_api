@@ -3,31 +3,66 @@ import { Link } from "react-router-dom";
 
 import ProfileModal from "./ProfileModal";
 import LoginModal from "./LoginModal";
-import { useUserState } from "../../context/userContext";
+import { useUserState, useUserUpdater } from "../../context/userContext";
+import { api } from "../../api";
+
+const logOut = async () => {
+  return await api.get(`/users/logout`).then(({ data }) => data);
+};
 
 const SideBar = () => {
   const user = useUserState();
+  const setUser = useUserUpdater();
+
+  const handleClick = () => {
+    try {
+      logOut();
+      setUser(null);
+    } catch (error) {}
+  };
 
   return (
     <Container>
       {user ? <ProfileModal user={user} /> : <LoginModal />}
       <Items>
         <Link to={{ pathname: "/" }}>
-          <i className="fas fa-users"></i>
-          <span>Poeple</span>
+          <div>
+            <i className="fas fa-users"></i>
+            <span>Poeple</span>
+          </div>
         </Link>
         <Link to={{ pathname: "/" }}>
-          <i className="far fa-newspaper"></i>
-          <span>Activity</span>
+          <div>
+            <i className="far fa-newspaper"></i>
+            <span>Activity</span>
+          </div>
         </Link>
         <Link to={{ pathname: "/" }}>
-          <i className="far fa-image"></i>
-          <span>Photos</span>
+          <div>
+            <i className="far fa-image"></i>
+            <span>Photos</span>
+          </div>
         </Link>
         <Link to={{ pathname: "/" }}>
-          <i className="fab fa-github"></i>
-          <span>Github</span>
+          <div>
+            <i className="fab fa-github"></i>
+            <span>Github</span>
+          </div>
         </Link>
+        {user && (
+          <Link to={{ pathname: "/" }}>
+            <div>
+              <i className="fas fa-cog"></i>
+              <span>Setting</span>
+            </div>
+          </Link>
+        )}
+        {user && (
+          <div onClick={handleClick}>
+            <i className="fas fa-sign-out-alt"></i>
+            <span>Log Out</span>
+          </div>
+        )}
       </Items>
     </Container>
   );
@@ -66,21 +101,21 @@ const Items = styled.div`
   margin-top: 30px;
   a {
     text-decoration: none;
+  }
+  div {
     display: block;
     color: #838daa;
     font-size: 14px;
     font-weight: 600;
     line-height: 30px;
+    cursor: pointer;
   }
   i {
     display: block;
     font-size: 1.125rem;
   }
-  a {
-    cursor: pointer;
-  }
 
-  a:hover {
+  div:hover {
     color: #8224e3;
   }
   @media screen and (max-width: 1440.6px) {

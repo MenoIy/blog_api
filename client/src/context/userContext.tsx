@@ -23,6 +23,7 @@ export const UserProvider = (props: { children: React.ReactNode }) => {
       onError: (error) => {
         console.log(error);
       },
+      retry: false,
     }
   );
 

@@ -1,22 +1,11 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-import Avatar from "../Avatar";
-import { useUserState } from "../../context/userContext";
 import Search from "./Search";
-import DropDown from "./DropDown";
 
 const Header = () => {
-  const [showDropDowm, setShowDropDown] = useState<boolean>(false);
-  const user = useUserState();
-
   return (
     <Container>
       <Search />
-      <div onClick={() => setShowDropDown((prev) => !prev)}>
-        <Avatar avatar={user ? user.avatar : ""} />
-      </div>
-      {showDropDowm && <DropDown showDropDown={setShowDropDown} />}
     </Container>
   );
 };
