@@ -34,9 +34,12 @@ const Body = styled.div`
 const Content = styled.div`
   margin-top: 70px;
   flex: 1 1 70%;
-
   display: flex;
+
   border-top: 1px solid #e7edf2;
+  @media screen and (max-width: 767.98px) {
+    margin-top: 140px;
+  }
 `;
 
 export default Home;

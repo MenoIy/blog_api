@@ -43,25 +43,36 @@ const SideBar = () => {
             <span>Photos</span>
           </div>
         </Link>
-        <Link to={{ pathname: "/" }}>
-          <div>
-            <i className="fab fa-github"></i>
-            <span>Github</span>
-          </div>
-        </Link>
-        {user && (
-          <Link to={{ pathname: "/" }}>
-            <div>
-              <i className="fas fa-cog"></i>
-              <span>Setting</span>
+
+        {user ? (
+          <>
+            <Link to={{ pathname: "/" }}>
+              <div>
+                <i className="fas fa-cog"></i>
+                <span>Setting</span>
+              </div>
+            </Link>
+
+            <div onClick={handleClick}>
+              <i className="fas fa-sign-out-alt"></i>
+              <span>Log Out</span>
             </div>
-          </Link>
-        )}
-        {user && (
-          <div onClick={handleClick}>
-            <i className="fas fa-sign-out-alt"></i>
-            <span>Log Out</span>
-          </div>
+          </>
+        ) : (
+          <>
+            <Link to={{ pathname: "/login" }}>
+              <div>
+                <i className="fas fa-sign-in-alt"></i>
+                <span>Log In</span>
+              </div>
+            </Link>
+            <Link to={{ pathname: "/register" }}>
+              <div>
+                <i className="fas fa-user-plus"></i>
+                <span>Register</span>
+              </div>
+            </Link>
+          </>
         )}
       </Items>
     </Container>
@@ -73,23 +84,28 @@ const Container = styled.div`
   max-width: 340px;
   height: auto;
 
+  background: linear-gradient(#383a45 300px, #f8f9fb 25%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   @media screen and (max-width: 1440.6px) {
     background: linear-gradient(#383a45 70px, #f8f9fb 70px);
     flex: 0 0 65px;
   }
   @media screen and (max-width: 767.98px) {
-    display: none;
+    position: fixed;
+    top: 70px;
+    width: 100%;
+    background: #f8f9fb;
+    max-width: 100%;
+    height: 70px;
   }
-  background: linear-gradient(#383a45 300px, #f8f9fb 25%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const Items = styled.div`
-  width: 80%;
+  width: 100%;
   max-width: 250px;
-  margin: auto;
   display: flex;
   flex-wrap: wrap;
   padding: 33px 0px;
@@ -121,7 +137,16 @@ const Items = styled.div`
   @media screen and (max-width: 1440.6px) {
     margin-top: 90px;
     gap: 45px;
-
+  }
+  @media screen and (max-width: 767.98px) {
+    padding: 10px 0;
+    margin: auto;
+    width: 100%;
+    max-width: 100%;
+    gap: 0;
+    justify-content: space-evenly;
+  }
+  @media screen and (max-width: 320.6px) {
     span {
       display: none;
     }
