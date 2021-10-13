@@ -42,19 +42,6 @@ const Posts = (props: PostsProps) => {
     }
   );
 
-  const hmm = () => {
-    if (!ref.current) return;
-    const node = ref.current;
-    console.log(
-      node.scrollTop,
-      node.scrollHeight,
-      node.clientHeight,
-      node.offsetHeight,
-      document.body.offsetHeight,
-      window.scrollY
-    );
-  };
-
   useEffect(() => {
     if (!ref.current) return;
     const node = ref.current;

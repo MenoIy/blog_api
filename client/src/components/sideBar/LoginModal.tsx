@@ -8,11 +8,6 @@ import Button from "../Button";
 import { loginSchema } from "../../validators";
 import { api } from "../../api/";
 
-type LoginProps = {
-  username: string;
-  password: string;
-};
-
 const LoginModal = () => {
   const queryClient = useQueryClient();
 
