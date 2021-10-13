@@ -1,7 +1,7 @@
 import Posts from "../components/posts/";
 import styled from "styled-components";
 import Peoples from "../components/Peoples";
-import SideBar from "../sideBar/";
+import SideBar from "../components/sideBar";
 
 const Home = () => {
   return (
@@ -46,7 +46,6 @@ const Header = styled.div`
 const Content = styled.div`
   display: flex;
   flex: 1 1 70%;
-  overflow: auto;
 `;
 
 export default Home;
