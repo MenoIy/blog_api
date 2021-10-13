@@ -58,7 +58,9 @@ const Body = styled.div`
   padding: 32px;
   border-radius: 12px;
   position: fixed;
-  width: 325px;
+  width: 20%;
+  max-width: 340px;
+  min-width: 240px;
 `;
 
 const Title = styled.div`
