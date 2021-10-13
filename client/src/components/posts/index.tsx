@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useInfiniteQuery } from "react-query";
 
@@ -32,6 +32,7 @@ type PostsProps = {
 const Posts = (props: PostsProps) => {
   const { username } = props;
   const user = useUserState();
+  const ref = useRef<HTMLDivElement>(null);
 
   const infiniteQuery = useInfiniteQuery(
     `fetch Posts`,
@@ -41,21 +42,34 @@ const Posts = (props: PostsProps) => {
     }
   );
 
+  const hmm = () => {
+    if (!ref.current) return;
+    const node = ref.current;
+    console.log(
+      node.scrollTop,
+      node.scrollHeight,
+      node.clientHeight,
+      node.offsetHeight,
+      document.body.offsetHeight,
+      window.scrollY
+    );
+  };
+
   useEffect(() => {
+    if (!ref.current) return;
+    const node = ref.current;
     const onScroll = function () {
       if (infiniteQuery.status === "loading") return;
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        infiniteQuery.fetchNextPage();
-      }
+      if (node.scrollTop + node.offsetHeight >= node.scrollHeight) infiniteQuery.fetchNextPage();
     };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    node.addEventListener("scroll", onScroll);
+    return () => node.removeEventListener("scroll", onScroll);
   });
 
   if (infiniteQuery.isError) return <p>Error</p>;
 
   return (
-    <Container>
+    <Container ref={ref}>
       <Body>
         {user && <NewPost />}
         {infiniteQuery.isLoading && <Loading />}
@@ -77,6 +91,7 @@ const Container = styled.div`
   position: relative;
   max-width: 100%;
   flex: 66.6666%;
+  overflow: auto;
 
   @media screen and (min-width: 767.98px) {
     &::before {
