@@ -8,7 +8,7 @@ const ProfileModal = (props: { user: IUser }) => {
   const { user } = props;
 
   return (
-    <>
+    <Container>
       <Link to={{ pathname: `/${user.username}` }}>
         <Avatar avatar={user.avatar} size={{ width: "50px", height: "50px" }} />
       </Link>
@@ -29,9 +29,28 @@ const ProfileModal = (props: { user: IUser }) => {
           <span>Posts</span>
         </div>
       </Info>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  box-shadow: 0 15px 100px rgb(58 46 68 / 6%);
+  width: 80%;
+  max-width: 250px;
+  height: 245px;
+  padding: 33px 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 20px;
+  text-transform: capitalize;
+  background-color: white;
+  margin-top: 120px;
+  @media screen and (max-width: 1440.6px) {
+    display: none;
+  }
+`;
 
 const User = styled.div`
   width: 90%;
