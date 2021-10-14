@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+
 import Posts from "../components/posts/";
 import styled from "styled-components";
 import Peoples from "../components/Peoples";
@@ -5,13 +7,15 @@ import SideBar from "../components/sideBar";
 import Header from "../components/Header/";
 
 const Home = () => {
+  const { username } = useParams<{ username?: string }>();
+  console.log("Hello there", username);
   return (
     <Container>
       <Header />
       <Body>
         <SideBar />
         <Content>
-          <Posts />
+          <Posts username={username} />
           <Peoples />
         </Content>
       </Body>

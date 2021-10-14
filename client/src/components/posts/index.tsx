@@ -14,10 +14,16 @@ export type FetchPromise = {
   nextPage?: number;
 };
 
-const fetchPosts = async ({ pageParam }: { pageParam: number }): Promise<FetchPromise> => {
-  const offset = pageParam * 10;
+type FetchProps = {
+  pageParam: number;
+  username?: string;
+};
 
-  return await api.get(`/posts?offset=${offset}`).then(({ data }: { data: IPost[] }) => {
+const fetchPosts = async ({ pageParam, username }: FetchProps): Promise<FetchPromise> => {
+  const offset = pageParam * 10;
+  const link = username ? `/${username}/posts` : "";
+
+  return await api.get(`/posts${link}?offset=${offset}`).then(({ data }: { data: IPost[] }) => {
     return {
       data: data,
       nextPage: pageParam + 1,
@@ -35,8 +41,8 @@ const Posts = (props: PostsProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const infiniteQuery = useInfiniteQuery(
-    `fetch Posts`,
-    ({ pageParam = 0 }) => fetchPosts({ pageParam }),
+    `fetch Posts ${username || ""}`,
+    ({ pageParam = 0 }) => fetchPosts({ pageParam, username }),
     {
       getNextPageParam: (data) => data.nextPage,
     }
@@ -51,20 +57,20 @@ const Posts = (props: PostsProps) => {
     };
     node.addEventListener("scroll", onScroll);
     return () => node.removeEventListener("scroll", onScroll);
-  });
+  }, []);
 
   if (infiniteQuery.isError) return <p>Error</p>;
 
   return (
     <Container ref={ref}>
       <Body>
-        {user && <NewPost />}
+        {user && (user.username === username || !username) && <NewPost username={username} />}
         {infiniteQuery.isLoading && <Loading />}
         {infiniteQuery.isSuccess &&
           infiniteQuery.data.pages.map((page, x) => (
             <div key={x}>
               {page.data.map((post, y) => (
-                <Post key={post._id} post={post} cacheIndex={[x, y]} />
+                <Post username={username} key={post._id} post={post} cacheIndex={[x, y]} />
               ))}
             </div>
           ))}

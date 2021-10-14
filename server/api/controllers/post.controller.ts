@@ -35,11 +35,21 @@ export const getPosts = async (req: Request, res: Response, next: NextFunction) 
 
 export const getPostByUsername = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user: IUserDocument | null = await userModel.findOne(req.params, 'posts').populate('posts');
+    const { offset, limit } = req.query;
+
+    const user: IUserDocument | null = await userModel.findOne(req.params);
     if (!user) {
       return next(new Exception.UserNotFound());
     }
-    res.status(200).send(user.posts);
+
+    const posts: IPost[] = await postModel
+      .find({ createdBy: user._id })
+      .populate('createdBy', 'username avatar')
+      .sort({ createdAt: -1 })
+      .skip(offset ? Number(offset) : 0)
+      .limit(limit ? Number(limit) : 10);
+
+    res.status(200).send(posts);
   } catch (error) {
     next(error);
   }

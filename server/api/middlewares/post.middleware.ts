@@ -11,7 +11,7 @@ export const createPost = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const getPostByUsername = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = postSchema.getPostByUsername.validate(req.params);
+  const { error } = postSchema.getPostByUsername.validate({ params: req.params, query: req.query });
 
   if (error) {
     return res.status(400).send({ error: { message: error.message } });

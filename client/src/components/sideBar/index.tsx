@@ -33,8 +33,8 @@ const SideBar = () => {
         </Link>
         <Link to={{ pathname: "/" }}>
           <div>
-            <i className="far fa-newspaper"></i>
-            <span>Activity</span>
+            <i className="fas fa-home"></i>
+            <span>Home</span>
           </div>
         </Link>
         <Link to={{ pathname: "/" }}>
@@ -125,6 +125,7 @@ const Items = styled.div`
     font-weight: 600;
     line-height: 30px;
     cursor: pointer;
+    width: 60px;
   }
   i {
     display: block;

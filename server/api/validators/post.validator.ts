@@ -5,7 +5,8 @@ export const createPost = Joi.object().keys({
 });
 
 export const getPostByUsername = Joi.object().keys({
-  username: Joi.string().required()
+  params: { username: Joi.string().required() },
+  query: { offset: Joi.number(), limit: Joi.number() }
 });
 
 export const getPostbyId = Joi.object().keys({

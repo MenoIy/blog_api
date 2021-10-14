@@ -29,11 +29,12 @@ type EditProps = {
   content: string;
   setEditing: React.Dispatch<SetStateAction<boolean>>;
   cacheIndex: number[];
+  username?: string;
 };
 
-const EditPost = ({ id, content, setEditing, cacheIndex }: EditProps) => {
+const EditPost = ({ username, id, content, setEditing, cacheIndex }: EditProps) => {
   const queryClient = useQueryClient();
-  const queryKey = `fetch Posts`;
+  const queryKey = `fetch Posts ${username || ""}`;
 
   const { mutate } = useMutation(updatePost, {
     onMutate: async () => {

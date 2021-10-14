@@ -79,7 +79,7 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
     const limit = req.query.limit ?? 0; // default 0 if limit is not specified in request query
     const users: IUserDocument[] = await userModel
       .find()
-      .select('_id username firstName LastName email')
+      .select('_id username firstName LastName email avatar')
       .sort({ createdAt: -1 })
       .limit(Number(limit));
     res.status(200).send({ users });
