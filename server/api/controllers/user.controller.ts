@@ -77,12 +77,8 @@ export const getUserByUsername = async (req: Request, res: Response, next: NextF
 export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const limit = req.query.limit ?? 0; // default 0 if limit is not specified in request query
-    const users: IUserDocument[] = await userModel
-      .find()
-      .select('_id username firstName LastName email avatar')
-      .sort({ createdAt: -1 })
-      .limit(Number(limit));
-    res.status(200).send({ users });
+    const users: IUserDocument[] = await userModel.find().sort({ createdAt: -1 }).limit(Number(limit));
+    res.status(200).send(users);
   } catch (error) {
     next(error);
   }

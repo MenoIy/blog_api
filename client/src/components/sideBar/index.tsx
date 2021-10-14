@@ -23,9 +23,9 @@ const SideBar = () => {
 
   return (
     <Container>
-      {user ? <ProfileModal user={user} /> : <LoginModal />}
+      {user ? <ProfileModal user={user} hide={true} /> : <LoginModal />}
       <Items>
-        <Link to={{ pathname: "/" }}>
+        <Link to={{ pathname: "/poeple" }}>
           <div>
             <i className="fas fa-users"></i>
             <span>Poeple</span>

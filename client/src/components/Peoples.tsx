@@ -12,7 +12,7 @@ import { IUser } from "../interfaces/";
 const Peoples = () => {
   const { data, isLoading, isError } = useQuery(["getUsers"], async () => {
     return getUsers(6)
-      .then((response) => response.data.users)
+      .then((response) => response.data)
       .catch((error) => console.log(error.response.data));
   });
 

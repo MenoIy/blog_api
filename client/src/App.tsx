@@ -21,6 +21,7 @@ function App() {
             <Route path="/register" exact>
               <Register />
             </Route>
+
             <Route path="/:username">
               <Home />
             </Route>

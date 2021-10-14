@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { IUser } from "../../interfaces";
 import Avatar from "../Avatar";
 
-const ProfileModal = (props: { user: IUser }) => {
+const ProfileModal = (props: { user: IUser; hide?: boolean }) => {
   const { user } = props;
 
   return (
-    <Container>
+    <Container hide={!!props.hide}>
       <Link to={{ pathname: `/${user.username}` }}>
         <Avatar avatar={user.avatar} size={{ width: "50px", height: "50px" }} />
       </Link>
@@ -33,7 +33,7 @@ const ProfileModal = (props: { user: IUser }) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ hide: boolean }>`
   box-shadow: 0 15px 100px rgb(58 46 68 / 6%);
   width: 80%;
   max-width: 250px;
@@ -48,7 +48,7 @@ const Container = styled.div`
   background-color: white;
   margin-top: 120px;
   @media screen and (max-width: 1440.6px) {
-    display: none;
+    display: ${(props) => (props.hide ? "none" : "flex")};
   }
 `;
 
