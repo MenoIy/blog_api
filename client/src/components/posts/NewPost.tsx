@@ -19,10 +19,11 @@ const createPost = async (content: string): Promise<IPost> => {
   return await api.post(`/posts`, { body: content }).then(({ data }: { data: IPost }) => data);
 };
 
-const NewPost = () => {
+const NewPost = (props: { username?: string }) => {
   const [showButtons, setShowButtons] = useState<boolean>(false);
   const queryClient = useQueryClient();
-  const queryKey = `fetch Posts`;
+  const queryKey = `fetch Posts ${props.username || ""}`;
+
   const user = useUserState();
 
   const { mutate } = useMutation(createPost, {

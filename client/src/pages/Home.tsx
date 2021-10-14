@@ -1,17 +1,23 @@
+import { useParams } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import Posts from "../components/posts/";
 import styled from "styled-components";
 import Peoples from "../components/Peoples";
 import SideBar from "../components/sideBar";
 import Header from "../components/Header/";
+import Users from "../components/Users";
 
 const Home = () => {
+  const { username } = useParams<{ username?: string }>();
+
   return (
     <Container>
       <Header />
       <Body>
         <SideBar />
         <Content>
-          <Posts />
+          {username === "poeple" ? <Users /> : <Posts username={username} />}
           <Peoples />
         </Content>
       </Body>

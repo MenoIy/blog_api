@@ -23,9 +23,9 @@ const SideBar = () => {
 
   return (
     <Container>
-      {user ? <ProfileModal user={user} /> : <LoginModal />}
+      {user ? <ProfileModal user={user} hide={true} /> : <LoginModal />}
       <Items>
-        <Link to={{ pathname: "/" }}>
+        <Link to={{ pathname: "/poeple" }}>
           <div>
             <i className="fas fa-users"></i>
             <span>Poeple</span>
@@ -33,8 +33,8 @@ const SideBar = () => {
         </Link>
         <Link to={{ pathname: "/" }}>
           <div>
-            <i className="far fa-newspaper"></i>
-            <span>Activity</span>
+            <i className="fas fa-home"></i>
+            <span>Home</span>
           </div>
         </Link>
         <Link to={{ pathname: "/" }}>
@@ -125,6 +125,7 @@ const Items = styled.div`
     font-weight: 600;
     line-height: 30px;
     cursor: pointer;
+    width: 60px;
   }
   i {
     display: block;

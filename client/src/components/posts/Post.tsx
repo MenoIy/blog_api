@@ -12,6 +12,7 @@ import EditPost from "./EditPost";
 type PostProps = {
   post: IPost;
   cacheIndex: number[];
+  username?: string;
 };
 
 const Post = (props: PostProps) => {
@@ -35,7 +36,13 @@ const Post = (props: PostProps) => {
       />
       <Content>
         {editing ? (
-          <EditPost setEditing={setEditing} id={_id} content={content} {...rest} />
+          <EditPost
+            username={props.username}
+            setEditing={setEditing}
+            id={_id}
+            content={content}
+            {...rest}
+          />
         ) : (
           <>
             <TextArea limit={200}>{content}</TextArea>

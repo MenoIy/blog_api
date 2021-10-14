@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
 import { useQuery } from "react-query";
 import { getUsers } from "../api";
 
@@ -10,7 +12,7 @@ import { IUser } from "../interfaces/";
 const Peoples = () => {
   const { data, isLoading, isError } = useQuery(["getUsers"], async () => {
     return getUsers(6)
-      .then((response) => response.data.users)
+      .then((response) => response.data)
       .catch((error) => console.log(error.response.data));
   });
 
@@ -27,10 +29,12 @@ const Peoples = () => {
         <Members>
           {data.map((user: IUser) => (
             <Member key={user._id}>
-              <Avatar avatar="uploads/1.png"></Avatar>
-              <Name>
-                <a href=".">{user.username}</a>
-              </Name>
+              <Link to={{ pathname: `/${user.username}` }}>
+                <Avatar avatar={user.avatar} />
+              </Link>
+              <Link to={{ pathname: `/${user.username}` }}>
+                <p>{user.username}</p>
+              </Link>
             </Member>
           ))}
         </Members>
@@ -93,17 +97,14 @@ const Members = styled.div`
 const Member = styled.div`
   display: flex;
   margin-top: 12px;
-`;
-
-const Name = styled.div`
   a {
     text-decoration: none;
     color: #4f515b;
+    font-weight: 600;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
   }
-  font-weight: 600;
-  margin-left: 1rem;
-  display: flex;
-  align-items: center;
 `;
 
 export default Peoples;
