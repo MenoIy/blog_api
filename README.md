@@ -1,17 +1,17 @@
 <div id="top"></div>
 
-[![Stargazers][stars-shield]][https://github.com/menoiy/blog_api/stargazers]
-[![Issues][issues-shield]][https://github.com/menoiy/blog_api/issues]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+<!--     <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">MINI BLOG LIKE</h3>
 
   <p align="center">
     project_description
@@ -46,14 +46,15 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#screenshots">Screenshots</a></li>
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-
-[![Product Name Screen Shot]["screenshots/view2.png"]]
+![Product Name Screen Shot][product-screenshot]
 
 Basic blop like
 
@@ -105,9 +106,8 @@ This is an example of how to list things you need to use the software and how to
    cd client
    yarn install
    ```
-3. Edit '.env.example and remove .example'
+3. Edit .env.example and remove .example
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
@@ -125,8 +125,6 @@ npm run dev
 yarn start
 ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 <!-- ROADMAP -->
 
 ## Roadmap
@@ -140,26 +138,32 @@ yarn start
   - [] like posts
   - [] chat IU
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTACT -->
-
 ## Contact
 
-[@twitter_handle](https://twitter.com/menoly4) (menoly.code@gmail.com)
+[@Menoly4](https://twitter.com/menoly4) (menoly.code@gmail.com)
 
 Project Link: [https://github.com/MenoIy/blog_api](https://github.com/MenoIy/blog_api)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+## Screenshots
+![Product Name Screen Shot][product-screenshot2]
+![Product Name Screen Shot][product-screenshot3]
 
-[product-screenshot]: screenshots/view1.pmg
-[product-screenshot]: screenshots/view2.pmg
-[product-screenshot]: screenshots/responsive1.png
+[product-screenshot]: screenshots/view1.png
+[product-screenshot2]: screenshots/view2.png
+[product-screenshot3]: screenshots/responsive1.png
+[stars-shield]: https://img.shields.io/github/stars/menoIy/blog_api.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/menoIy/blog_api.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/menoIy/blog_api.svg?style=for-the-badge
+[stars-url]: https://github.com/menoiy/blog_api/stargazers
+[issues-url]: https://github.com/menoiy/blog_api/issues
+[license-url]: https://github.com/menoiy/blog_api/blob/master/LICENSE.txt
+
