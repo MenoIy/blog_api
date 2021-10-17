@@ -165,5 +165,5 @@ Project Link: [https://github.com/MenoIy/blog_api](https://github.com/MenoIy/blo
 [license-shield]: https://img.shields.io/github/license/menoIy/blog_api.svg?style=for-the-badge
 [stars-url]: https://github.com/menoiy/blog_api/stargazers
 [issues-url]: https://github.com/menoiy/blog_api/issues
-[license-url]: https://github.com/menoiy/blog_api/blob/master/LICENSE.txt
+[license-url]: https://github.com/MenoIy/blog_api/blob/main/LICENSE.md
 
